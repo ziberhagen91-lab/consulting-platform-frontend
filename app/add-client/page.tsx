@@ -56,7 +56,7 @@ export default function AddClientPage() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "http://localhost:4000/clients",
+        "${process.env.NEXT_PUBLIC_API_URL}/clients",
         {
           method: "POST",
           headers: {
