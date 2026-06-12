@@ -1,10 +1,11 @@
 "use client";
 
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
-export default function EditClientPage() {
+function EditClientContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -29,6 +30,7 @@ export default function EditClientPage() {
             },
           }
         );
+
         if (!response.ok) {
           throw new Error("Failed to load client");
         }
@@ -131,5 +133,13 @@ export default function EditClientPage() {
         </form>
       </div>
     </main>
+  );
+}
+
+export default function EditClientPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EditClientContent />
+    </Suspense>
   );
 }

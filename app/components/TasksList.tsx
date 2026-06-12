@@ -7,8 +7,8 @@ type Task = {
   id: string;
   title: string;
   description?: string;
-  status?: string;
-  priority?: string;
+  status: string;
+  priority: string;
   client?: {
     id: string;
     name: string;
@@ -129,9 +129,7 @@ export default function TasksList({ tasks }: TasksListProps) {
       </div>
 
       {filteredTasks.length === 0 ? (
-        <p className="text-zinc-400">
-          Нічого не знайдено.
-        </p>
+        <p className="text-zinc-400">Нічого не знайдено.</p>
       ) : (
         <div className="flex flex-col gap-4">
           {filteredTasks.map((task) => (

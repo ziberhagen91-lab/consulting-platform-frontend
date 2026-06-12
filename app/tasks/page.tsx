@@ -5,8 +5,8 @@ type Task = {
   id: string;
   title: string;
   description?: string;
-  status?: string;
-  priority?: string;
+  status: string;
+  priority: string;
   clientId?: string;
   client?: {
     id: string;
@@ -66,20 +66,32 @@ export default async function TasksPage() {
         <div className="grid grid-cols-3 gap-4 mb-6">
           <div className="bg-zinc-900 rounded-xl p-4 text-center">
             <p className="text-2xl">📋</p>
-            <p className="text-sm text-zinc-400">До виконання</p>
-            <p className="text-xl font-bold">{todoCount}</p>
+            <p className="text-sm text-zinc-400">
+              До виконання
+            </p>
+            <p className="text-xl font-bold">
+              {todoCount}
+            </p>
           </div>
 
           <div className="bg-zinc-900 rounded-xl p-4 text-center">
             <p className="text-2xl">⏳</p>
-            <p className="text-sm text-zinc-400">В процесі</p>
-            <p className="text-xl font-bold">{inProgressCount}</p>
+            <p className="text-sm text-zinc-400">
+              В процесі
+            </p>
+            <p className="text-xl font-bold">
+              {inProgressCount}
+            </p>
           </div>
 
           <div className="bg-zinc-900 rounded-xl p-4 text-center">
             <p className="text-2xl">✅</p>
-            <p className="text-sm text-zinc-400">Виконано</p>
-            <p className="text-xl font-bold">{doneCount}</p>
+            <p className="text-sm text-zinc-400">
+              Виконано
+            </p>
+            <p className="text-xl font-bold">
+              {doneCount}
+            </p>
           </div>
         </div>
 

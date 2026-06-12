@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
-export default function EditTaskPage() {
+function EditTaskContent() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
@@ -38,9 +38,7 @@ export default function EditTaskPage() {
         setPriority(task.priority ?? "");
         setDueDate(
           task.dueDate
-            ? new Date(task.dueDate)
-                .toISOString()
-                .split("T")[0]
+            ? new Date(task.dueDate).toISOString().split("T")[0]
             : ""
         );
       } catch (error) {
@@ -113,18 +111,14 @@ export default function EditTaskPage() {
             type="text"
             placeholder="Title"
             value={title}
-            onChange={(e) =>
-              setTitle(e.target.value)
-            }
+            onChange={(e) => setTitle(e.target.value)}
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           />
 
           <textarea
             placeholder="Description"
             value={description}
-            onChange={(e) =>
-              setDescription(e.target.value)
-            }
+            onChange={(e) => setDescription(e.target.value)}
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           />
 
@@ -132,9 +126,7 @@ export default function EditTaskPage() {
             type="text"
             placeholder="Status"
             value={status}
-            onChange={(e) =>
-              setStatus(e.target.value)
-            }
+            onChange={(e) => setStatus(e.target.value)}
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           />
 
@@ -142,18 +134,14 @@ export default function EditTaskPage() {
             type="text"
             placeholder="Priority"
             value={priority}
-            onChange={(e) =>
-              setPriority(e.target.value)
-            }
+            onChange={(e) => setPriority(e.target.value)}
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           />
 
           <input
             type="date"
             value={dueDate}
-            onChange={(e) =>
-              setDueDate(e.target.value)
-            }
+            onChange={(e) => setDueDate(e.target.value)}
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           />
 
@@ -167,5 +155,13 @@ export default function EditTaskPage() {
         </form>
       </div>
     </main>
+  );
+}
+
+export default function EditTaskPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EditTaskContent />
+    </Suspense>
   );
 }
