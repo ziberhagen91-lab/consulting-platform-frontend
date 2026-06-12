@@ -111,15 +111,20 @@ export default function Home() {
 
         <div className="flex gap-4">
           <a
-            href="/login"
-            className="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:opacity-80 transition"
-          >
-            {t[language].getStarted}
-          </a>
+          
+    href="/login"
+    className="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:opacity-80 transition"
+  >
+    {language === "uk" ? "Увійти" : "Sign In"}
+  </a>
 
-          <button className="border border-zinc-700 px-6 py-3 rounded-xl hover:bg-zinc-900 transition">
-            {t[language].learnMore}
-          </button>
+  <a
+    href="/register"
+    className="border border-zinc-700 px-6 py-3 rounded-xl font-semibold hover:bg-zinc-900 transition"
+  >
+    {language === "uk" ? "Зареєструватися" : "Sign Up"}
+  </a>
+
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 max-w-5xl">
