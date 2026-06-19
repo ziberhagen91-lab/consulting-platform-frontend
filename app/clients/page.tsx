@@ -258,16 +258,16 @@ if (Array.isArray(data)) {
   {t[language].manageClients}
 </p>
 
+</div>
+</div>
 
-      <input
-        type="text"
-        placeholder={t[language].searchClients}
-        value={search}
-        onChange={(e) =>
-          setSearch(e.target.value)
-        }
-        className="w-full mb-8 bg-zinc-950 border border-zinc-800 rounded-2xl px-5 py-4 outline-none"
-      />
+<input
+  type="text"
+  placeholder={t[language].searchClients}
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  className="w-full mb-8 bg-zinc-950 border border-zinc-800 rounded-2xl px-5 py-4 outline-none"
+/>
 
       {filteredClients.length === 0 ? (
 
