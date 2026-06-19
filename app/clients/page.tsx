@@ -252,7 +252,7 @@ if (Array.isArray(data)) {
 
           <a
   href="/add-client"
-  className="bg-white text-black px-4 py-2 rounded-xl font-semibold hover:opacity-80 transition"
+  className="bg-white text-black px-3 py-2 rounded-xl hover:opacity-80 transition"
 >
   {t[language].addClient}
 </a>
@@ -287,7 +287,7 @@ if (Array.isArray(data)) {
 
             <a
   href="/add-client"
-  className="inline-block bg-white text-black px-4 py-2 rounded-xl font-semibold hover:opacity-80 transition"
+  className="inline-block bg-white text-black px-3 py-2 rounded-xl hover:opacity-80 transition"
 >
   {t[language].addFirst}
 </a>
