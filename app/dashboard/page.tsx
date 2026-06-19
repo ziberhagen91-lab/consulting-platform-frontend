@@ -123,52 +123,21 @@ const t = {
   ]
 
   useEffect(() => {
+  const token = localStorage.getItem("token");
 
-    const token =
-      localStorage.getItem("token")
+  if (!token) {
+    router.push("/login");
+    return;
+  }
 
-    if (!token) {
-      router.push("/login")
-      return
-    }
+  setAnalytics({
+    totalClients: 0,
+    monthlyRevenue: 0,
+    activeProjects: 0,
+  });
 
-    const fetchAnalytics = async () => {
-
-      try {
-
-        const response = await fetch(
-          "http://localhost:4000/clients/analytics",
-          {
-            headers: {
-              Authorization:
-                `Bearer ${token}`,
-            },
-          }
-        )
-
-        const data =
-          await response.json()
-
-        setAnalytics(data)
-
-      } catch (error) {
-
-        console.log(error)
-
-        toast.error(
-          "Failed to load analytics",
-        )
-
-      } finally {
-
-        setLoading(false)
-
-      }
-    }
-
-    fetchAnalytics()
-
-  }, [])
+  setLoading(false);
+}, [router]);
 
   if (loading) {
     return (
