@@ -6,6 +6,7 @@ import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 import { useEffect, useState } from "react"
 
 import toast from "react-hot-toast"
+const API_URL = process.env.NEXT_PUBLIC_API_URL!
 
 export default function ClientsPage() {
   const router = useRouter();
@@ -65,21 +66,35 @@ const t = {
 
       try {
 
-        const token =
-          localStorage.getItem("token")
+  const token = localStorage.getItem("token")
 
-        const response = await fetch(
-          "http://localhost:4000/clients",
-          {
-            headers: {
-              Authorization:
-                `Bearer ${token}`,
-            },
-          }
-        )
+  const response = await fetch(
+    `${API_URL}/clients`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
 
-const data =
-  await response.json()
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`)
+  }
+
+  const data = await response.json()
+
+  console.log("CLIENTS API:", data)
+
+  if (Array.isArray(data)) {
+    setClients(data)
+  } else {
+    console.error("Unexpected response:", data)
+    toast.error("Invalid response from backend")
+    setClients([])
+  }
+if (!response.ok) {
+  throw new Error(`HTTP ${response.status}`);
+}
 
 console.log("CLIENTS API:", data)
 
@@ -120,15 +135,14 @@ if (Array.isArray(data)) {
         localStorage.getItem("token")
 
       await fetch(
-        `http://localhost:4000/clients/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization:
-              `Bearer ${token}`,
-          },
-        }
-      )
+  `${API_URL}/clients/${id}`,
+  {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+)
 
       const updatedClients =
         clients.filter(
