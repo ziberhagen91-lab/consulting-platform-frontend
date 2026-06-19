@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -59,7 +60,8 @@ export default function LoginPage() {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type":
+              "application/json",
           },
           body: JSON.stringify({
             email,
@@ -104,7 +106,12 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center px-6">
+    <main className="min-h-screen bg-black text-white relative flex items-center justify-center px-6">
+
+      <div className="absolute top-6 right-6">
+        <LanguageSwitcher />
+      </div>
+
       <div className="w-full max-w-md border border-zinc-800 bg-zinc-950 rounded-2xl p-8">
         <h1 className="text-4xl font-bold mb-6 text-center">
           {t[language].login}
