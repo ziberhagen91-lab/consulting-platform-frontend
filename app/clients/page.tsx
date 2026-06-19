@@ -227,37 +227,30 @@ if (Array.isArray(data)) {
 
   <div className="flex justify-between items-center mb-4">
 
-    <button
-      onClick={() => router.back()}
-      className="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition"
-    >
-      ← Назад
-    </button>
+  <button
+    onClick={() => router.back()}
+    className="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition"
+  >
+    ← Назад
+  </button>
+
+  <div className="flex items-center gap-3">
+
+    {user?.role === "admin" && (
+      <a
+        href="/add-client"
+        className="px-4 py-2 bg-white text-black rounded-xl font-medium hover:opacity-80 transition"
+      >
+        {t[language].addClient}
+      </a>
+    )}
 
     <LanguageSwitcher />
 
   </div>
 
-  <h1 className="text-4xl font-bold">
-    {t[language].clients}
-  </h1>
-
-  <p className="text-zinc-400 mt-2">
-    {t[language].manageClients}
-  </p>
-
 </div>
 
-        {user?.role === "admin" && (
-
-          <a
-  href="/add-client"
-  className="bg-white text-black px-3 py-2 rounded-xl hover:opacity-80 transition"
->
-  {t[language].addClient}
-</a>
-
-        )}
 
       </div>
 
