@@ -2,6 +2,14 @@
 
 import { useEffect, useState } from "react";
 
+import {
+  LayoutDashboard,
+  Users,
+  BarChart3,
+  Settings,
+  LogOut,
+} from "lucide-react";
+
 type SidebarProps = {
   onLogout: () => void;
 };
@@ -45,40 +53,45 @@ export default function Sidebar({
         {t[language].platform}
       </h1>
 
-      <nav className="flex flex-col gap-4">
+      <nav className="flex flex-col gap-2">
         <a
           href="/dashboard"
-          className="bg-white text-black px-4 py-3 rounded-xl font-semibold"
+          className="flex items-center gap-3 bg-white text-black px-4 py-3 rounded-xl font-semibold"
         >
+          <LayoutDashboard size={20} />
           {t[language].overview}
         </a>
 
         <a
           href="/clients"
-          className="hover:bg-zinc-900 px-4 py-3 rounded-xl transition"
+          className="flex items-center gap-3 hover:bg-zinc-900 px-4 py-3 rounded-xl transition"
         >
+          <Users size={20} />
           {t[language].clients}
         </a>
 
         <a
           href="#"
-          className="hover:bg-zinc-900 px-4 py-3 rounded-xl transition"
+          className="flex items-center gap-3 hover:bg-zinc-900 px-4 py-3 rounded-xl transition"
         >
+          <BarChart3 size={20} />
           {t[language].analytics}
         </a>
 
         <a
-          href="#"
-          className="hover:bg-zinc-900 px-4 py-3 rounded-xl transition"
+          href="/settings"
+          className="flex items-center gap-3 hover:bg-zinc-900 px-4 py-3 rounded-xl transition"
         >
+          <Settings size={20} />
           {t[language].settings}
         </a>
       </nav>
 
       <button
         onClick={onLogout}
-        className="mt-10 w-full border border-zinc-700 px-4 py-3 rounded-xl hover:bg-zinc-900 transition"
+        className="mt-10 w-full flex items-center justify-center gap-2 border border-zinc-700 px-4 py-3 rounded-xl hover:bg-zinc-900 transition"
       >
+        <LogOut size={18} />
         {t[language].logout}
       </button>
     </aside>
