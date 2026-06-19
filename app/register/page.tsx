@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -47,7 +48,7 @@ export default function RegisterPage() {
 
     try {
       const response = await fetch(
-        "${process.env.NEXT_PUBLIC_API_URL}/auth/register",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
         {
           method: "POST",
           headers: {
@@ -75,7 +76,12 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center px-6">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center px-6 relative">
+
+      <div className="absolute top-6 right-6">
+        <LanguageSwitcher />
+      </div>
+
       <div className="w-full max-w-md border border-zinc-800 bg-zinc-950 rounded-2xl p-8">
         <h1 className="text-4xl font-bold mb-6 text-center">
           {t[language].register}
