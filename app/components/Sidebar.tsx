@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import {
   LayoutDashboard,
   Users,
+  ClipboardList,
   BarChart3,
   Settings,
   LogOut,
@@ -33,6 +34,7 @@ export default function Sidebar({
       platform: "Консалтингова платформа",
       overview: "Огляд",
       clients: "Клієнти",
+      tasks: "Завдання",
       analytics: "Аналітика",
       settings: "Налаштування",
       logout: "Вийти",
@@ -41,6 +43,7 @@ export default function Sidebar({
       platform: "Consulting Platform",
       overview: "Overview",
       clients: "Clients",
+      tasks: "Tasks",
       analytics: "Analytics",
       settings: "Settings",
       logout: "Logout",
@@ -68,6 +71,14 @@ export default function Sidebar({
         >
           <Users size={20} />
           {t[language].clients}
+        </a>
+
+        <a
+          href="/tasks"
+          className="flex items-center gap-3 hover:bg-zinc-900 px-4 py-3 rounded-xl transition"
+        >
+          <ClipboardList size={20} />
+          {t[language].tasks}
         </a>
 
         <a
