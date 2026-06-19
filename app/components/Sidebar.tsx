@@ -82,7 +82,7 @@ export default function Sidebar({
         </a>
 
         <a
-          href="#"
+          href="/analytics"
           className="flex items-center gap-3 hover:bg-zinc-900 px-4 py-3 rounded-xl transition"
         >
           <BarChart3 size={20} />
