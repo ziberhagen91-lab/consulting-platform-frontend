@@ -10,22 +10,73 @@ type Client = {
 };
 
 export default function AddTaskPage() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("TODO");
-  const [priority, setPriority] = useState("MEDIUM");
-  const [dueDate, setDueDate] = useState("");
-  const [clientId, setClientId] = useState("");
+  const [language, setLanguage] =
+    useState<"uk" | "en">("uk");
 
-  const [clients, setClients] = useState<Client[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] =
+    useState("");
+  const [status, setStatus] =
+    useState("TODO");
+  const [priority, setPriority] =
+    useState("MEDIUM");
+  const [dueDate, setDueDate] =
+    useState("");
+  const [clientId, setClientId] =
+    useState("");
+
+  const [clients, setClients] =
+    useState<Client[]>([]);
+  const [loading, setLoading] =
+    useState(false);
 
   const router = useRouter();
 
   useEffect(() => {
+    const saved =
+      localStorage.getItem("language");
+
+    if (saved === "uk" || saved === "en") {
+      setLanguage(saved);
+    }
+  }, []);
+
+  const t = {
+    uk: {
+      title: "Створити завдання",
+      subtitle: "Додайте нове завдання",
+      taskTitle: "Назва завдання",
+      description: "Опис",
+      noClient: "Без клієнта",
+      create: "Створити завдання",
+      creating: "Створення...",
+      taskCreated: "Завдання створено",
+      createFailed:
+        "Не вдалося створити завдання",
+      loadClientsFailed:
+        "Не вдалося завантажити клієнтів",
+    },
+    en: {
+      title: "Add Task",
+      subtitle: "Create a new task",
+      taskTitle: "Task Title",
+      description: "Description",
+      noClient: "No Client",
+      create: "Create Task",
+      creating: "Creating...",
+      taskCreated: "Task created",
+      createFailed:
+        "Failed to create task",
+      loadClientsFailed:
+        "Failed to load clients",
+    },
+  };
+
+  useEffect(() => {
     const loadClients = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token =
+          localStorage.getItem("token");
 
         const response = await fetch(
           "http://localhost:4000/clients",
@@ -44,12 +95,15 @@ export default function AddTaskPage() {
         setClients(data);
       } catch (error) {
         console.error(error);
-        toast.error("Failed to load clients");
+
+        toast.error(
+          t[language].loadClientsFailed
+        );
       }
     };
 
     loadClients();
-  }, []);
+  }, [language]);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -64,15 +118,18 @@ export default function AddTaskPage() {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type":
+              "application/json",
           },
           body: JSON.stringify({
             title,
             description,
             status,
             priority,
-            dueDate: dueDate || undefined,
-            clientId: clientId || undefined,
+            dueDate:
+              dueDate || undefined,
+            clientId:
+              clientId || undefined,
           }),
         }
       );
@@ -81,13 +138,18 @@ export default function AddTaskPage() {
         throw new Error();
       }
 
-      toast.success("Task created");
+      toast.success(
+        t[language].taskCreated
+      );
 
       router.push("/tasks");
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error("Failed to create task");
+
+      toast.error(
+        t[language].createFailed
+      );
     } finally {
       setLoading(false);
     }
@@ -97,11 +159,11 @@ export default function AddTaskPage() {
     <main className="min-h-screen bg-black text-white flex items-center justify-center p-6">
       <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-8">
         <h1 className="text-4xl font-bold mb-2">
-          Add Task
+          {t[language].title}
         </h1>
 
         <p className="text-zinc-400 mb-8">
-          Create a new task
+          {t[language].subtitle}
         </p>
 
         <form
@@ -110,7 +172,9 @@ export default function AddTaskPage() {
         >
           <input
             type="text"
-            placeholder="Title"
+            placeholder={
+              t[language].taskTitle
+            }
             value={title}
             onChange={(e) =>
               setTitle(e.target.value)
@@ -120,10 +184,14 @@ export default function AddTaskPage() {
           />
 
           <textarea
-            placeholder="Description"
+            placeholder={
+              t[language].description
+            }
             value={description}
             onChange={(e) =>
-              setDescription(e.target.value)
+              setDescription(
+                e.target.value
+              )
             }
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           />
@@ -136,7 +204,7 @@ export default function AddTaskPage() {
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           >
             <option value="">
-              Без клієнта
+              {t[language].noClient}
             </option>
 
             {clients.map((client) => (
@@ -156,11 +224,17 @@ export default function AddTaskPage() {
             }
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           >
-            <option value="TODO">TODO</option>
-            <option value="IN_PROGRESS">
-              IN_PROGRESS
+            <option value="TODO">
+              📋 TODO
             </option>
-            <option value="DONE">DONE</option>
+
+            <option value="IN_PROGRESS">
+              ⏳ IN PROGRESS
+            </option>
+
+            <option value="DONE">
+              ✅ DONE
+            </option>
           </select>
 
           <select
@@ -170,9 +244,17 @@ export default function AddTaskPage() {
             }
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           >
-            <option value="LOW">LOW</option>
-            <option value="MEDIUM">MEDIUM</option>
-            <option value="HIGH">HIGH</option>
+            <option value="LOW">
+              🟢 LOW
+            </option>
+
+            <option value="MEDIUM">
+              🟡 MEDIUM
+            </option>
+
+            <option value="HIGH">
+              🔴 HIGH
+            </option>
           </select>
 
           <input
@@ -189,7 +271,9 @@ export default function AddTaskPage() {
             disabled={loading}
             className="bg-white text-black rounded-xl py-3 font-semibold hover:opacity-80 transition disabled:opacity-50"
           >
-            {loading ? "Creating..." : "Create Task"}
+            {loading
+              ? t[language].creating
+              : t[language].create}
           </button>
         </form>
       </div>
