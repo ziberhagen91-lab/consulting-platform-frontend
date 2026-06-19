@@ -1,11 +1,13 @@
 "use client"
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react"
 
 import toast from "react-hot-toast"
 
 export default function ClientsPage() {
+  const router = useRouter();
 
   const [clients, setClients] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -222,15 +224,22 @@ if (Array.isArray(data)) {
 
         <div>
 
-          <h1 className="text-4xl font-bold">
-            {t[language].clients}
-          </h1>
+  <button
+    onClick={() => router.back()}
+    className="text-zinc-400 hover:text-white transition mb-3"
+  >
+    ← Назад
+  </button>
 
-          <p className="text-zinc-400 mt-2">
-            {t[language].manageClients}
-          </p>
+  <h1 className="text-4xl font-bold">
+    {t[language].clients}
+  </h1>
 
-        </div>
+  <p className="text-zinc-400 mt-2">
+    {t[language].manageClients}
+  </p>
+
+</div>
 
         {user?.role === "admin" && (
 
