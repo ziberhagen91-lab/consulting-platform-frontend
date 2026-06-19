@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL!;
+
 export default function AddClientPage() {
   const [clientName, setClientName] = useState("");
   const [serviceType, setServiceType] = useState("");
@@ -56,7 +58,7 @@ export default function AddClientPage() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "${process.env.NEXT_PUBLIC_API_URL}/clients",
+        `${API_URL}/clients`,
         {
           method: "POST",
           headers: {
