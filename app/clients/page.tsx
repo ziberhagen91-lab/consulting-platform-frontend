@@ -250,9 +250,14 @@ if (Array.isArray(data)) {
   </div>
 
 </div>
+<h1 className="text-4xl font-bold">
+  {t[language].clients}
+</h1>
 
+<p className="text-zinc-400 mt-2">
+  {t[language].manageClients}
+</p>
 
-      </div>
 
       <input
         type="text"
