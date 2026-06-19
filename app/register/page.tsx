@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 
 export default function RegisterPage() {
@@ -21,6 +22,7 @@ export default function RegisterPage() {
 
   const t = {
     uk: {
+      back: "Назад",
       register: "Реєстрація",
       email: "Email",
       password: "Пароль",
@@ -30,6 +32,7 @@ export default function RegisterPage() {
     },
 
     en: {
+      back: "Back",
       register: "Register",
       email: "Email",
       password: "Password",
@@ -78,6 +81,13 @@ export default function RegisterPage() {
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center px-6 relative">
 
+      <Link
+        href="/"
+        className="absolute top-6 left-6 px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition"
+      >
+        ← {t[language].back}
+      </Link>
+
       <div className="absolute top-6 right-6">
         <LanguageSwitcher />
       </div>
@@ -119,6 +129,7 @@ export default function RegisterPage() {
           </button>
         </form>
       </div>
+
     </main>
   );
 }
