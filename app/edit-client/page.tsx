@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
 function EditClientContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -23,7 +25,7 @@ function EditClientContent() {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          `http://localhost:4000/clients/${id}`,
+          API_URL + "/clients/" + id,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -37,8 +39,8 @@ function EditClientContent() {
 
         const client = await response.json();
 
-        setName(client.name ?? "");
-        setService(client.service ?? "");
+        setName(client.name || "");
+        setService(client.service || "");
       } catch (error) {
         console.error(error);
         toast.error("Failed to load client");
@@ -61,7 +63,7 @@ function EditClientContent() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:4000/clients/${id}`,
+        API_URL + "/clients/" + id,
         {
           method: "PATCH",
           headers: {
