@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 
 import { useEffect, useState } from "react"
 
@@ -222,14 +223,20 @@ if (Array.isArray(data)) {
 
       <div className="flex justify-between items-center mb-10">
 
-        <div>
+        <div className="w-full">
 
-  <button
-    onClick={() => router.back()}
-    className="text-zinc-400 hover:text-white transition mb-3"
-  >
-    ← Назад
-  </button>
+  <div className="flex justify-between items-center mb-4">
+
+    <button
+      onClick={() => router.back()}
+      className="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition"
+    >
+      ← Назад
+    </button>
+
+    <LanguageSwitcher />
+
+  </div>
 
   <h1 className="text-4xl font-bold">
     {t[language].clients}
