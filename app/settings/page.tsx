@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 
 export default function SettingsPage() {
   const [user, setUser] = useState<any>(null);
@@ -15,6 +17,18 @@ export default function SettingsPage() {
 
   return (
     <main className="min-h-screen bg-black text-white p-10">
+
+      <div className="flex justify-between items-center mb-8">
+        <Link
+          href="/dashboard"
+          className="px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition"
+        >
+          ← Назад
+        </Link>
+
+        <LanguageSwitcher />
+      </div>
+
       <h1 className="text-4xl font-bold mb-2">
         Налаштування
       </h1>
@@ -23,7 +37,6 @@ export default function SettingsPage() {
         Керуйте своїм акаунтом
       </p>
 
-      {/* Профіль користувача */}
       <div className="max-w-3xl border border-zinc-800 bg-zinc-950 rounded-2xl p-6">
         <h2 className="text-2xl font-bold mb-6">
           Профіль користувача
@@ -75,7 +88,6 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      {/* Зміна пароля */}
       <div className="max-w-3xl border border-zinc-800 bg-zinc-950 rounded-2xl p-6 mt-8">
         <h2 className="text-2xl font-bold mb-6">
           Зміна пароля
@@ -120,6 +132,7 @@ export default function SettingsPage() {
           </button>
         </div>
       </div>
+
     </main>
   );
 }
