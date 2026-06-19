@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -158,7 +159,15 @@ export default function AddTaskPage() {
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center p-6">
       <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-8">
-        <h1 className="text-4xl font-bold mb-2">
+
+  <Link
+    href="/tasks"
+    className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition mb-6"
+  >
+    ← Назад до завдань
+  </Link>
+
+  <h1 className="text-4xl font-bold mb-2">
           {t[language].title}
         </h1>
 
