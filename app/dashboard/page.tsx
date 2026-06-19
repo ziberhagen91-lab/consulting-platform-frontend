@@ -11,6 +11,7 @@ import toast from "react-hot-toast"
 
 import Card from "@/app/components/Card"
 import Sidebar from "@/app/components/Sidebar"
+import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 
 import {
   LineChart,
@@ -198,6 +199,7 @@ const t = {
 
         <header className="flex justify-between items-center mb-10">
   <div>
+    
     <h2 className="text-4xl font-bold">
       {t[language].dashboard}
     </h2>
@@ -206,8 +208,9 @@ const t = {
       {t[language].welcome}, Sergey 👋
     </p>
   </div>
-</header>
 
+<LanguageSwitcher />
+</header>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
           <Card className="hover:border-white hover:-translate-y-1 transition duration-300">
