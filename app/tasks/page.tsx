@@ -6,6 +6,14 @@ export default function TasksPage() {
   return (
     <main className="min-h-screen bg-black text-white p-8">
       <div className="max-w-4xl mx-auto">
+
+        <Link
+          href="/dashboard"
+          className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition mb-6"
+        >
+          ← Назад до панелі
+        </Link>
+
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-4xl font-bold">
@@ -60,6 +68,7 @@ export default function TasksPage() {
             Створіть перше завдання для початку роботи.
           </p>
         </div>
+
       </div>
     </main>
   );
