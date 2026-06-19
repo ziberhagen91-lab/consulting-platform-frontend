@@ -23,6 +23,7 @@ export default function SettingsPage() {
         Керуйте своїм акаунтом
       </p>
 
+      {/* Профіль користувача */}
       <div className="max-w-3xl border border-zinc-800 bg-zinc-950 rounded-2xl p-6">
         <h2 className="text-2xl font-bold mb-6">
           Профіль користувача
@@ -70,6 +71,52 @@ export default function SettingsPage() {
 
           <button className="bg-white text-black px-5 py-3 rounded-xl font-semibold hover:opacity-80 transition">
             Зберегти зміни
+          </button>
+        </div>
+      </div>
+
+      {/* Зміна пароля */}
+      <div className="max-w-3xl border border-zinc-800 bg-zinc-950 rounded-2xl p-6 mt-8">
+        <h2 className="text-2xl font-bold mb-6">
+          Зміна пароля
+        </h2>
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-zinc-400 mb-2">
+              Поточний пароль
+            </label>
+
+            <input
+              type="password"
+              className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
+            />
+          </div>
+
+          <div>
+            <label className="block text-zinc-400 mb-2">
+              Новий пароль
+            </label>
+
+            <input
+              type="password"
+              className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
+            />
+          </div>
+
+          <div>
+            <label className="block text-zinc-400 mb-2">
+              Підтвердіть пароль
+            </label>
+
+            <input
+              type="password"
+              className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
+            />
+          </div>
+
+          <button className="bg-white text-black px-5 py-3 rounded-xl font-semibold hover:opacity-80 transition">
+            Оновити пароль
           </button>
         </div>
       </div>
