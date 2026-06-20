@@ -47,7 +47,9 @@ export default function TasksPage() {
     loadTasks();
   }, []);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (
+    id: string
+  ) => {
     const confirmed = window.confirm(
       language === "uk"
         ? "Видалити це завдання?"
@@ -217,11 +219,12 @@ export default function TasksPage() {
                 </div>
 
                 <div className="flex gap-3 mt-4">
-                  <button
+                  <Link
+                    href={`/edit-task/${task.id}`}
                     className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition"
                   >
                     ✏️ {t[language].edit}
-                  </button>
+                  </Link>
 
                   <button
                     onClick={() =>
