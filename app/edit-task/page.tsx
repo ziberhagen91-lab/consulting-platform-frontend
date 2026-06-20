@@ -23,8 +23,8 @@ function EditTaskContent() {
     const fetchTask = async () => {
       try {
         const response = await fetch(
-          `http://localhost:4000/tasks/${id}`
-        );
+  `${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`
+);
 
         if (!response.ok) {
           throw new Error("Failed to load task");
@@ -61,9 +61,9 @@ function EditTaskContent() {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/tasks/${id}`,
-        {
-          method: "PATCH",
+  `${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`,
+  {
+    method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },

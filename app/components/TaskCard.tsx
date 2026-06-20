@@ -46,8 +46,8 @@ export default function TaskCard({ task }: TaskCardProps) {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/tasks/${task.id}`,
-        {
+  `${process.env.NEXT_PUBLIC_API_URL}/tasks/${task.id}`,
+  {
           method: "DELETE",
         }
       );

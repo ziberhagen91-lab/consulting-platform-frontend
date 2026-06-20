@@ -80,8 +80,8 @@ export default function AddTaskPage() {
           localStorage.getItem("token");
 
         const response = await fetch(
-          "http://localhost:4000/clients",
-          {
+  `${process.env.NEXT_PUBLIC_API_URL}/clients`,
+  {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -115,8 +115,8 @@ export default function AddTaskPage() {
 
     try {
       const response = await fetch(
-        "http://localhost:4000/tasks",
-        {
+  `${process.env.NEXT_PUBLIC_API_URL}/tasks`,
+  {
           method: "POST",
           headers: {
             "Content-Type":
