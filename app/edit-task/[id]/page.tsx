@@ -33,23 +33,34 @@ export default function EditTaskPage() {
 
   useEffect(() => {
     const loadTask = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/tasks/${params.id}`
-        );
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/tasks/${params.id}`
+    );
 
-        const task = await response.json();
+    console.log("STATUS:", response.status);
 
-        setTitle(task.title || "");
-        setDescription(task.description || "");
-        setStatus(task.status || "TODO");
-        setPriority(task.priority || "MEDIUM");
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const text = await response.text();
+
+    console.log("RESPONSE:", text);
+
+    if (!text) {
+      console.log("EMPTY RESPONSE");
+      return;
+    }
+
+    const task = JSON.parse(text);
+
+    setTitle(task.title || "");
+    setDescription(task.description || "");
+    setStatus(task.status || "TODO");
+    setPriority(task.priority || "MEDIUM");
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
+  }
+};
 
     loadTask();
   }, [params.id]);
