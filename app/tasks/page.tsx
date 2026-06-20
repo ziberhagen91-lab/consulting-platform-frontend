@@ -47,6 +47,37 @@ export default function TasksPage() {
     loadTasks();
   }, []);
 
+  const handleDelete = async (id: string) => {
+    const confirmed = window.confirm(
+      language === "uk"
+        ? "Видалити це завдання?"
+        : "Delete this task?"
+    );
+
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      setTasks(
+        tasks.filter(
+          (task) => task.id !== id
+        )
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const t = {
     uk: {
       title: "Завдання",
@@ -59,6 +90,8 @@ export default function TasksPage() {
         "Створіть перше завдання для початку роботи.",
       status: "Статус",
       priority: "Пріоритет",
+      edit: "Редагувати",
+      delete: "Видалити",
     },
     en: {
       title: "Tasks",
@@ -71,6 +104,8 @@ export default function TasksPage() {
         "Create your first task to get started.",
       status: "Status",
       priority: "Priority",
+      edit: "Edit",
+      delete: "Delete",
     },
   };
 
@@ -164,17 +199,38 @@ export default function TasksPage() {
                 <div className="flex gap-4 mt-3 text-sm flex-wrap">
                   <span>
                     {t[language].status}:{" "}
-                    {statusLabels[
-                      task.status as keyof typeof statusLabels
-                    ]}
+                    {
+                      statusLabels[
+                        task.status as keyof typeof statusLabels
+                      ]
+                    }
                   </span>
 
                   <span>
                     {t[language].priority}:{" "}
-                    {priorityLabels[
-                      task.priority as keyof typeof priorityLabels
-                    ]}
+                    {
+                      priorityLabels[
+                        task.priority as keyof typeof priorityLabels
+                      ]
+                    }
                   </span>
+                </div>
+
+                <div className="flex gap-3 mt-4">
+                  <button
+                    className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition"
+                  >
+                    ✏️ {t[language].edit}
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      handleDelete(task.id)
+                    }
+                    className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 transition"
+                  >
+                    🗑 {t[language].delete}
+                  </button>
                 </div>
               </div>
             ))}
