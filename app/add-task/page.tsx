@@ -79,7 +79,6 @@ export default function AddTaskPage() {
         const token =
   localStorage.getItem("token");
 
-console.log("TOKEN:", token);
 
         const response = await fetch(
   `${process.env.NEXT_PUBLIC_API_URL}/clients`,
@@ -127,7 +126,6 @@ console.log("TOKEN:", token);
       clientId: clientId || undefined,
     };
 
-    console.log("TASK DATA:", taskData);
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/tasks`,
@@ -143,15 +141,12 @@ console.log("TOKEN:", token);
     if (!response.ok) {
       const errorData = await response.text();
 
-      console.log("STATUS:", response.status);
-      console.log("ERROR DATA:", errorData);
 
       throw new Error(errorData);
     }
 
     const data = await response.json();
 
-    console.log("CREATED TASK:", data);
 
     toast.success(
       t[language].taskCreated
