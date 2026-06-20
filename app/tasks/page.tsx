@@ -1,7 +1,41 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
+type Task = {
+  id: string;
+  title: string;
+  description: string;
+  status: string;
+  priority: string;
+};
+
 export default function TasksPage() {
-  const tasks: any[] = [];
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/tasks`
+        );
+
+        const data = await response.json();
+
+        console.log("TASKS:", data);
+
+        setTasks(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadTasks();
+  }, []);
 
   return (
     <main className="min-h-screen bg-black text-white p-8">
@@ -21,7 +55,7 @@ export default function TasksPage() {
             </h1>
 
             <p className="text-zinc-400 mt-1">
-              Всього завдань: 0
+              Всього завдань: {tasks.length}
             </p>
           </div>
 
@@ -33,42 +67,41 @@ export default function TasksPage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="bg-zinc-900 rounded-xl p-4 text-center">
-            <p className="text-2xl">📋</p>
-            <p className="text-sm text-zinc-400">
-              До виконання
+        {loading ? (
+          <p>Завантаження...</p>
+        ) : tasks.length === 0 ? (
+          <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-10 text-center">
+            <h2 className="text-2xl font-bold mb-3">
+              Завдань поки немає
+            </h2>
+
+            <p className="text-zinc-400">
+              Створіть перше завдання для початку роботи.
             </p>
-            <p className="text-xl font-bold">0</p>
           </div>
+        ) : (
+          <div className="space-y-4">
+            {tasks.map((task) => (
+              <div
+                key={task.id}
+                className="bg-zinc-900 border border-zinc-800 rounded-xl p-5"
+              >
+                <h3 className="text-xl font-bold">
+                  {task.title}
+                </h3>
 
-          <div className="bg-zinc-900 rounded-xl p-4 text-center">
-            <p className="text-2xl">⏳</p>
-            <p className="text-sm text-zinc-400">
-              В процесі
-            </p>
-            <p className="text-xl font-bold">0</p>
+                <p className="text-zinc-400 mt-2">
+                  {task.description}
+                </p>
+
+                <div className="flex gap-4 mt-3 text-sm">
+                  <span>Статус: {task.status}</span>
+                  <span>Пріоритет: {task.priority}</span>
+                </div>
+              </div>
+            ))}
           </div>
-
-          <div className="bg-zinc-900 rounded-xl p-4 text-center">
-            <p className="text-2xl">✅</p>
-            <p className="text-sm text-zinc-400">
-              Виконано
-            </p>
-            <p className="text-xl font-bold">0</p>
-          </div>
-        </div>
-
-        <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-10 text-center">
-          <h2 className="text-2xl font-bold mb-3">
-            Завдань поки немає
-          </h2>
-
-          <p className="text-zinc-400">
-            Створіть перше завдання для початку роботи.
-          </p>
-        </div>
-
+        )}
       </div>
     </main>
   );

@@ -77,7 +77,9 @@ export default function AddTaskPage() {
     const loadClients = async () => {
       try {
         const token =
-          localStorage.getItem("token");
+  localStorage.getItem("token");
+
+console.log("TOKEN:", token);
 
         const response = await fetch(
   `${process.env.NEXT_PUBLIC_API_URL}/clients`,
@@ -107,54 +109,66 @@ export default function AddTaskPage() {
   }, [language]);
 
   const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
+  e: React.FormEvent<HTMLFormElement>
+) => {
+  e.preventDefault();
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      const response = await fetch(
-  `${process.env.NEXT_PUBLIC_API_URL}/tasks`,
-  {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            title,
-            description,
-            status,
-            priority,
-            dueDate:
-              dueDate || undefined,
-            clientId:
-              clientId || undefined,
-          }),
-        }
-      );
+  try {
+    const taskData = {
+      title,
+      description,
+      status,
+      priority,
+      dueDate: dueDate
+        ? new Date(dueDate).toISOString()
+        : undefined,
+      clientId: clientId || undefined,
+    };
 
-      if (!response.ok) {
-        throw new Error();
+    console.log("TASK DATA:", taskData);
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/tasks`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(taskData),
       }
+    );
 
-      toast.success(
-        t[language].taskCreated
-      );
+    if (!response.ok) {
+      const errorData = await response.text();
 
-      router.push("/tasks");
-      router.refresh();
-    } catch (error) {
-      console.error(error);
+      console.log("STATUS:", response.status);
+      console.log("ERROR DATA:", errorData);
 
-      toast.error(
-        t[language].createFailed
-      );
-    } finally {
-      setLoading(false);
+      throw new Error(errorData);
     }
-  };
+
+    const data = await response.json();
+
+    console.log("CREATED TASK:", data);
+
+    toast.success(
+      t[language].taskCreated
+    );
+
+    router.push("/tasks");
+    router.refresh();
+  } catch (error) {
+    console.error(error);
+
+    toast.error(
+      t[language].createFailed
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center p-6">
