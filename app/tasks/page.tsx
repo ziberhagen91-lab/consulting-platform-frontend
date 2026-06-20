@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 type Task = {
   id: string;
@@ -14,6 +15,17 @@ type Task = {
 export default function TasksPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
+  const [language, setLanguage] =
+    useState<"uk" | "en">("uk");
+
+  useEffect(() => {
+    const saved =
+      localStorage.getItem("language");
+
+    if (saved === "uk" || saved === "en") {
+      setLanguage(saved);
+    }
+  }, []);
 
   useEffect(() => {
     const loadTasks = async () => {
@@ -23,8 +35,6 @@ export default function TasksPage() {
         );
 
         const data = await response.json();
-
-        console.log("TASKS:", data);
 
         setTasks(data);
       } catch (error) {
@@ -37,6 +47,59 @@ export default function TasksPage() {
     loadTasks();
   }, []);
 
+  const t = {
+    uk: {
+      title: "Завдання",
+      back: "Назад до панелі",
+      total: "Всього завдань",
+      addTask: "Додати завдання",
+      loading: "Завантаження...",
+      noTasks: "Завдань поки немає",
+      noTasksText:
+        "Створіть перше завдання для початку роботи.",
+      status: "Статус",
+      priority: "Пріоритет",
+    },
+    en: {
+      title: "Tasks",
+      back: "Back to Dashboard",
+      total: "Total Tasks",
+      addTask: "Add Task",
+      loading: "Loading...",
+      noTasks: "No tasks yet",
+      noTasksText:
+        "Create your first task to get started.",
+      status: "Status",
+      priority: "Priority",
+    },
+  };
+
+  const statusLabels =
+    language === "uk"
+      ? {
+          TODO: "📋 До виконання",
+          IN_PROGRESS: "⏳ В процесі",
+          DONE: "✅ Виконано",
+        }
+      : {
+          TODO: "📋 To Do",
+          IN_PROGRESS: "⏳ In Progress",
+          DONE: "✅ Done",
+        };
+
+  const priorityLabels =
+    language === "uk"
+      ? {
+          LOW: "🟢 Низький",
+          MEDIUM: "🟡 Середній",
+          HIGH: "🔴 Високий",
+        }
+      : {
+          LOW: "🟢 Low",
+          MEDIUM: "🟡 Medium",
+          HIGH: "🔴 High",
+        };
+
   return (
     <main className="min-h-screen bg-black text-white p-8">
       <div className="max-w-4xl mx-auto">
@@ -45,38 +108,42 @@ export default function TasksPage() {
           href="/dashboard"
           className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition mb-6"
         >
-          ← Назад до панелі
+          ← {t[language].back}
         </Link>
 
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-4xl font-bold">
-              Завдання
+              {t[language].title}
             </h1>
 
             <p className="text-zinc-400 mt-1">
-              Всього завдань: {tasks.length}
+              {t[language].total}: {tasks.length}
             </p>
           </div>
 
-          <Link
-            href="/add-task"
-            className="bg-white text-black px-5 py-3 rounded-xl font-semibold hover:opacity-80 transition"
-          >
-            + Додати завдання
-          </Link>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+
+            <Link
+              href="/add-task"
+              className="bg-white text-black px-5 py-3 rounded-xl font-semibold hover:opacity-80 transition"
+            >
+              + {t[language].addTask}
+            </Link>
+          </div>
         </div>
 
         {loading ? (
-          <p>Завантаження...</p>
+          <p>{t[language].loading}</p>
         ) : tasks.length === 0 ? (
           <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-10 text-center">
             <h2 className="text-2xl font-bold mb-3">
-              Завдань поки немає
+              {t[language].noTasks}
             </h2>
 
             <p className="text-zinc-400">
-              Створіть перше завдання для початку роботи.
+              {t[language].noTasksText}
             </p>
           </div>
         ) : (
@@ -94,9 +161,20 @@ export default function TasksPage() {
                   {task.description}
                 </p>
 
-                <div className="flex gap-4 mt-3 text-sm">
-                  <span>Статус: {task.status}</span>
-                  <span>Пріоритет: {task.priority}</span>
+                <div className="flex gap-4 mt-3 text-sm flex-wrap">
+                  <span>
+                    {t[language].status}:{" "}
+                    {statusLabels[
+                      task.status as keyof typeof statusLabels
+                    ]}
+                  </span>
+
+                  <span>
+                    {t[language].priority}:{" "}
+                    {priorityLabels[
+                      task.priority as keyof typeof priorityLabels
+                    ]}
+                  </span>
                 </div>
               </div>
             ))}
