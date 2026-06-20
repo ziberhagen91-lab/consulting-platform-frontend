@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-
-console.log("PARAMS:", params);
-console.log("ID:", params.id);
+import LanguageSwitcher from "../../components/LanguageSwitcher";
 
 export default function EditTaskPage() {
   const router = useRouter();
   const params = useParams();
+
+  const [language, setLanguage] =
+    useState<"uk" | "en">("uk");
 
   const [title, setTitle] = useState("");
   const [description, setDescription] =
@@ -22,6 +23,15 @@ export default function EditTaskPage() {
     useState(true);
 
   useEffect(() => {
+    const saved =
+      localStorage.getItem("language");
+
+    if (saved === "uk" || saved === "en") {
+      setLanguage(saved);
+    }
+  }, []);
+
+  useEffect(() => {
     const loadTask = async () => {
       try {
         const response = await fetch(
@@ -30,10 +40,10 @@ export default function EditTaskPage() {
 
         const task = await response.json();
 
-        setTitle(task.title);
-        setDescription(task.description);
-        setStatus(task.status);
-        setPriority(task.priority);
+        setTitle(task.title || "");
+        setDescription(task.description || "");
+        setStatus(task.status || "TODO");
+        setPriority(task.priority || "MEDIUM");
       } catch (error) {
         console.error(error);
       } finally {
@@ -78,10 +88,23 @@ export default function EditTaskPage() {
     }
   };
 
+  const t = {
+    uk: {
+      title: "Редагувати завдання",
+      save: "Зберегти зміни",
+      loading: "Завантаження...",
+    },
+    en: {
+      title: "Edit Task",
+      save: "Save Changes",
+      loading: "Loading...",
+    },
+  };
+
   if (loading) {
     return (
       <main className="min-h-screen bg-black text-white p-8">
-        Loading...
+        {t[language].loading}
       </main>
     );
   }
@@ -90,8 +113,12 @@ export default function EditTaskPage() {
     <main className="min-h-screen bg-black text-white flex items-center justify-center p-6">
       <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-8">
 
+        <div className="flex justify-end mb-6">
+          <LanguageSwitcher />
+        </div>
+
         <h1 className="text-4xl font-bold mb-6">
-          Edit Task
+          {t[language].title}
         </h1>
 
         <form
@@ -159,9 +186,9 @@ export default function EditTaskPage() {
 
           <button
             type="submit"
-            className="bg-white text-black rounded-xl py-3 font-semibold"
+            className="bg-white text-black rounded-xl py-3 font-semibold hover:opacity-80 transition"
           >
-            Save Changes
+            {t[language].save}
           </button>
         </form>
       </div>
