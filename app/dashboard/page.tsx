@@ -173,7 +173,7 @@ const t = {
   }
 
   return (
-    <main className="min-h-screen bg-black text-white flex">
+    <main className="min-h-screen bg-black text-white flex flex-col md:flex-row">
 
       <Sidebar
         onLogout={() => {
@@ -195,12 +195,12 @@ const t = {
         }}
       />
 
-      <section className="flex-1 p-10">
+      <section className="flex-1 p-4 md:p-10">
 
-        <header className="flex justify-between items-center mb-10">
+        <header className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8 md:mb-10">
   <div>
     
-    <h2 className="text-4xl font-bold">
+    <h2 className="text-3xl md:text-4xl font-bold">
       {t[language].dashboard}
     </h2>
 
@@ -211,7 +211,7 @@ const t = {
 
 <LanguageSwitcher />
 </header>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
           <Card className="hover:border-white hover:-translate-y-1 transition duration-300">
 
@@ -277,19 +277,19 @@ const t = {
 
           <div className="flex flex-col gap-4">
 
-            <div className="flex justify-between border-b border-zinc-900 pb-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-2 border-b border-zinc-900 pb-4">
 
-              <p>
-                {t[language].newClientAdded}
-              </p>
+  <p>
+    {t[language].newClientAdded}
+  </p>
 
-              <span className="text-zinc-500">
-                {t[language].justNow}
-              </span>
+  <span className="text-zinc-500">
+    {t[language].justNow}
+  </span>
 
-            </div>
+</div>
 
-            <div className="flex justify-between border-b border-zinc-900 pb-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-2 border-b border-zinc-900 pb-4">
 
               <p>
                 {t[language].analyticsUpdated}
@@ -302,7 +302,7 @@ const t = {
 
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
 
               <p>
                 {t[language].jwtActive}
@@ -320,7 +320,7 @@ const t = {
 
         <Card className="mt-10">
 
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
 
             <div>
 
@@ -337,7 +337,7 @@ const t = {
 
           </div>
 
-          <div className="h-[350px]">
+          <div className="h-[250px] sm:h-[300px] md:h-[350px]">
 
             <ResponsiveContainer
               width="100%"

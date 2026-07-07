@@ -79,21 +79,22 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center px-6 relative">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center px-4 md:px-6 relative">
 
       <Link
         href="/"
-        className="absolute top-6 left-6 px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition"
+        className="absolute top-4 left-4 md:top-6 md:left-6 px-4 py-2 border border-zinc-700 rounded-xl hover:bg-zinc-900 transition"
       >
         ← {t[language].back}
       </Link>
 
-      <div className="absolute top-6 right-6">
+      <div className="absolute top-4 right-4 md:top-6 md:right-6">
         <LanguageSwitcher />
       </div>
 
-      <div className="w-full max-w-md border border-zinc-800 bg-zinc-950 rounded-2xl p-8">
-        <h1 className="text-4xl font-bold mb-6 text-center">
+      <div className="w-full max-w-md border border-zinc-800 bg-zinc-950 rounded-2xl p-6 md:p-8">
+
+        <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
           {t[language].register}
         </h1>
 
@@ -127,7 +128,9 @@ export default function RegisterPage() {
           >
             {t[language].createAccount}
           </button>
+
         </form>
+
       </div>
 
     </main>

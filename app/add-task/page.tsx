@@ -77,12 +77,11 @@ export default function AddTaskPage() {
     const loadClients = async () => {
       try {
         const token =
-  localStorage.getItem("token");
-
+          localStorage.getItem("token");
 
         const response = await fetch(
-  `${process.env.NEXT_PUBLIC_API_URL}/clients`,
-  {
+          `${process.env.NEXT_PUBLIC_API_URL}/clients`,
+          {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -108,75 +107,73 @@ export default function AddTaskPage() {
   }, [language]);
 
   const handleSubmit = async (
-  e: React.FormEvent<HTMLFormElement>
-) => {
-  e.preventDefault();
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
 
-  setLoading(true);
+    setLoading(true);
 
-  try {
-    const taskData = {
-      title,
-      description,
-      status,
-      priority,
-      dueDate: dueDate
-        ? new Date(dueDate).toISOString()
-        : undefined,
-      clientId: clientId || undefined,
-    };
+    try {
+      const taskData = {
+        title,
+        description,
+        status,
+        priority,
+        dueDate: dueDate
+          ? new Date(dueDate).toISOString()
+          : undefined,
+        clientId: clientId || undefined,
+      };
 
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/tasks`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify(taskData),
+        }
+      );
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/tasks`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(taskData),
+      if (!response.ok) {
+        const errorData =
+          await response.text();
+
+        throw new Error(errorData);
       }
-    );
 
-    if (!response.ok) {
-      const errorData = await response.text();
+      toast.success(
+        t[language].taskCreated
+      );
 
+      router.push("/tasks");
+      router.refresh();
+    } catch (error) {
+      console.error(error);
 
-      throw new Error(errorData);
+      toast.error(
+        t[language].createFailed
+      );
+    } finally {
+      setLoading(false);
     }
-
-    const data = await response.json();
-
-
-    toast.success(
-      t[language].taskCreated
-    );
-
-    router.push("/tasks");
-    router.refresh();
-  } catch (error) {
-    console.error(error);
-
-    toast.error(
-      t[language].createFailed
-    );
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center p-6">
-      <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-8">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center p-4 md:p-6">
 
-  <Link
-    href="/tasks"
-    className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition mb-6"
-  >
-    ← Назад до завдань
-  </Link>
+      <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-6 md:p-8">
 
-  <h1 className="text-4xl font-bold mb-2">
+        <Link
+          href="/tasks"
+          className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition mb-6"
+        >
+          ← Назад до завдань
+        </Link>
+
+        <h1 className="text-3xl md:text-4xl font-bold mb-2">
           {t[language].title}
         </h1>
 
@@ -190,9 +187,7 @@ export default function AddTaskPage() {
         >
           <input
             type="text"
-            placeholder={
-              t[language].taskTitle
-            }
+            placeholder={t[language].taskTitle}
             value={title}
             onChange={(e) =>
               setTitle(e.target.value)
@@ -202,14 +197,10 @@ export default function AddTaskPage() {
           />
 
           <textarea
-            placeholder={
-              t[language].description
-            }
+            placeholder={t[language].description}
             value={description}
             onChange={(e) =>
-              setDescription(
-                e.target.value
-              )
+              setDescription(e.target.value)
             }
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           />
@@ -242,17 +233,9 @@ export default function AddTaskPage() {
             }
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           >
-            <option value="TODO">
-              📋 TODO
-            </option>
-
-            <option value="IN_PROGRESS">
-              ⏳ IN PROGRESS
-            </option>
-
-            <option value="DONE">
-              ✅ DONE
-            </option>
+            <option value="TODO">📋 TODO</option>
+            <option value="IN_PROGRESS">⏳ IN PROGRESS</option>
+            <option value="DONE">✅ DONE</option>
           </select>
 
           <select
@@ -262,17 +245,9 @@ export default function AddTaskPage() {
             }
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
           >
-            <option value="LOW">
-              🟢 LOW
-            </option>
-
-            <option value="MEDIUM">
-              🟡 MEDIUM
-            </option>
-
-            <option value="HIGH">
-              🔴 HIGH
-            </option>
+            <option value="LOW">🟢 LOW</option>
+            <option value="MEDIUM">🟡 MEDIUM</option>
+            <option value="HIGH">🔴 HIGH</option>
           </select>
 
           <input
@@ -293,8 +268,11 @@ export default function AddTaskPage() {
               ? t[language].creating
               : t[language].create}
           </button>
+
         </form>
+
       </div>
+
     </main>
   );
 }

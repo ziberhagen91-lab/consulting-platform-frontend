@@ -106,14 +106,15 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white relative flex items-center justify-center px-6">
+    <main className="min-h-screen bg-black text-white relative flex items-center justify-center px-4 md:px-6">
 
-      <div className="absolute top-6 right-6">
+      <div className="absolute top-4 right-4 md:top-6 md:right-6">
         <LanguageSwitcher />
       </div>
 
-      <div className="w-full max-w-md border border-zinc-800 bg-zinc-950 rounded-2xl p-8">
-        <h1 className="text-4xl font-bold mb-6 text-center">
+      <div className="w-full max-w-md border border-zinc-800 bg-zinc-950 rounded-2xl p-6 md:p-8">
+
+        <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
           {t[language].login}
         </h1>
 
@@ -121,6 +122,7 @@ export default function LoginPage() {
           onSubmit={handleLogin}
           className="flex flex-col gap-4"
         >
+
           <input
             type="email"
             placeholder={t[language].email}
@@ -150,8 +152,11 @@ export default function LoginPage() {
               ? t[language].signingIn
               : t[language].signIn}
           </button>
+
         </form>
+
       </div>
+
     </main>
   );
 }

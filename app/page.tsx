@@ -67,13 +67,17 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black text-white">
-      <header className="flex items-center justify-between px-8 py-6 border-b border-zinc-900">
-        <h2 className="text-xl font-bold">
+
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-4 md:px-8 py-6 border-b border-zinc-900">
+
+        <h2 className="text-2xl md:text-xl font-bold text-center md:text-left">
           Consulting Platform
         </h2>
 
-        <div className="flex items-center gap-6">
-          <nav className="flex gap-6 text-zinc-400">
+        <div className="flex items-center justify-center md:justify-end gap-4">
+
+          <nav className="hidden md:flex gap-6 text-zinc-400">
+
             <a
               href="#"
               className="hover:text-white transition"
@@ -94,41 +98,49 @@ export default function Home() {
             >
               {t[language].contact}
             </a>
+
           </nav>
 
           <LanguageSwitcher />
+
         </div>
+
       </header>
 
-      <section className="flex flex-col items-center justify-center min-h-screen text-center px-6">
-        <h1 className="text-6xl font-bold mb-6">
+      <section className="flex flex-col items-center justify-center min-h-screen text-center px-4 md:px-6">
+
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
           Consulting Platform
         </h1>
 
-        <p className="text-zinc-400 text-xl max-w-2xl mb-8">
+        <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mb-8">
           {t[language].subtitle}
         </p>
 
-        <div className="flex gap-4">
-          <a
-          
-    href="/login"
-    className="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:opacity-80 transition"
-  >
-    {language === "uk" ? "Увійти" : "Sign In"}
-  </a>
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
 
-  <a
-    href="/register"
-    className="border border-zinc-700 px-6 py-3 rounded-xl font-semibold hover:bg-zinc-900 transition"
-  >
-    {language === "uk" ? "Зареєструватися" : "Sign Up"}
-  </a>
+          <a
+            href="/login"
+            className="w-full sm:w-auto text-center bg-white text-black px-6 py-3 rounded-xl font-semibold hover:opacity-80 transition"
+          >
+            {language === "uk" ? "Увійти" : "Sign In"}
+          </a>
+
+          <a
+            href="/register"
+            className="w-full sm:w-auto text-center border border-zinc-700 px-6 py-3 rounded-xl font-semibold hover:bg-zinc-900 transition"
+          >
+            {language === "uk"
+              ? "Зареєструватися"
+              : "Sign Up"}
+          </a>
 
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 max-w-5xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 md:mt-20 max-w-5xl w-full">
+
           <div className="border border-zinc-800 rounded-2xl p-6 bg-zinc-950">
+
             <h3 className="text-2xl font-semibold mb-3">
               {t[language].clientManagement}
             </h3>
@@ -136,9 +148,11 @@ export default function Home() {
             <p className="text-zinc-400">
               {t[language].clientManagementDesc}
             </p>
+
           </div>
 
           <div className="border border-zinc-800 rounded-2xl p-6 bg-zinc-950">
+
             <h3 className="text-2xl font-semibold mb-3">
               {t[language].analytics}
             </h3>
@@ -146,9 +160,11 @@ export default function Home() {
             <p className="text-zinc-400">
               {t[language].analyticsDesc}
             </p>
+
           </div>
 
           <div className="border border-zinc-800 rounded-2xl p-6 bg-zinc-950">
+
             <h3 className="text-2xl font-semibold mb-3">
               {t[language].securePlatform}
             </h3>
@@ -156,9 +172,13 @@ export default function Home() {
             <p className="text-zinc-400">
               {t[language].securePlatformDesc}
             </p>
+
           </div>
+
         </div>
+
       </section>
+
     </main>
   );
 }

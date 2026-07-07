@@ -93,9 +93,10 @@ function EditClientContent() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center p-6">
-      <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-8">
-        <h1 className="text-4xl font-bold mb-2">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center p-4 md:p-6">
+      <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-6 md:p-8">
+
+        <h1 className="text-3xl md:text-4xl font-bold mb-2">
           Edit Client
         </h1>
 
@@ -132,7 +133,9 @@ function EditClientContent() {
           >
             {loading ? "Saving..." : "Save Changes"}
           </button>
+
         </form>
+
       </div>
     </main>
   );

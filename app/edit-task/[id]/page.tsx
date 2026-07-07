@@ -33,34 +33,34 @@ export default function EditTaskPage() {
 
   useEffect(() => {
     const loadTask = async () => {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/tasks/${params.id}`
-    );
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/tasks/${params.id}`
+        );
 
-    console.log("STATUS:", response.status);
+        console.log("STATUS:", response.status);
 
-    const text = await response.text();
+        const text = await response.text();
 
-    console.log("RESPONSE:", text);
+        console.log("RESPONSE:", text);
 
-    if (!text) {
-      console.log("EMPTY RESPONSE");
-      return;
-    }
+        if (!text) {
+          console.log("EMPTY RESPONSE");
+          return;
+        }
 
-    const task = JSON.parse(text);
+        const task = JSON.parse(text);
 
-    setTitle(task.title || "");
-    setDescription(task.description || "");
-    setStatus(task.status || "TODO");
-    setPriority(task.priority || "MEDIUM");
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setLoading(false);
-  }
-};
+        setTitle(task.title || "");
+        setDescription(task.description || "");
+        setStatus(task.status || "TODO");
+        setPriority(task.priority || "MEDIUM");
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
     loadTask();
   }, [params.id]);
@@ -114,21 +114,22 @@ export default function EditTaskPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-black text-white p-8">
+      <main className="min-h-screen bg-black text-white p-4 md:p-8">
         {t[language].loading}
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center p-6">
-      <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-8">
+    <main className="min-h-screen bg-black text-white flex items-center justify-center p-4 md:p-6">
+
+      <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-6 md:p-8">
 
         <div className="flex justify-end mb-6">
           <LanguageSwitcher />
         </div>
 
-        <h1 className="text-4xl font-bold mb-6">
+        <h1 className="text-3xl md:text-4xl font-bold mb-6">
           {t[language].title}
         </h1>
 
@@ -162,17 +163,9 @@ export default function EditTaskPage() {
             }
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3"
           >
-            <option value="TODO">
-              TODO
-            </option>
-
-            <option value="IN_PROGRESS">
-              IN PROGRESS
-            </option>
-
-            <option value="DONE">
-              DONE
-            </option>
+            <option value="TODO">TODO</option>
+            <option value="IN_PROGRESS">IN PROGRESS</option>
+            <option value="DONE">DONE</option>
           </select>
 
           <select
@@ -182,17 +175,9 @@ export default function EditTaskPage() {
             }
             className="bg-black border border-zinc-800 rounded-xl px-4 py-3"
           >
-            <option value="LOW">
-              LOW
-            </option>
-
-            <option value="MEDIUM">
-              MEDIUM
-            </option>
-
-            <option value="HIGH">
-              HIGH
-            </option>
+            <option value="LOW">LOW</option>
+            <option value="MEDIUM">MEDIUM</option>
+            <option value="HIGH">HIGH</option>
           </select>
 
           <button
@@ -201,8 +186,11 @@ export default function EditTaskPage() {
           >
             {t[language].save}
           </button>
+
         </form>
+
       </div>
+
     </main>
   );
 }
