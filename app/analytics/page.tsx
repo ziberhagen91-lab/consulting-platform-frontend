@@ -19,12 +19,7 @@ export default function AnalyticsPage() {
   const [language, setLanguage] =
     useState<"uk" | "en">("uk");
 
-  const [stats] = useState({
-    clients: 124,
-    revenue: 12450,
-    projects: 18,
-    growth: 18.5,
-  });
+  const [stats, setStats] = useState<any>(null);
 
   const revenueData = [
     { month: "Jan", revenue: 1200 },
@@ -43,7 +38,35 @@ export default function AnalyticsPage() {
       setLanguage(saved);
     }
   }, []);
+useEffect(() => {
+  const loadAnalytics = async () => {
+    const token = localStorage.getItem("token");
 
+    if (!token) return;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/analytics`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to load analytics");
+      }
+
+      const data = await response.json();
+      setStats(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  loadAnalytics();
+}, []);
   const t = {
     uk: {
       back: "Назад",
@@ -55,9 +78,9 @@ export default function AnalyticsPage() {
 
       clients: "Клієнти",
 
-      revenue: "Дохід",
+tasks: "Завдання",
 
-      projects: "Проєкти",
+projects: "Проєкти",
 
       growth: "Зростання",
 
@@ -72,8 +95,8 @@ export default function AnalyticsPage() {
       activeClients:
         "Активні клієнти",
 
-      monthlyRevenue:
-        "Місячний дохід",
+      totalTasks:
+  "Усього завдань",
 
       activeProjects:
         "Активні проєкти",
@@ -92,7 +115,7 @@ export default function AnalyticsPage() {
 
       clients: "Clients",
 
-      revenue: "Revenue",
+      tasks: "Tasks",
 
       projects: "Projects",
 
@@ -109,8 +132,8 @@ export default function AnalyticsPage() {
       activeClients:
         "Active Clients",
 
-      monthlyRevenue:
-        "Monthly Revenue",
+      totalTasks:
+  "Total Tasks",
 
       activeProjects:
         "Active Projects",
@@ -160,8 +183,8 @@ export default function AnalyticsPage() {
           </p>
 
           <h2 className="text-4xl font-bold mt-3">
-            {stats.clients}
-          </h2>
+  {stats?.totalClients || 0}
+</h2>
 
           <p className="text-green-400 mt-3">
             +12%
@@ -176,19 +199,19 @@ export default function AnalyticsPage() {
         <div className="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 hover:border-white hover:-translate-y-1 transition-all duration-300">
 
           <p className="text-zinc-400 text-sm">
-            {t[language].revenue}
-          </p>
+  {t[language].tasks}
+</p>
 
           <h2 className="text-4xl font-bold mt-3">
-            ${stats.revenue.toLocaleString()}
-          </h2>
+  {stats?.totalTasks || 0}
+</h2>
 
           <p className="text-green-400 mt-3">
             +18%
           </p>
 
           <p className="text-zinc-500 text-sm mt-1">
-            {t[language].monthlyRevenue}
+            {t[language].totalTasks}
           </p>
 
         </div>
@@ -200,8 +223,8 @@ export default function AnalyticsPage() {
           </p>
 
           <h2 className="text-4xl font-bold mt-3">
-            {stats.projects}
-          </h2>
+  {stats?.activeProjects || 0}
+</h2>
 
           <p className="text-green-400 mt-3">
             +7%
@@ -220,15 +243,15 @@ export default function AnalyticsPage() {
           </p>
 
           <h2 className="text-4xl font-bold mt-3">
-            {stats.growth}%
-          </h2>
+  {stats?.completedTasks || 0}
+</h2>
 
           <p className="text-green-400 mt-3">
             {t[language].live}
           </p>
 
           <p className="text-zinc-500 text-sm mt-1">
-            {t[language].businessGrowth}
+            Completed Tasks
           </p>
 
         </div>

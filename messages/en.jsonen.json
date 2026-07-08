@@ -8,5 +8,21 @@
     "addClient": "Add Client",
     "addTask": "Add Task",
     "logout": "Logout"
+  },
+
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "welcome": "Welcome back",
+    "clients": "Clients",
+    "activeClients": "Active clients",
+    "tasks": "Tasks",
+    "totalTasks": "Total tasks",
+    "projects": "Projects",
+    "activeProjects": "Active projects",
+    "completedTasks": "Completed",
+    "completedTasksDesc": "Completed tasks",
+    "recentActivity": "Recent Activity",
+    "revenueAnalytics": "Revenue Analytics",
+    "monthlyGrowth": "Monthly revenue growth"
   }
 }

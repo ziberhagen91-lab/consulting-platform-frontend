@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import Card from "@/app/components/Card";
 import Sidebar from "@/app/components/Sidebar";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
+import { translations } from "@/lib/translations";
 
 import {
   LineChart,
@@ -22,6 +23,7 @@ export default function DashboardPage() {
   const router = useRouter();
 
   const [analytics, setAnalytics] = useState<any>(null);
+  const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   const [language, setLanguage] =
@@ -35,61 +37,7 @@ export default function DashboardPage() {
     }
   }, []);
 
-  const t = {
-    uk: {
-      dashboard: "Панель керування",
-      welcome: "З поверненням",
-
-      clients: "Клієнти",
-      activeClients: "Активні клієнти",
-
-      revenue: "Дохід",
-      monthlyRevenue: "Місячний дохід",
-
-      projects: "Проєкти",
-      activeProjects: "Активні проєкти",
-
-      recentActivity: "Остання активність",
-
-      newClientAdded: "Додано нового клієнта",
-      analyticsUpdated: "Аналітику оновлено",
-      jwtActive: "JWT-автентифікація активна",
-
-      justNow: "Щойно",
-      live: "Наживо",
-      secure: "Захищено",
-
-      revenueAnalytics: "Аналітика доходу",
-      monthlyGrowth: "Щомісячне зростання доходу",
-    },
-
-    en: {
-      dashboard: "Dashboard",
-      welcome: "Welcome back",
-
-      clients: "Clients",
-      activeClients: "Active clients",
-
-      revenue: "Revenue",
-      monthlyRevenue: "Monthly revenue",
-
-      projects: "Projects",
-      activeProjects: "Active projects",
-
-      recentActivity: "Recent Activity",
-
-      newClientAdded: "New client added",
-      analyticsUpdated: "Dashboard analytics updated",
-      jwtActive: "JWT authentication active",
-
-      justNow: "Just now",
-      live: "Live",
-      secure: "Secure",
-
-      revenueAnalytics: "Revenue Analytics",
-      monthlyGrowth: "Monthly revenue growth",
-    },
-  };
+const t = translations;
 
   const revenueData = [
     { month: "Jan", revenue: 1200 },
@@ -110,22 +58,28 @@ export default function DashboardPage() {
       }
 
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/analytics`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const [analyticsResponse, statsResponse] = await Promise.all([
+  fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }),
+  fetch(`${process.env.NEXT_PUBLIC_API_URL}/dashboard/stats`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }),
+]);
 
-        if (!response.ok) {
-          throw new Error("Failed to load analytics");
-        }
+if (!analyticsResponse.ok || !statsResponse.ok) {
+  throw new Error("Failed to load dashboard");
+}
 
-        const data = await response.json();
+const analyticsData = await analyticsResponse.json();
+const statsData = await statsResponse.json();
 
-        setAnalytics(data);
+setAnalytics(analyticsData);
+setStats(statsData);
       } catch (error) {
         console.error(error);
         toast.error("Failed to load analytics");
@@ -142,7 +96,7 @@ export default function DashboardPage() {
         <div className="animate-pulse">
           <div className="h-12 w-72 bg-zinc-900 rounded-2xl mb-10" />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
             {[1, 2, 3].map((item) => (
               <Card key={item}>
                 <div className="h-6 w-32 bg-zinc-900 rounded-xl mb-4" />
@@ -183,14 +137,14 @@ export default function DashboardPage() {
           <LanguageSwitcher />
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
           <Card className="hover:border-white hover:-translate-y-1 transition duration-300">
             <h3 className="text-xl font-semibold mb-2">
               {t[language].clients}
             </h3>
 
             <p className="text-4xl font-bold">
-              {analytics?.totalClients || 0}
+              {stats?.clients || 0}
             </p>
 
             <p className="text-zinc-400 mt-2">
@@ -199,18 +153,18 @@ export default function DashboardPage() {
           </Card>
 
           <Card className="hover:border-white hover:-translate-y-1 transition duration-300">
-            <h3 className="text-xl font-semibold mb-2">
-              {t[language].revenue}
-            </h3>
+  <h3 className="text-xl font-semibold mb-2">
+    {t[language].tasks}
+  </h3>
 
-            <p className="text-4xl font-bold">
-              ${analytics?.monthlyRevenue || 0}
-            </p>
+  <p className="text-4xl font-bold">
+    {stats?.tasks || 0}
+  </p>
 
-            <p className="text-zinc-400 mt-2">
-              {t[language].monthlyRevenue}
-            </p>
-          </Card>
+  <p className="text-zinc-400 mt-2">
+    {t[language].totalTasks}
+  </p>
+</Card>
 
           <Card className="hover:border-white hover:-translate-y-1 transition duration-300">
             <h3 className="text-xl font-semibold mb-2">
@@ -218,13 +172,26 @@ export default function DashboardPage() {
             </h3>
 
             <p className="text-4xl font-bold">
-              {analytics?.activeProjects || 0}
+              {stats?.projects || 0}
             </p>
 
             <p className="text-zinc-400 mt-2">
               {t[language].activeProjects}
             </p>
           </Card>
+          <Card className="hover:border-white hover:-translate-y-1 transition duration-300">
+  <h3 className="text-xl font-semibold mb-2">
+    {t[language].completedTasks}
+  </h3>
+
+  <p className="text-4xl font-bold">
+    {stats?.completedTasks || 0}
+  </p>
+
+  <p className="text-zinc-400 mt-2">
+    {t[language].completedTasksDesc}
+  </p>
+</Card>
         </div>
 
         <Card className="mt-10">
@@ -233,30 +200,29 @@ export default function DashboardPage() {
           </h3>
 
           <div className="flex flex-col gap-4">
-                        <div className="flex flex-col sm:flex-row sm:justify-between gap-2 border-b border-zinc-900 pb-4">
-              <p>{t[language].newClientAdded}</p>
+  {stats?.recentActivity?.length ? (
+    stats.recentActivity.map(
+      (activity: any, index: number) => (
+        <div
+          key={index}
+          className="flex flex-col sm:flex-row sm:justify-between gap-2 border-b border-zinc-900 pb-4"
+        >
+          <p>{activity.title}</p>
 
-              <span className="text-zinc-500">
-                {t[language].justNow}
-              </span>
-            </div>
-
-            <div className="flex flex-col sm:flex-row sm:justify-between gap-2 border-b border-zinc-900 pb-4">
-              <p>{t[language].analyticsUpdated}</p>
-
-              <span className="text-zinc-500">
-                {t[language].live}
-              </span>
-            </div>
-
-            <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
-              <p>{t[language].jwtActive}</p>
-
-              <span className="text-zinc-500">
-                {t[language].secure}
-              </span>
-            </div>
-          </div>
+          <span className="text-zinc-500">
+            {new Date(
+              activity.createdAt
+            ).toLocaleDateString()}
+          </span>
+        </div>
+      )
+    )
+  ) : (
+    <p className="text-zinc-500">
+  {t[language].noRecentActivity}
+</p>
+  )}
+</div>
         </Card>
 
         <Card className="mt-10">

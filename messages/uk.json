@@ -8,5 +8,21 @@
     "addClient": "Додати клієнта",
     "addTask": "Додати завдання",
     "logout": "Вийти"
+  },
+
+  "dashboard": {
+    "dashboard": "Панель керування",
+    "welcome": "З поверненням",
+    "clients": "Клієнти",
+    "activeClients": "Активні клієнти",
+    "tasks": "Завдання",
+    "totalTasks": "Усього завдань",
+    "projects": "Проєкти",
+    "activeProjects": "Активні проєкти",
+    "completedTasks": "Виконано",
+    "completedTasksDesc": "Виконані завдання",
+    "recentActivity": "Остання активність",
+    "revenueAnalytics": "Аналітика доходу",
+    "monthlyGrowth": "Щомісячне зростання доходу"
   }
 }
