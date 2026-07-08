@@ -7,22 +7,16 @@ export default function LanguageSwitcher() {
     useState<"uk" | "en">("uk");
 
   useEffect(() => {
-    const saved =
-      localStorage.getItem("language");
+    const saved = localStorage.getItem("language");
 
-    if (
-      saved === "uk" ||
-      saved === "en"
-    ) {
+    if (saved === "uk" || saved === "en") {
       setLanguage(saved);
     }
   }, []);
 
   const toggleLanguage = () => {
     const newLanguage =
-      language === "uk"
-        ? "en"
-        : "uk";
+      language === "uk" ? "en" : "uk";
 
     localStorage.setItem(
       "language",
@@ -37,7 +31,7 @@ export default function LanguageSwitcher() {
   return (
     <button
       onClick={toggleLanguage}
-      className="flex items-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 text-white hover:bg-zinc-800 transition"
+      className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 font-medium text-white transition-all duration-300 hover:border-white hover:bg-zinc-800"
     >
       {language === "uk"
         ? "🇺🇦 UA"

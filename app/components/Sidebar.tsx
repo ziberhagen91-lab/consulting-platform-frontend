@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
+  FolderKanban,
   ClipboardList,
   BarChart3,
   Settings,
@@ -38,6 +39,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       platform: "Консалтингова платформа",
       overview: "Огляд",
       clients: "Клієнти",
+      projects: "Проєкти",
       tasks: "Завдання",
       analytics: "Аналітика",
       settings: "Налаштування",
@@ -47,6 +49,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       platform: "Consulting Platform",
       overview: "Overview",
       clients: "Clients",
+      projects: "Projects",
       tasks: "Tasks",
       analytics: "Analytics",
       settings: "Settings",
@@ -64,6 +67,11 @@ export default function Sidebar({ onLogout }: SidebarProps) {
       href: "/clients",
       icon: Users,
       label: t[language].clients,
+    },
+    {
+      href: "/projects",
+      icon: FolderKanban,
+      label: t[language].projects,
     },
     {
       href: "/tasks",
@@ -85,23 +93,21 @@ export default function Sidebar({ onLogout }: SidebarProps) {
   return (
     <>
       {/* Mobile Header */}
-
       <div className="md:hidden flex items-center justify-between px-4 py-4 border-b border-zinc-800 bg-zinc-950">
         <h1 className="text-lg font-bold">
           {t[language].platform}
         </h1>
 
         <button
-  onClick={() => setIsOpen(true)}
-  className="p-2 rounded-lg hover:bg-zinc-800 transition"
-  aria-label="Open menu"
->
-  <Menu size={26} />
-</button>
+          onClick={() => setIsOpen(true)}
+          className="p-2 rounded-lg hover:bg-zinc-800 transition"
+          aria-label="Open menu"
+        >
+          <Menu size={26} />
+        </button>
       </div>
 
       {/* Overlay */}
-
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/60 z-40 md:hidden"
@@ -141,6 +147,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
           <button
             onClick={() => setIsOpen(false)}
             className="md:hidden p-2 rounded-lg hover:bg-zinc-800 transition"
+            aria-label="Close menu"
           >
             <X size={24} />
           </button>
@@ -164,19 +171,18 @@ export default function Sidebar({ onLogout }: SidebarProps) {
                 }`}
               >
                 <Icon size={20} />
-
                 <span>{item.label}</span>
               </Link>
             );
           })}
         </nav>
-                <div className="mt-auto pt-8">
+
+        <div className="mt-auto pt-8">
           <button
             onClick={onLogout}
             className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-zinc-700 hover:bg-red-600 hover:border-red-600 transition-all duration-200"
           >
             <LogOut size={18} />
-
             <span>{t[language].logout}</span>
           </button>
         </div>

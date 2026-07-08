@@ -23,8 +23,7 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState(true);
 
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] =
-    useState("ALL");
+  const [statusFilter, setStatusFilter] = useState("ALL");
 
   const loadProjects = async () => {
     try {
@@ -34,20 +33,22 @@ export default function ProjectsPage() {
         `${process.env.NEXT_PUBLIC_API_URL}/projects`
       );
 
+      if (!response.ok) {
+        throw new Error("Failed to load projects");
+      }
+
       const data = await response.json();
 
       setProjects(data);
     } catch (error) {
-      console.error(error);
-      toast.error("Failed to load projects");
-    } finally {
-      setLoading(false);
-    }
+  console.error(error);
+  toast.error("Failed to load projects");
+} finally {
+  setLoading(false);
+}
   };
 
-  const deleteProject = async (
-    id: string
-  ) => {
+  const deleteProject = async (id: string) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this project?"
     );
@@ -63,23 +64,15 @@ export default function ProjectsPage() {
       );
 
       if (!response.ok) {
-        throw new Error(
-          "Failed to delete project"
-        );
+        throw new Error("Failed to delete project");
       }
 
-      toast.success(
-        "Project deleted successfully"
-      );
+      toast.success("Project deleted successfully");
 
       await loadProjects();
-
     } catch (error) {
       console.error(error);
-
-      toast.error(
-        "Failed to delete project"
-      );
+      toast.error("Failed to delete project");
     }
   };
 
@@ -87,44 +80,28 @@ export default function ProjectsPage() {
     loadProjects();
   }, []);
 
-  const filteredProjects = projects.filter(
-    (project) => {
+  const filteredProjects = projects.filter((project) => {
+    const matchesSearch = project.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
 
-      const matchesSearch =
-        project.name
-          .toLowerCase()
-          .includes(
-            search.toLowerCase()
-          );
+    const matchesStatus =
+      statusFilter === "ALL" ||
+      project.status === statusFilter;
 
-      const matchesStatus =
-        statusFilter === "ALL" ||
-        project.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
-      return (
-        matchesSearch &&
-        matchesStatus
-      );
-    }
-  );
+  const activeProjects = filteredProjects.filter(
+    (project) => project.status === "ACTIVE"
+  ).length;
 
-  const activeProjects =
-    filteredProjects.filter(
-      (project) =>
-        project.status === "ACTIVE"
-    ).length;
-
-  const completedProjects =
-    filteredProjects.filter(
-      (project) =>
-        project.status ===
-        "COMPLETED"
-    ).length;
+  const completedProjects = filteredProjects.filter(
+    (project) => project.status === "COMPLETED"
+  ).length;
 
   return (
-
-    <main className="min-h-screen bg-black text-white flex">
-
+        <main className="min-h-screen bg-black text-white flex">
       <Sidebar
         onLogout={() => {
           localStorage.removeItem("token");
@@ -137,41 +114,36 @@ export default function ProjectsPage() {
       />
 
       <section className="flex-1 p-8">
-
         <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-8 mb-12">
+          <div className="flex justify-end mb-8">
+  <LanguageSwitcher />
+</div>
 
-            <div>
+<div className="flex flex-col gap-6 mb-12">
 
-              <h1 className="text-5xl font-black">
-                Projects
-              </h1>
+  <div>
+    <h1 className="text-5xl font-black">
+      Projects
+    </h1>
 
-              <p className="text-zinc-400 mt-3 text-lg">
-                Manage your consulting projects
-              </p>
+    <p className="text-zinc-400 mt-3 text-lg">
+      Manage your consulting projects
+    </p>
+  </div>
 
-            </div>
+  <div>
+    <Link
+      href="/add-project"
+      className="inline-flex items-center gap-2 rounded-lg bg-white text-black px-4 py-2 text-sm font-semibold hover:bg-zinc-200 transition"
+    >
+      ➕ New Project
+    </Link>
+  </div>
 
-            <div className="flex flex-col items-end gap-4">
-
-              <LanguageSwitcher />
-
-              <Link
-                href="/add-project"
-                className="px-8 py-4 rounded-2xl bg-white text-black font-bold hover:scale-105 transition-all duration-300"
-              >
-                + New Project
-              </Link>
-
-            </div>
-
-          </div>
+</div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-
             <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-7 hover:border-white hover:-translate-y-1 transition-all duration-300">
-
               <p className="text-zinc-400">
                 Total Projects
               </p>
@@ -179,11 +151,9 @@ export default function ProjectsPage() {
               <h2 className="text-5xl font-black mt-4">
                 {filteredProjects.length}
               </h2>
-
             </div>
 
             <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-7 hover:border-white hover:-translate-y-1 transition-all duration-300">
-
               <p className="text-zinc-400">
                 Active
               </p>
@@ -191,11 +161,9 @@ export default function ProjectsPage() {
               <h2 className="text-5xl font-black text-green-400 mt-4">
                 {activeProjects}
               </h2>
-
             </div>
 
             <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-7 hover:border-white hover:-translate-y-1 transition-all duration-300">
-
               <p className="text-zinc-400">
                 Completed
               </p>
@@ -203,13 +171,10 @@ export default function ProjectsPage() {
               <h2 className="text-5xl font-black text-blue-400 mt-4">
                 {completedProjects}
               </h2>
-
             </div>
-
           </div>
 
           <div className="space-y-6 mb-10">
-
             <input
               type="text"
               placeholder="🔍 Search projects..."
@@ -221,7 +186,6 @@ export default function ProjectsPage() {
             />
 
             <div className="flex flex-wrap gap-3">
-
               <button
                 onClick={() =>
                   setStatusFilter("ALL")
@@ -260,21 +224,15 @@ export default function ProjectsPage() {
               >
                 Completed
               </button>
-
             </div>
-
           </div>
 
-{loading ? (
-
-  <div className="text-center py-20 text-zinc-400">
-    Loading...
-  </div>
-
-) : filteredProjects.length === 0 ? (
-
+          {loading ? (
+            <div className="text-center py-20 text-zinc-400">
+              Loading...
+            </div>
+          ) : filteredProjects.length === 0 ? (
             <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-16 text-center">
-
               <h2 className="text-3xl font-bold">
                 No Projects Found
               </h2>
@@ -282,97 +240,80 @@ export default function ProjectsPage() {
               <p className="text-zinc-400 mt-4">
                 Try another search or create a new project.
               </p>
-
             </div>
-
           ) : (
-
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-
               {filteredProjects.map((project) => (
-
                 <div
                   key={project.id}
                   className="bg-zinc-950 border border-zinc-800 rounded-3xl p-7 hover:border-white hover:-translate-y-2 transition-all duration-300 shadow-lg"
                 >
-
                   <div className="flex justify-between items-start">
-
                     <div className="flex-1">
-
                       <h2 className="text-2xl font-bold">
                         {project.name}
                       </h2>
 
                       <p className="text-zinc-400 mt-3 min-h-[70px]">
-                        {project.description || "No description"}
+                        {project.description ||
+                          "No description"}
                       </p>
-
                     </div>
 
                     <span
-                      className={`ml-4 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap ${
+                      className={`ml-4 px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap ${
                         project.status === "ACTIVE"
                           ? "bg-green-500/20 text-green-400"
-                          : project.status === "COMPLETED"
+                          : project.status ===
+                            "COMPLETED"
                           ? "bg-blue-500/20 text-blue-400"
                           : "bg-yellow-500/20 text-yellow-400"
                       }`}
                     >
                       {project.status}
                     </span>
-
                   </div>
 
                   <div className="border-t border-zinc-800 my-6"></div>
 
                   <div className="flex justify-between items-center">
-
                     <div>
-
                       <p className="text-zinc-500 text-sm">
                         Budget
                       </p>
 
                       <p className="text-3xl font-black mt-2">
                         $
-                        {project.budget.toLocaleString()}
+                        {new Intl.NumberFormat(
+                          "en-US"
+                        ).format(project.budget)}
                       </p>
-
                     </div>
-
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 mt-8">
-
-                    <Link
-                      href={`/edit-project/${project.id}`}
-                      className="text-center rounded-xl border border-zinc-700 py-3 font-semibold hover:border-white hover:bg-zinc-900 transition-all duration-300"
-                    >
-                      ✏️ Edit
-                    </Link>
-
-                    <button
-                      onClick={() => deleteProject(project.id)}
-                      className="rounded-xl bg-red-600 py-3 font-semibold hover:bg-red-500 transition-all duration-300"
-                    >
-                      🗑 Delete
-                    </button>
-
                   </div>
 
+                  <div className="flex gap-3 mt-8">
+
+  <Link
+    href={`/edit-project/${project.id}`}
+    className="inline-flex items-center justify-center gap-2 rounded-xl border border-zinc-700 px-5 py-3 font-semibold hover:border-white hover:bg-zinc-900 transition-all duration-300"
+  >
+    ✏️ Edit
+  </Link>
+
+  <button
+    onClick={() => deleteProject(project.id)}
+    className="inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 px-5 py-3 font-semibold hover:bg-red-500 transition-all duration-300"
+  >
+    🗑 Delete
+  </button>
+
+</div>
                 </div>
-
               ))}
-
             </div>
-
           )}
-
         </div>
-
       </section>
-
     </main>
-
   );
 }
