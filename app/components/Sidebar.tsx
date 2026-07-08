@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { translations } from "@/lib/translations";
+
 import {
   LayoutDashboard,
   Users,
@@ -34,28 +36,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
     }
   }, []);
 
-  const t = {
-    uk: {
-      platform: "Консалтингова платформа",
-      overview: "Огляд",
-      clients: "Клієнти",
-      projects: "Проєкти",
-      tasks: "Завдання",
-      analytics: "Аналітика",
-      settings: "Налаштування",
-      logout: "Вийти",
-    },
-    en: {
-      platform: "Consulting Platform",
-      overview: "Overview",
-      clients: "Clients",
-      projects: "Projects",
-      tasks: "Tasks",
-      analytics: "Analytics",
-      settings: "Settings",
-      logout: "Logout",
-    },
-  };
+  const t = translations;
 
   const menuItems = [
     {
@@ -156,7 +137,6 @@ export default function Sidebar({ onLogout }: SidebarProps) {
         <nav className="flex flex-col gap-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
-
             const active = pathname === item.href;
 
             return (

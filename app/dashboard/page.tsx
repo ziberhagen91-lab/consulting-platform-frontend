@@ -207,7 +207,16 @@ setStats(statsData);
           key={index}
           className="flex flex-col sm:flex-row sm:justify-between gap-2 border-b border-zinc-900 pb-4"
         >
-          <p>{activity.title}</p>
+          <p>
+  {activity.type === "client" &&
+    `${t[language].newClient} "${activity.name}"`}
+
+  {activity.type === "project" &&
+    `${t[language].newProject} "${activity.name}"`}
+
+  {activity.type === "task" &&
+    `${t[language].newTask} "${activity.name}"`}
+</p>
 
           <span className="text-zinc-500">
             {new Date(

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
+import { translations } from "@/lib/translations";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -39,88 +40,7 @@ export default function ClientsPage() {
     }
   }, []);
 
-  const t = {
-    uk: {
-      back: "Назад",
-      clients: "Клієнти",
-      manageClients: "Керуйте своїми клієнтами",
-
-      addClient: "Додати клієнта",
-
-      searchClients: "Пошук клієнтів...",
-
-      noClients: "Клієнтів не знайдено",
-
-      createFirst:
-        "Створіть свого першого клієнта",
-
-      addFirst:
-        "Додати першого клієнта",
-
-      active: "Активний",
-
-      edit: "Редагувати",
-
-      delete: "Видалити",
-
-      confirmDelete:
-        "Видалити цього клієнта?",
-
-      clientDeleted:
-        "Клієнта успішно видалено",
-
-      failedDelete:
-        "Не вдалося видалити клієнта",
-
-      failedLoad:
-        "Не вдалося завантажити клієнтів",
-
-      invalidResponse:
-        "Некоректна відповідь сервера",
-    },
-
-    en: {
-      back: "Back",
-      clients: "Clients",
-      manageClients:
-        "Manage your consulting clients",
-
-      addClient: "Add Client",
-
-      searchClients:
-        "Search clients...",
-
-      noClients:
-        "No clients found",
-
-      createFirst:
-        "Create your first consulting client",
-
-      addFirst:
-        "Add First Client",
-
-      active: "Active",
-
-      edit: "Edit",
-
-      delete: "Delete",
-
-      confirmDelete:
-        "Delete this client?",
-
-      clientDeleted:
-        "Client deleted successfully",
-
-      failedDelete:
-        "Failed to delete client",
-
-      failedLoad:
-        "Failed to load clients",
-
-      invalidResponse:
-        "Invalid response from backend",
-    },
-  };
+  const t = translations;
 
   useEffect(() => {
     const storedUser =

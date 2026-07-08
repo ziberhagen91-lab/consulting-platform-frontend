@@ -5,6 +5,7 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import { translations } from "@/lib/translations";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -32,75 +33,7 @@ export default function TasksPage() {
     }
   }, []);
 
-  const t = {
-    uk: {
-      title: "Завдання",
-      back: "Назад до панелі",
-      total: "Всього завдань",
-      addTask: "Додати завдання",
-
-      loading: "Завантаження...",
-
-      noTasks: "Завдань поки немає",
-
-      noTasksText:
-        "Створіть перше завдання для початку роботи.",
-
-      status: "Статус",
-
-      priority: "Пріоритет",
-
-      edit: "Редагувати",
-
-      delete: "Видалити",
-
-      failedLoad:
-        "Не вдалося завантажити завдання",
-
-      failedDelete:
-        "Не вдалося видалити завдання",
-
-      taskDeleted:
-        "Завдання успішно видалено",
-
-      invalidResponse:
-        "Некоректна відповідь сервера",
-    },
-
-    en: {
-      title: "Tasks",
-      back: "Back to Dashboard",
-      total: "Total Tasks",
-      addTask: "Add Task",
-
-      loading: "Loading...",
-
-      noTasks: "No tasks yet",
-
-      noTasksText:
-        "Create your first task to get started.",
-
-      status: "Status",
-
-      priority: "Priority",
-
-      edit: "Edit",
-
-      delete: "Delete",
-
-      failedLoad:
-        "Failed to load tasks",
-
-      failedDelete:
-        "Failed to delete task",
-
-      taskDeleted:
-        "Task deleted successfully",
-
-      invalidResponse:
-        "Invalid response from backend",
-    },
-  };
+  const t = translations;
 
   useEffect(() => {
     const loadTasks = async () => {
@@ -138,8 +71,8 @@ export default function TasksPage() {
         console.error(error);
 
         toast.error(
-          t[language].failedLoad
-        );
+  t[language].failedLoadTasks
+);
       } finally {
         setLoading(false);
       }
@@ -149,10 +82,8 @@ export default function TasksPage() {
   }, []);
     const handleDelete = async (id: string) => {
     const confirmed = window.confirm(
-      language === "uk"
-        ? "Видалити це завдання?"
-        : "Delete this task?"
-    );
+  t[language].confirmDeleteTask
+);
 
     if (!confirmed) return;
 
@@ -189,8 +120,8 @@ export default function TasksPage() {
       console.error(error);
 
       toast.error(
-        t[language].failedDelete
-      );
+  t[language].failedDeleteTask
+);
     }
   };
 
@@ -235,11 +166,11 @@ export default function TasksPage() {
 
           <div>
             <h1 className="text-3xl md:text-4xl font-bold">
-              {t[language].title}
+              {t[language].tasksTitle}
             </h1>
 
             <p className="text-zinc-400 mt-1">
-              {t[language].total}: {tasks.length}
+              {t[language].totalTasks}: {tasks.length}
             </p>
           </div>
 

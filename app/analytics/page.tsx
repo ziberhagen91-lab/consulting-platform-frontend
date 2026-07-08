@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
+import { translations } from "@/lib/translations";
 
 import {
   ResponsiveContainer,
@@ -67,81 +68,7 @@ useEffect(() => {
 
   loadAnalytics();
 }, []);
-  const t = {
-    uk: {
-      back: "Назад",
-
-      analytics: "Аналітика",
-
-      subtitle:
-        "Статистика та показники платформи",
-
-      clients: "Клієнти",
-
-tasks: "Завдання",
-
-projects: "Проєкти",
-
-      growth: "Зростання",
-
-      revenueChart:
-        "Аналітика доходу",
-
-      monthlyGrowth:
-        "Щомісячне зростання доходу",
-
-      live: "Оновлюється",
-
-      activeClients:
-        "Активні клієнти",
-
-      totalTasks:
-  "Усього завдань",
-
-      activeProjects:
-        "Активні проєкти",
-
-      businessGrowth:
-        "Ріст бізнесу",
-    },
-
-    en: {
-      back: "Back",
-
-      analytics: "Analytics",
-
-      subtitle:
-        "Platform statistics and metrics",
-
-      clients: "Clients",
-
-      tasks: "Tasks",
-
-      projects: "Projects",
-
-      growth: "Growth",
-
-      revenueChart:
-        "Revenue Analytics",
-
-      monthlyGrowth:
-        "Monthly revenue growth",
-
-      live: "Live",
-
-      activeClients:
-        "Active Clients",
-
-      totalTasks:
-  "Total Tasks",
-
-      activeProjects:
-        "Active Projects",
-
-      businessGrowth:
-        "Business Growth",
-    },
-  };
+  const t = translations;
     return (
     <main className="min-h-screen bg-black text-white p-4 md:p-10">
 
@@ -251,8 +178,8 @@ projects: "Проєкти",
           </p>
 
           <p className="text-zinc-500 text-sm mt-1">
-            Completed Tasks
-          </p>
+  {t[language].completedTasksDesc}
+</p>
 
         </div>
 
@@ -261,8 +188,8 @@ projects: "Проєкти",
       <div className="mt-10 bg-zinc-950 border border-zinc-800 rounded-2xl p-6">
 
         <h2 className="text-2xl font-bold">
-          {t[language].revenueChart}
-        </h2>
+  {t[language].revenueAnalytics}
+</h2>
 
         <p className="text-zinc-400 mt-2 mb-8">
           {t[language].monthlyGrowth}
