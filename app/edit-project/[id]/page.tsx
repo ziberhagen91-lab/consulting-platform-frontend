@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 
 import Sidebar from "@/app/components/Sidebar";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
+import { translations } from "@/lib/translations";
 
 type Project = {
   id: string;
@@ -22,6 +23,18 @@ export default function EditProjectPage() {
   const params = useParams();
 
   const [loading, setLoading] = useState(true);
+  const [language, setLanguage] =
+  useState<"uk" | "en">("uk");
+
+useEffect(() => {
+  const saved = localStorage.getItem("language");
+
+  if (saved === "uk" || saved === "en") {
+    setLanguage(saved);
+  }
+}, []);
+
+const t = translations[language];
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -55,7 +68,7 @@ export default function EditProjectPage() {
 
         console.error(error);
 
-        toast.error("Failed to load project");
+        toast.error(t.failedLoadProject);
 
       } finally {
 
@@ -93,7 +106,7 @@ export default function EditProjectPage() {
         }
       );
 
-      toast.success("Project updated");
+      toast.success(t.projectUpdated);
 
       router.push("/projects");
 
@@ -101,7 +114,7 @@ export default function EditProjectPage() {
 
       console.error(error);
 
-      toast.error("Failed to update project");
+      toast.error(t.failedUpdateProject);
 
     }
 
@@ -130,13 +143,13 @@ export default function EditProjectPage() {
 
             <div>
 
-              <h1 className="text-5xl font-black">
-                Edit Project
-              </h1>
+              <h1 className="text-3xl font-bold">
+  {t.editProjectTitle}
+</h1>
 
               <p className="text-zinc-400 mt-2">
-                Update your project
-              </p>
+  {t.editProjectSubtitle}
+</p>
 
             </div>
 
@@ -157,8 +170,8 @@ export default function EditProjectPage() {
                               <div>
 
                 <label className="block mb-2 font-semibold">
-                  Project Name
-                </label>
+  {t.projectName}
+</label>
 
                 <input
                   type="text"
@@ -173,8 +186,8 @@ export default function EditProjectPage() {
               <div>
 
                 <label className="block mb-2 font-semibold">
-                  Description
-                </label>
+  {t.projectDescription}
+</label>
 
                 <textarea
                   value={description}
@@ -188,8 +201,8 @@ export default function EditProjectPage() {
               <div>
 
                 <label className="block mb-2 font-semibold">
-                  Budget
-                </label>
+  {t.projectBudget}
+</label>
 
                 <input
                   type="number"
@@ -205,8 +218,8 @@ export default function EditProjectPage() {
               <div>
 
                 <label className="block mb-2 font-semibold">
-                  Status
-                </label>
+  {t.status}
+</label>
 
                 <select
                   value={status}
@@ -216,16 +229,16 @@ export default function EditProjectPage() {
                   className="w-full rounded-xl bg-zinc-950 border border-zinc-800 p-4 outline-none focus:border-white"
                 >
                   <option value="ACTIVE">
-                    Active
-                  </option>
+  {t.activeStatus}
+</option>
 
-                  <option value="COMPLETED">
-                    Completed
-                  </option>
+<option value="COMPLETED">
+  {t.completedStatus}
+</option>
 
-                  <option value="PAUSED">
-                    Paused
-                  </option>
+<option value="PAUSED">
+  {t.pausedStatus}
+</option>
 
                 </select>
 
@@ -237,7 +250,7 @@ export default function EditProjectPage() {
                   type="submit"
                   className="flex-1 rounded-xl bg-white text-black py-4 font-bold hover:scale-105 transition"
                 >
-                  Save Changes
+                  {t.saveChanges}
                 </button>
 
                 <button
@@ -245,7 +258,7 @@ export default function EditProjectPage() {
                   onClick={() => router.push("/projects")}
                   className="flex-1 rounded-xl border border-zinc-700 py-4 hover:border-white transition"
                 >
-                  Cancel
+                  {t.cancel}
                 </button>
 
               </div>

@@ -65,7 +65,7 @@ const t = translations[language];
   return (
     <main className="min-h-screen bg-black text-white">
 
-      <div className="max-w-5xl mx-auto px-6 py-10">
+      <div className="max-w-4xl mx-auto px-6 py-10">
 
         <div className="flex justify-between items-center mb-8">
 
@@ -80,9 +80,9 @@ const t = translations[language];
 
         </div>
 
-        <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-10">
+        <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-8">
 
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-3xl font-bold">
   {t.addProjectTitle}
 </h1>
 
@@ -103,6 +103,7 @@ const t = translations[language];
 
               <input
                 type="text"
+                placeholder={t.projectNamePlaceholder}
                 value={name}
                 onChange={(e) =>
                   setName(e.target.value)
@@ -120,6 +121,7 @@ const t = translations[language];
               </label>
 
               <textarea
+              placeholder={t.projectDescriptionPlaceholder}
                 value={description}
                 onChange={(e) =>
                   setDescription(e.target.value)
@@ -140,6 +142,7 @@ const t = translations[language];
 
                 <input
                   type="number"
+                  placeholder={t.projectBudgetPlaceholder}
                   value={budget}
                   onChange={(e) =>
                     setBudget(e.target.value)
@@ -163,16 +166,16 @@ const t = translations[language];
                   className="w-full h-14 px-5 rounded-2xl bg-zinc-900 border border-zinc-700 focus:border-white outline-none transition"
                 >
                   <option value="ACTIVE">
-                    ACTIVE
-                  </option>
+  {t.activeStatus}
+</option>
 
-                  <option value="PAUSED">
-                    PAUSED
-                  </option>
+<option value="PAUSED">
+  {t.pausedStatus}
+</option>
 
-                  <option value="COMPLETED">
-                    COMPLETED
-                  </option>
+<option value="COMPLETED">
+  {t.completedStatus}
+</option>
 
                 </select>
 
@@ -180,16 +183,16 @@ const t = translations[language];
 
             </div>
 
-            <div className="pt-2 flex justify-center">
+            <div className="pt-4 flex justify-center">
 
-              <button
-                type="submit"
-                className="w-full md:w-64 py-3 bg-white text-black rounded-xl font-semibold hover:opacity-90 transition"
-              >
-                {t.createProject}
-              </button>
+  <button
+    type="submit"
+    className="px-[72px] py-3.5 rounded-xl bg-white text-black font-semibold text-lg hover:scale-105 hover:shadow-lg transition-all duration-300"
+  >
+    {t.createProject}
+  </button>
 
-            </div>
+</div>
 
           </form>
 
