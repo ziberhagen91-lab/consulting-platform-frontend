@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { translations } from "@/lib/translations";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
 
@@ -22,30 +23,7 @@ export default function AddClientPage() {
     }
   }, []);
 
-  const text = {
-    uk: {
-      title: "Додати клієнта",
-      subtitle: "Створіть нового клієнта",
-      clientName: "Ім'я клієнта",
-      serviceType: "Тип послуги",
-      create: "Створити клієнта",
-      creating: "Створення...",
-      success: "Клієнта успішно створено",
-      error: "Не вдалося створити клієнта",
-    },
-    en: {
-      title: "Add Client",
-      subtitle: "Create a new consulting client",
-      clientName: "Client Name",
-      serviceType: "Service Type",
-      create: "Create Client",
-      creating: "Creating...",
-      success: "Client created successfully",
-      error: "Failed to create client",
-    },
-  };
-
-  const t = text[language];
+  const t = translations[language];
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -76,12 +54,12 @@ export default function AddClientPage() {
         throw new Error(await response.text());
       }
 
-      toast.success(t.success);
+      toast.success(t.clientCreated);
       router.push("/clients");
       router.refresh();
     } catch (error) {
       console.error(error);
-      toast.error(t.error);
+      toast.error(t.failedCreateClient);
     } finally {
       setLoading(false);
     }
@@ -92,11 +70,11 @@ export default function AddClientPage() {
       <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-6 md:p-8">
 
         <h1 className="text-3xl md:text-4xl font-bold mb-2">
-          {t.title}
+          {t.addClientTitle}
         </h1>
 
         <p className="text-zinc-400 mb-8">
-          {t.subtitle}
+          {t.addClientSubtitle}
         </p>
 
         <form
@@ -130,7 +108,7 @@ export default function AddClientPage() {
             disabled={loading}
             className="bg-white text-black rounded-xl py-3 font-semibold hover:opacity-80 transition disabled:opacity-50"
           >
-            {loading ? t.creating : t.create}
+            {loading ? t.creatingClient : t.createClient}
           </button>
         </form>
 

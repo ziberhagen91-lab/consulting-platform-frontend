@@ -38,6 +38,17 @@ export const translations = {
 
     manageClients: "Manage your consulting clients",
     addClient: "Add Client",
+    addClientTitle: "Add Client",
+addClientSubtitle: "Create a new consulting client",
+
+clientName: "Client Name",
+serviceType: "Service Type",
+
+createClient: "Create Client",
+creatingClient: "Creating...",
+
+clientCreated: "Client created successfully",
+failedCreateClient: "Failed to create client",
     searchClients: "Search clients...",
     noClients: "No clients found",
     createFirst: "Create your first consulting client",
@@ -70,6 +81,17 @@ export const translations = {
     confirmDeleteTask: "Delete this task?",
 
     projects: "Projects",
+    addProjectTitle: "Add Project",
+addProjectSubtitle: "Create a new project for your client.",
+
+projectName: "Project Name",
+projectDescription: "Description",
+projectBudget: "Budget",
+
+createProject: "Create Project",
+
+projectCreated: "Project created successfully",
+failedCreateProject: "Failed to create project",
     activeProjects: "Active projects",
 
     revenue: "Revenue",
@@ -133,6 +155,17 @@ export const translations = {
 
     manageClients: "Керуйте своїми клієнтами",
     addClient: "Додати клієнта",
+    addClientTitle: "Додати клієнта",
+addClientSubtitle: "Створіть нового клієнта",
+
+clientName: "Ім'я клієнта",
+serviceType: "Тип послуги",
+
+createClient: "Створити клієнта",
+creatingClient: "Створення...",
+
+clientCreated: "Клієнта успішно створено",
+failedCreateClient: "Не вдалося створити клієнта",
     searchClients: "Пошук клієнтів...",
     noClients: "Клієнтів не знайдено",
     createFirst: "Створіть свого першого клієнта",
@@ -165,6 +198,17 @@ export const translations = {
     confirmDeleteTask: "Видалити це завдання?",
 
     projects: "Проєкти",
+    addProjectTitle: "Додати проєкт",
+addProjectSubtitle: "Створіть новий проєкт для клієнта.",
+
+projectName: "Назва проєкту",
+projectDescription: "Опис",
+projectBudget: "Бюджет",
+
+createProject: "Створити проєкт",
+
+projectCreated: "Проєкт успішно створено",
+failedCreateProject: "Не вдалося створити проєкт",
     activeProjects: "Активні проєкти",
 
     revenue: "Дохід",

@@ -1,14 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
+import { translations } from "@/lib/translations";
 
 export default function AddProjectPage() {
   const router = useRouter();
+  const [language, setLanguage] =
+  useState<"uk" | "en">("uk");
+
+useEffect(() => {
+  const saved = localStorage.getItem("language");
+
+  if (saved === "uk" || saved === "en") {
+    setLanguage(saved);
+  }
+}, []);
+
+const t = translations[language];
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -41,11 +54,11 @@ export default function AddProjectPage() {
         throw new Error();
       }
 
-      toast.success("Project created");
+      toast.success(t.projectCreated);
 
       router.push("/projects");
     } catch {
-      toast.error("Failed to create project");
+      toast.error(t.failedCreateProject);
     }
   };
 
@@ -54,13 +67,13 @@ export default function AddProjectPage() {
 
       <div className="max-w-5xl mx-auto px-6 py-10">
 
-        <div className="flex justify-between items-center mb-10">
+        <div className="flex justify-between items-center mb-8">
 
           <Link
             href="/projects"
-            className="px-5 py-3 rounded-xl border border-zinc-700 hover:bg-zinc-900 transition"
+            className="px-4 py-2 text-sm rounded-xl border border-zinc-700 hover:bg-zinc-900 transition"
           >
-            ← Back
+            ← {t.back}
           </Link>
 
           <LanguageSwitcher />
@@ -69,23 +82,23 @@ export default function AddProjectPage() {
 
         <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-10">
 
-          <h1 className="text-5xl font-bold">
-            Add Project
-          </h1>
+          <h1 className="text-4xl font-bold">
+  {t.addProjectTitle}
+</h1>
 
-          <p className="text-zinc-400 mt-3 mb-10">
-            Create a new project for your client.
-          </p>
+          <p className="text-zinc-400 mt-2 mb-8">
+  {t.addProjectSubtitle}
+</p>
 
           <form
-            onSubmit={handleSubmit}
-            className="space-y-8"
-          >
+  onSubmit={handleSubmit}
+  className="space-y-6"
+>
 
             <div>
 
               <label className="block mb-3 text-zinc-300">
-                Project Name
+                {t.projectName}
               </label>
 
               <input
@@ -103,7 +116,7 @@ export default function AddProjectPage() {
             <div>
 
               <label className="block mb-3 text-zinc-300">
-                Description
+                {t.projectDescription}
               </label>
 
               <textarea
@@ -111,18 +124,18 @@ export default function AddProjectPage() {
                 onChange={(e) =>
                   setDescription(e.target.value)
                 }
-                rows={6}
+                rows={4}
                 className="w-full rounded-2xl bg-zinc-900 border border-zinc-700 p-5 focus:border-white outline-none transition resize-none"
               />
 
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
 
               <div>
 
                 <label className="block mb-3 text-zinc-300">
-                  Budget
+                  {t.projectBudget}
                 </label>
 
                 <input
@@ -139,7 +152,7 @@ export default function AddProjectPage() {
               <div>
 
                 <label className="block mb-3 text-zinc-300">
-                  Status
+                  {t.status}
                 </label>
 
                 <select
@@ -167,13 +180,13 @@ export default function AddProjectPage() {
 
             </div>
 
-            <div className="pt-4">
+            <div className="pt-2 flex justify-center">
 
               <button
                 type="submit"
-                className="w-full md:w-auto px-10 py-4 bg-white text-black rounded-2xl font-bold hover:scale-105 transition"
+                className="w-full md:w-64 py-3 bg-white text-black rounded-xl font-semibold hover:opacity-90 transition"
               >
-                Create Project
+                {t.createProject}
               </button>
 
             </div>
