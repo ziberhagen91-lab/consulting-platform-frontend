@@ -5,14 +5,22 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
+import LanguageSwitcher from "@/app/components/LanguageSwitcher";
+import { translations } from "@/lib/translations";
+
 type Client = {
   id: string;
   name: string;
 };
 
 export default function AddTaskPage() {
+  const router = useRouter();
+
   const [language, setLanguage] =
     useState<"uk" | "en">("uk");
+
+  const [loading, setLoading] =
+    useState(false);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] =
@@ -28,10 +36,6 @@ export default function AddTaskPage() {
 
   const [clients, setClients] =
     useState<Client[]>([]);
-  const [loading, setLoading] =
-    useState(false);
-
-  const router = useRouter();
 
   useEffect(() => {
     const saved =
@@ -42,36 +46,7 @@ export default function AddTaskPage() {
     }
   }, []);
 
-  const t = {
-    uk: {
-      title: "Створити завдання",
-      subtitle: "Додайте нове завдання",
-      taskTitle: "Назва завдання",
-      description: "Опис",
-      noClient: "Без клієнта",
-      create: "Створити завдання",
-      creating: "Створення...",
-      taskCreated: "Завдання створено",
-      createFailed:
-        "Не вдалося створити завдання",
-      loadClientsFailed:
-        "Не вдалося завантажити клієнтів",
-    },
-    en: {
-      title: "Add Task",
-      subtitle: "Create a new task",
-      taskTitle: "Task Title",
-      description: "Description",
-      noClient: "No Client",
-      create: "Create Task",
-      creating: "Creating...",
-      taskCreated: "Task created",
-      createFailed:
-        "Failed to create task",
-      loadClientsFailed:
-        "Failed to load clients",
-    },
-  };
+  const t = translations[language];
 
   useEffect(() => {
     const loadClients = async () => {
@@ -98,13 +73,13 @@ export default function AddTaskPage() {
         console.error(error);
 
         toast.error(
-          t[language].loadClientsFailed
+          t.loadClientsFailed
         );
       }
     };
 
     loadClients();
-  }, [language]);
+  }, [t]);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -114,16 +89,8 @@ export default function AddTaskPage() {
     setLoading(true);
 
     try {
-      const taskData = {
-        title,
-        description,
-        status,
-        priority,
-        dueDate: dueDate
-          ? new Date(dueDate).toISOString()
-          : undefined,
-        clientId: clientId || undefined,
-      };
+      const token =
+        localStorage.getItem("token");
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/tasks`,
@@ -132,20 +99,30 @@ export default function AddTaskPage() {
           headers: {
             "Content-Type":
               "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(taskData),
+          body: JSON.stringify({
+            title,
+            description,
+            status,
+            priority,
+            dueDate: dueDate
+              ? new Date(dueDate).toISOString()
+              : undefined,
+            clientId:
+              clientId || undefined,
+          }),
         }
       );
 
       if (!response.ok) {
-        const errorData =
-          await response.text();
-
-        throw new Error(errorData);
+        throw new Error(
+          await response.text()
+        );
       }
 
       toast.success(
-        t[language].taskCreated
+        t.taskCreated
       );
 
       router.push("/tasks");
@@ -154,7 +131,7 @@ export default function AddTaskPage() {
       console.error(error);
 
       toast.error(
-        t[language].createFailed
+        t.createFailed
       );
     } finally {
       setLoading(false);
@@ -162,23 +139,26 @@ export default function AddTaskPage() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center p-4 md:p-6">
-
+        <main className="min-h-screen bg-black text-white flex items-center justify-center p-4 md:p-6">
       <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-6 md:p-8">
 
-        <Link
-          href="/tasks"
-          className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition mb-6"
-        >
-          ← Назад до завдань
-        </Link>
+        <div className="flex items-center justify-between mb-6">
+          <Link
+            href="/tasks"
+            className="flex items-center gap-2 text-zinc-400 hover:text-white transition"
+          >
+            ← {language === "uk" ? "Назад" : "Back"}
+          </Link>
+
+          <LanguageSwitcher />
+        </div>
 
         <h1 className="text-3xl md:text-4xl font-bold mb-2">
-          {t[language].title}
+          {t.addTaskTitle}
         </h1>
 
         <p className="text-zinc-400 mb-8">
-          {t[language].subtitle}
+          {t.addTaskSubtitle}
         </p>
 
         <form
@@ -187,33 +167,28 @@ export default function AddTaskPage() {
         >
           <input
             type="text"
-            placeholder={t[language].taskTitle}
+            placeholder={t.taskTitle}
             value={title}
-            onChange={(e) =>
-              setTitle(e.target.value)
-            }
-            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
+            onChange={(e) => setTitle(e.target.value)}
+            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none focus:border-white transition"
             required
           />
 
           <textarea
-            placeholder={t[language].description}
+            placeholder={t.description}
             value={description}
-            onChange={(e) =>
-              setDescription(e.target.value)
-            }
-            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
+            onChange={(e) => setDescription(e.target.value)}
+            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none focus:border-white transition resize-none"
+            rows={4}
           />
 
           <select
             value={clientId}
-            onChange={(e) =>
-              setClientId(e.target.value)
-            }
-            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
+            onChange={(e) => setClientId(e.target.value)}
+            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none focus:border-white transition"
           >
             <option value="">
-              {t[language].noClient}
+              {t.noClient}
             </option>
 
             {clients.map((client) => (
@@ -228,10 +203,8 @@ export default function AddTaskPage() {
 
           <select
             value={status}
-            onChange={(e) =>
-              setStatus(e.target.value)
-            }
-            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
+            onChange={(e) => setStatus(e.target.value)}
+            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none focus:border-white transition"
           >
             <option value="TODO">📋 TODO</option>
             <option value="IN_PROGRESS">⏳ IN PROGRESS</option>
@@ -240,10 +213,8 @@ export default function AddTaskPage() {
 
           <select
             value={priority}
-            onChange={(e) =>
-              setPriority(e.target.value)
-            }
-            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
+            onChange={(e) => setPriority(e.target.value)}
+            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none focus:border-white transition"
           >
             <option value="LOW">🟢 LOW</option>
             <option value="MEDIUM">🟡 MEDIUM</option>
@@ -253,10 +224,8 @@ export default function AddTaskPage() {
           <input
             type="date"
             value={dueDate}
-            onChange={(e) =>
-              setDueDate(e.target.value)
-            }
-            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
+            onChange={(e) => setDueDate(e.target.value)}
+            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none focus:border-white transition"
           />
 
           <button
@@ -265,14 +234,13 @@ export default function AddTaskPage() {
             className="bg-white text-black rounded-xl py-3 font-semibold hover:opacity-80 transition disabled:opacity-50"
           >
             {loading
-              ? t[language].creating
-              : t[language].create}
+              ? t.creatingTask
+              : t.createTask}
           </button>
 
         </form>
 
       </div>
-
     </main>
   );
 }

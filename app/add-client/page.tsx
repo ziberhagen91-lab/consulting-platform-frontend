@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { ArrowLeft } from "lucide-react";
+import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 import { translations } from "@/lib/translations";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!;
@@ -35,20 +37,17 @@ export default function AddClientPage() {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(
-        `${API_URL}/clients`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            name: clientName,
-            service: serviceType,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/clients`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: clientName,
+          service: serviceType,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(await response.text());
@@ -69,6 +68,19 @@ export default function AddClientPage() {
     <main className="min-h-screen bg-black text-white flex items-center justify-center p-4 md:p-6">
       <div className="w-full max-w-xl border border-zinc-800 bg-zinc-950 rounded-2xl p-6 md:p-8">
 
+        <div className="flex items-center justify-between mb-6">
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="flex items-center gap-2 text-zinc-400 hover:text-white transition"
+          >
+            <ArrowLeft size={18} />
+            <span>{language === "uk" ? "Назад" : "Back"}</span>
+          </button>
+
+          <LanguageSwitcher />
+        </div>
+
         <h1 className="text-3xl md:text-4xl font-bold mb-2">
           {t.addClientTitle}
         </h1>
@@ -85,10 +97,8 @@ export default function AddClientPage() {
             type="text"
             placeholder={t.clientName}
             value={clientName}
-            onChange={(e) =>
-              setClientName(e.target.value)
-            }
-            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
+            onChange={(e) => setClientName(e.target.value)}
+            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none focus:border-white transition"
             required
           />
 
@@ -96,10 +106,8 @@ export default function AddClientPage() {
             type="text"
             placeholder={t.serviceType}
             value={serviceType}
-            onChange={(e) =>
-              setServiceType(e.target.value)
-            }
-            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none"
+            onChange={(e) => setServiceType(e.target.value)}
+            className="bg-black border border-zinc-800 rounded-xl px-4 py-3 outline-none focus:border-white transition"
             required
           />
 

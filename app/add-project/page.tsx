@@ -10,18 +10,21 @@ import { translations } from "@/lib/translations";
 
 export default function AddProjectPage() {
   const router = useRouter();
+
   const [language, setLanguage] =
-  useState<"uk" | "en">("uk");
+    useState<"uk" | "en">("uk");
 
-useEffect(() => {
-  const saved = localStorage.getItem("language");
+  const [loading, setLoading] = useState(false);
 
-  if (saved === "uk" || saved === "en") {
-    setLanguage(saved);
-  }
-}, []);
+  useEffect(() => {
+    const saved = localStorage.getItem("language");
 
-const t = translations[language];
+    if (saved === "uk" || saved === "en") {
+      setLanguage(saved);
+    }
+  }, []);
+
+  const t = translations[language];
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -33,13 +36,18 @@ const t = translations[language];
   ) => {
     e.preventDefault();
 
+    setLoading(true);
+
     try {
+      const token = localStorage.getItem("token");
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/projects`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             name,
@@ -57,14 +65,17 @@ const t = translations[language];
       toast.success(t.projectCreated);
 
       router.push("/projects");
-    } catch {
+      router.refresh();
+    } catch (error) {
+      console.error(error);
       toast.error(t.failedCreateProject);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-black text-white">
-
+        <main className="min-h-screen bg-black text-white">
       <div className="max-w-4xl mx-auto px-6 py-10">
 
         <div className="flex justify-between items-center mb-8">
@@ -83,17 +94,17 @@ const t = translations[language];
         <div className="bg-zinc-950 border border-zinc-800 rounded-3xl p-8">
 
           <h1 className="text-3xl font-bold">
-  {t.addProjectTitle}
-</h1>
+            {t.addProjectTitle}
+          </h1>
 
           <p className="text-zinc-400 mt-2 mb-8">
-  {t.addProjectSubtitle}
-</p>
+            {t.addProjectSubtitle}
+          </p>
 
           <form
-  onSubmit={handleSubmit}
-  className="space-y-6"
->
+            onSubmit={handleSubmit}
+            className="space-y-6"
+          >
 
             <div>
 
@@ -105,9 +116,7 @@ const t = translations[language];
                 type="text"
                 placeholder={t.projectNamePlaceholder}
                 value={name}
-                onChange={(e) =>
-                  setName(e.target.value)
-                }
+                onChange={(e) => setName(e.target.value)}
                 className="w-full h-14 px-5 rounded-2xl bg-zinc-900 border border-zinc-700 focus:border-white outline-none transition"
                 required
               />
@@ -121,11 +130,9 @@ const t = translations[language];
               </label>
 
               <textarea
-              placeholder={t.projectDescriptionPlaceholder}
+                placeholder={t.projectDescriptionPlaceholder}
                 value={description}
-                onChange={(e) =>
-                  setDescription(e.target.value)
-                }
+                onChange={(e) => setDescription(e.target.value)}
                 rows={4}
                 className="w-full rounded-2xl bg-zinc-900 border border-zinc-700 p-5 focus:border-white outline-none transition resize-none"
               />
@@ -144,9 +151,7 @@ const t = translations[language];
                   type="number"
                   placeholder={t.projectBudgetPlaceholder}
                   value={budget}
-                  onChange={(e) =>
-                    setBudget(e.target.value)
-                  }
+                  onChange={(e) => setBudget(e.target.value)}
                   className="w-full h-14 px-5 rounded-2xl bg-zinc-900 border border-zinc-700 focus:border-white outline-none transition"
                 />
 
@@ -160,23 +165,20 @@ const t = translations[language];
 
                 <select
                   value={status}
-                  onChange={(e) =>
-                    setStatus(e.target.value)
-                  }
+                  onChange={(e) => setStatus(e.target.value)}
                   className="w-full h-14 px-5 rounded-2xl bg-zinc-900 border border-zinc-700 focus:border-white outline-none transition"
                 >
                   <option value="ACTIVE">
-  {t.activeStatus}
-</option>
+                    {t.activeStatus}
+                  </option>
 
-<option value="PAUSED">
-  {t.pausedStatus}
-</option>
+                  <option value="PAUSED">
+                    {t.pausedStatus}
+                  </option>
 
-<option value="COMPLETED">
-  {t.completedStatus}
-</option>
-
+                  <option value="COMPLETED">
+                    {t.completedStatus}
+                  </option>
                 </select>
 
               </div>
@@ -185,14 +187,19 @@ const t = translations[language];
 
             <div className="pt-4 flex justify-center">
 
-  <button
-    type="submit"
-    className="px-[72px] py-3.5 rounded-xl bg-white text-black font-semibold text-lg hover:scale-105 hover:shadow-lg transition-all duration-300"
-  >
-    {t.createProject}
-  </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-[72px] py-3.5 rounded-xl bg-white text-black font-semibold text-lg hover:scale-105 hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:hover:scale-100"
+              >
+                {loading
+                  ? language === "uk"
+                    ? "Створення..."
+                    : "Creating..."
+                  : t.createProject}
+              </button>
 
-</div>
+            </div>
 
           </form>
 

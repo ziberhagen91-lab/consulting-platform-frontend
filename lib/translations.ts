@@ -56,6 +56,7 @@ export const translations = {
     addFirst: "Add First Client",
 
     active: "Active",
+    total: "Total",
     edit: "Edit",
     delete: "Delete",
 
@@ -68,7 +69,26 @@ export const translations = {
     tasks: "Tasks",
     tasksTitle: "Tasks",
     totalTasks: "Total tasks",
+
     addTask: "Add Task",
+    addTaskTitle: "Add Task",
+    addTaskSubtitle: "Create a new task",
+
+    taskTitle: "Task Title",
+    description: "Description",
+
+    status: "Status",
+    priority: "Priority",
+
+    noClient: "No Client",
+
+    createTask: "Create Task",
+    creatingTask: "Creating...",
+
+    taskCreated: "Task created successfully",
+    createFailed: "Failed to create task",
+
+    loadClientsFailed: "Failed to load clients",
 
     completedTasks: "Completed",
     completedTasksDesc: "Completed tasks",
@@ -78,15 +98,19 @@ export const translations = {
     noTasks: "No tasks yet",
     noTasksText: "Create your first task to get started.",
 
-    status: "Status",
-    priority: "Priority",
-
     failedLoadTasks: "Failed to load tasks",
     failedDeleteTask: "Failed to delete task",
     taskDeleted: "Task deleted successfully",
     confirmDeleteTask: "Delete this task?",
 
-    projects: "Projects",
+    editTaskTitle: "Edit Task",
+    editTaskSubtitle: "Update task information",
+
+    taskUpdated: "Task updated successfully",
+    failedUpdateTask: "Failed to update task",
+
+    saving: "Saving...",
+        projects: "Projects",
     manageProjects: "Manage your consulting projects",
     totalProjects: "Total Projects",
     addProject: "New Project",
@@ -156,9 +180,19 @@ export const translations = {
     newProject: "📁 Created project",
     newTask: "📋 Created task",
 
+    taskAnalytics: "Task Analytics",
+    taskOverview: "Current task status overview",
+    platformSummary: "Platform Summary",
+    completionRate: "Completion Rate",
+
+    todo: "To Do",
+    inProgress: "In Progress",
+    done: "Done",
+
     logout: "Logout",
   },
-    uk: {
+
+  uk: {
     features: "Можливості",
     pricing: "Ціни",
     contact: "Контакти",
@@ -191,8 +225,7 @@ export const translations = {
 
     back: "Назад",
     subtitle: "Статистика та показники платформи",
-
-    clients: "Клієнти",
+        clients: "Клієнти",
     activeClients: "Активні клієнти",
     manageClients: "Керуйте своїми клієнтами",
 
@@ -215,6 +248,7 @@ export const translations = {
     addFirst: "Додати першого клієнта",
 
     active: "Активний",
+    total: "Усього",
     edit: "Редагувати",
     delete: "Видалити",
 
@@ -227,7 +261,26 @@ export const translations = {
     tasks: "Завдання",
     tasksTitle: "Завдання",
     totalTasks: "Усього завдань",
+
     addTask: "Додати завдання",
+    addTaskTitle: "Створити завдання",
+    addTaskSubtitle: "Додайте нове завдання",
+
+    taskTitle: "Назва завдання",
+    description: "Опис",
+
+    status: "Статус",
+    priority: "Пріоритет",
+
+    noClient: "Без клієнта",
+
+    createTask: "Створити завдання",
+    creatingTask: "Створення...",
+
+    taskCreated: "Завдання успішно створено",
+    createFailed: "Не вдалося створити завдання",
+
+    loadClientsFailed: "Не вдалося завантажити клієнтів",
 
     completedTasks: "Виконано",
     completedTasksDesc: "Виконані завдання",
@@ -237,28 +290,35 @@ export const translations = {
     noTasks: "Завдань поки немає",
     noTasksText: "Створіть перше завдання для початку роботи.",
 
-    status: "Статус",
-    priority: "Пріоритет",
-
     failedLoadTasks: "Не вдалося завантажити завдання",
     failedDeleteTask: "Не вдалося видалити завдання",
     taskDeleted: "Завдання успішно видалено",
     confirmDeleteTask: "Видалити це завдання?",
 
-    projects: "Проєкти",
+    editTaskTitle: "Редагувати завдання",
+    editTaskSubtitle: "Оновіть інформацію про завдання",
+
+    taskUpdated: "Завдання успішно оновлено",
+    failedUpdateTask: "Не вдалося оновити завдання",
+
+    saving: "Збереження...",
+        projects: "Проєкти",
     manageProjects: "Керуйте своїми проєктами",
     totalProjects: "Усього проєктів",
     addProject: "Новий проєкт",
 
     searchProjects: "Пошук проєктів...",
     noProjects: "Проєктів не знайдено",
-    noProjectsText: "Спробуйте інший пошук або створіть новий проєкт.",
+    noProjectsText:
+      "Спробуйте інший пошук або створіть новий проєкт.",
 
     addProjectTitle: "Додати проєкт",
-    addProjectSubtitle: "Створіть новий проєкт для клієнта.",
+    addProjectSubtitle:
+      "Створіть новий проєкт для клієнта.",
 
     editProjectTitle: "Редагувати проєкт",
-    editProjectSubtitle: "Оновіть інформацію про проєкт",
+    editProjectSubtitle:
+      "Оновіть інформацію про проєкт",
 
     projectName: "Назва проєкту",
     projectDescription: "Опис",
@@ -266,9 +326,14 @@ export const translations = {
 
     createProject: "Створити проєкт",
 
-    projectNamePlaceholder: "Введіть назву проєкту",
-    projectDescriptionPlaceholder: "Опишіть проєкт...",
-    projectBudgetPlaceholder: "Введіть бюджет",
+    projectNamePlaceholder:
+      "Введіть назву проєкту",
+
+    projectDescriptionPlaceholder:
+      "Опишіть проєкт...",
+
+    projectBudgetPlaceholder:
+      "Введіть бюджет",
 
     activeStatus: "Активний",
     pausedStatus: "Призупинений",
@@ -279,42 +344,96 @@ export const translations = {
 
     budget: "Бюджет",
 
-    projectCreated: "Проєкт успішно створено",
-    failedCreateProject: "Не вдалося створити проєкт",
+    projectCreated:
+      "Проєкт успішно створено",
 
-    projectUpdated: "Проєкт успішно оновлено",
-    failedUpdateProject: "Не вдалося оновити проєкт",
-    failedLoadProject: "Не вдалося завантажити проєкт",
+    failedCreateProject:
+      "Не вдалося створити проєкт",
 
-    projectDeleted: "Проєкт успішно видалено",
-    failedDeleteProject: "Не вдалося видалити проєкт",
+    projectUpdated:
+      "Проєкт успішно оновлено",
+
+    failedUpdateProject:
+      "Не вдалося оновити проєкт",
+
+    failedLoadProject:
+      "Не вдалося завантажити проєкт",
+
+    projectDeleted:
+      "Проєкт успішно видалено",
+
+    failedDeleteProject:
+      "Не вдалося видалити проєкт",
+
     confirmDeleteProject:
       "Ви впевнені, що хочете видалити цей проєкт?",
 
-    saveChanges: "Зберегти зміни",
-    cancel: "Скасувати",
+    saveChanges:
+      "Зберегти зміни",
 
-    activeProjects: "Активні проєкти",
+    cancel:
+      "Скасувати",
 
-    revenue: "Дохід",
-    monthlyRevenue: "Місячний дохід",
+    activeProjects:
+      "Активні проєкти",
 
-    growth: "Зростання",
-    businessGrowth: "Ріст бізнесу",
+    revenue:
+      "Дохід",
 
-    recentActivity: "Остання активність",
+    monthlyRevenue:
+      "Місячний дохід",
 
-    revenueAnalytics: "Аналітика доходу",
-    monthlyGrowth: "Щомісячне зростання доходу",
+    growth:
+      "Зростання",
 
-    live: "Оновлюється",
+    businessGrowth:
+      "Ріст бізнесу",
 
-    noRecentActivity: "Немає останньої активності",
+    recentActivity:
+      "Остання активність",
 
-    newClient: "👤 Новий клієнт",
-    newProject: "📁 Створено проєкт",
-    newTask: "📋 Створено завдання",
+    revenueAnalytics:
+      "Аналітика доходу",
 
-    logout: "Вийти",
+    monthlyGrowth:
+      "Щомісячне зростання доходу",
+
+    live:
+      "Оновлюється",
+
+    noRecentActivity:
+      "Немає останньої активності",
+
+    newClient:
+      "👤 Новий клієнт",
+
+    newProject:
+      "📁 Створено проєкт",
+
+    newTask:
+      "📋 Створено завдання",
+          taskAnalytics:
+      "Аналітика завдань",
+
+    taskOverview:
+      "Поточний огляд статусів завдань",
+
+    platformSummary:
+      "Підсумок платформи",
+
+    completionRate:
+      "Відсоток виконання",
+
+    todo:
+      "До виконання",
+
+    inProgress:
+      "В процесі",
+
+    done:
+      "Виконано",
+
+    logout:
+      "Вийти",
   },
-  } as const;
+} as const;
