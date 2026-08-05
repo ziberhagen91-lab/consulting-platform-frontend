@@ -24,6 +24,9 @@ export default function DashboardHeader() {
   const [openNotifications, setOpenNotifications] =
     useState(false);
 
+    const [openSecurity, setOpenSecurity] =
+  useState(false);
+
   const [selectedDate, setSelectedDate] =
     useState(new Date());
 
@@ -32,6 +35,9 @@ export default function DashboardHeader() {
 
   const notificationsRef =
     useRef<HTMLDivElement>(null);
+
+    const securityRef =
+  useRef<HTMLDivElement>(null);
 
   const t = translations;
 
@@ -67,6 +73,14 @@ export default function DashboardHeader() {
         )
       ) {
         setOpenNotifications(false);
+        if (
+  securityRef.current &&
+  !securityRef.current.contains(
+    event.target as Node
+  )
+) {
+  setOpenSecurity(false);
+}
       }
     };
 
@@ -114,33 +128,110 @@ export default function DashboardHeader() {
       <div className="flex items-center gap-3">
                 {/* SECURITY */}
 
-        <button
-          className="
-            flex
-            items-center
-            gap-2
-            px-4
-            py-3
-            rounded-xl
-            bg-[#07152e]
-            border
-            border-blue-900
-            text-white
-            hover:border-blue-500
-            transition
-          "
-        >
-          <ShieldCheck
-            size={20}
-            className="text-yellow-400"
-          />
+<div
+  ref={securityRef}
+  className="relative"
+>
+  <button
+    onClick={() =>
+      setOpenSecurity(!openSecurity)
+    }
+    className="
+      flex
+      items-center
+      gap-2
+      px-4
+      py-3
+      rounded-xl
+      bg-[#07152e]
+      border
+      border-blue-900
+      text-white
+      hover:border-blue-500
+      hover:bg-[#0b1d3d]
+      transition
+    "
+  >
+    <ShieldCheck
+      size={20}
+      className="text-yellow-400"
+    />
 
-          <span>
-            {t[language].secure}
-          </span>
+    <span>
+      {t[language].secure}
+    </span>
 
-          <span className="w-2 h-2 rounded-full bg-green-500" />
-        </button>
+    <span className="w-2 h-2 rounded-full bg-green-500" />
+  </button>
+  {openSecurity && (
+  <div
+    className="
+      absolute
+      right-0
+      mt-2
+      w-80
+      rounded-2xl
+      bg-[#07152e]
+      border
+      border-blue-900
+      shadow-2xl
+      overflow-hidden
+      z-50
+    "
+  >
+    <div className="px-5 py-4 border-b border-blue-900">
+      <h3 className="font-semibold text-lg">
+        🛡️ {language === "uk"
+          ? "Стан системи"
+          : "System Status"}
+      </h3>
+    </div>
+
+    <div className="p-5 space-y-4">
+
+      <div className="flex justify-between">
+        <span>API</span>
+
+        <span className="text-green-400 font-semibold">
+          ● Online
+        </span>
+      </div>
+
+      <div className="flex justify-between">
+        <span>Database</span>
+
+        <span className="text-green-400 font-semibold">
+          ● Connected
+        </span>
+      </div>
+
+      <div className="flex justify-between">
+        <span>JWT</span>
+
+        <span className="text-green-400 font-semibold">
+          ● Active
+        </span>
+      </div>
+
+      <div className="flex justify-between">
+        <span>Version</span>
+
+        <span className="text-zinc-300">
+          v1.0.0
+        </span>
+      </div>
+
+      <div className="pt-4 border-t border-blue-900 text-sm text-zinc-400">
+        {language === "uk"
+          ? "Остання перевірка: щойно"
+          : "Last check: Just now"}
+      </div>
+
+    </div>
+  </div>
+)}
+
+</div>
 
         {/* LANGUAGE */}
 

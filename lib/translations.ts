@@ -9,6 +9,10 @@ export const translations = {
     heroDescription:
       "Modern SaaS platform for consultants, agencies and experts.",
 
+      heroUkraine: "Ukraine",
+heroUSA: "USA",
+heroWorld: "World",
+
     getStarted: "Get Started",
 
     learnMore: "Learn More",
@@ -358,6 +362,10 @@ export const translations = {
 
     heroDescription:
       "Сучасна SaaS-платформа для консультантів, агентств та експертів.",
+
+heroUkraine: "Україна",
+heroUSA: "США",
+heroWorld: "Світ",
 
     getStarted: "Почати",
 

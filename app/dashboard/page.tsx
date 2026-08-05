@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import toast from "react-hot-toast";
@@ -23,15 +24,65 @@ import {
 
 export default function DashboardPage() {
 
+
   const router = useRouter();
 
-  const [analytics, setAnalytics] = useState<any>(null);
-  const [stats, setStats] = useState<any>(null);
 
-  const [loading, setLoading] = useState(true);
+  const [analytics, setAnalytics] =
+    useState<any>(null);
+
+
+  const [stats, setStats] =
+    useState<any>(null);
+
+
+  const [loading, setLoading] =
+    useState(true);
+
 
   const [language, setLanguage] =
     useState<"uk" | "en">("uk");
+
+
+
+  const t = translations;
+
+
+
+  const revenueData = [
+
+    {
+      month: "Jan",
+      revenue: 1200
+    },
+
+    {
+      month: "Feb",
+      revenue: 2100
+    },
+
+    {
+      month: "Mar",
+      revenue: 1800
+    },
+
+    {
+      month: "Apr",
+      revenue: 2800
+    },
+
+    {
+      month: "May",
+      revenue: 3900
+    },
+
+    {
+      month: "Jun",
+      revenue: 4250
+    },
+
+  ];
+
 
 
   useEffect(() => {
@@ -39,45 +90,47 @@ export default function DashboardPage() {
     const saved =
       localStorage.getItem("language");
 
-    if (saved === "uk" || saved === "en") {
+
+    if (
+      saved === "uk" ||
+      saved === "en"
+    ) {
+
       setLanguage(saved);
+
     }
 
   }, []);
-
-
-  const t = translations;
-
-
-  const revenueData = [
-    { month: "Jan", revenue: 1200 },
-    { month: "Feb", revenue: 2100 },
-    { month: "Mar", revenue: 1800 },
-    { month: "Apr", revenue: 2800 },
-    { month: "May", revenue: 3900 },
-    { month: "Jun", revenue: 4250 },
-  ];
-
-
   useEffect(() => {
+
 
     const loadAnalytics = async () => {
 
-      const token = localStorage.getItem("token");
+
+      const token =
+        localStorage.getItem("token");
+
 
 
       if (!token) {
+
         router.push("/login");
+
         return;
+
       }
+
 
 
       try {
 
+
         const [
           analyticsResponse,
           statsResponse
+
         ] = await Promise.all([
+
 
           fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/analytics`,
@@ -90,6 +143,7 @@ export default function DashboardPage() {
           ),
 
 
+
           fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/dashboard/stats`,
             {
@@ -100,137 +154,197 @@ export default function DashboardPage() {
             }
           ),
 
+
         ]);
+
 
 
         if (
           !analyticsResponse.ok ||
           !statsResponse.ok
         ) {
+
           throw new Error(
             "Failed to load dashboard"
           );
+
         }
+
 
 
         const analyticsData =
           await analyticsResponse.json();
 
 
+
         const statsData =
           await statsResponse.json();
 
 
-        setAnalytics(analyticsData);
-        setStats(statsData);
+
+        setAnalytics(
+          analyticsData
+        );
+
+
+        setStats(
+          statsData
+        );
+
 
 
       } catch(error) {
 
+
         console.error(error);
 
+
         toast.error(
-          "Failed to load analytics"
+          "Failed to load dashboard"
         );
+
 
 
       } finally {
 
+
         setLoading(false);
+
 
       }
 
+
     };
+
 
 
     loadAnalytics();
 
 
+
   }, [router]);
-    if (loading) {
+
+
+
+
+
+  if (loading) {
+
 
     return (
-      <main className="
-        min-h-screen
-        bg-[#020817]
-        text-white
-        p-10
-      ">
 
-        <div className="animate-pulse">
+      <main
+        className="
+          min-h-screen
+          bg-[#020817]
+          text-white
+          p-10
+        "
+      >
 
-          <div className="
-            h-12
-            w-72
-            bg-blue-950
-            rounded-2xl
-            mb-10
-          " />
+        <div
+          className="
+            animate-pulse
+          "
+        >
 
-
-          <div className="
-            grid
-            grid-cols-1
-            sm:grid-cols-2
-            xl:grid-cols-4
-            gap-6
-          ">
-
-            {[1,2,3,4].map((item)=>(
-              <Card key={item}>
-
-                <div className="
-                  h-6
-                  w-32
-                  bg-blue-950
-                  rounded-xl
-                  mb-4
-                " />
+          <div
+            className="
+              h-12
+              w-72
+              bg-blue-950
+              rounded-2xl
+              mb-10
+            "
+          />
 
 
-                <div className="
-                  h-10
-                  w-40
-                  bg-blue-950
-                  rounded-xl
-                " />
+          <div
+            className="
+              grid
+              grid-cols-1
+              sm:grid-cols-2
+              xl:grid-cols-4
+              gap-6
+            "
+          >
 
-              </Card>
-            ))}
+            {[1,2,3,4].map(
+              (item)=>(
+
+                <Card
+                  key={item}
+                >
+
+                  <div
+                    className="
+                      h-6
+                      w-32
+                      bg-blue-950
+                      rounded-xl
+                      mb-4
+                    "
+                  />
+
+
+                  <div
+                    className="
+                      h-10
+                      w-40
+                      bg-blue-950
+                      rounded-xl
+                    "
+                  />
+
+
+                </Card>
+
+              )
+            )}
 
           </div>
 
+
         </div>
 
+
       </main>
+
     );
 
+
   }
+    return (
 
-
-
-  return (
-
-    <main className="
-      min-h-screen
-      bg-[#020817]
-      text-white
-      flex
-      flex-col
-      md:flex-row
-    ">
+    <main
+      className="
+        min-h-screen
+        bg-[#020817]
+        text-white
+        flex
+        flex-col
+        md:flex-row
+      "
+    >
 
 
       <Sidebar
 
         onLogout={() => {
 
+
           localStorage.removeItem("token");
+
           localStorage.removeItem("user");
 
-          toast.success("Logged out");
+
+          toast.success(
+            "Logged out"
+          );
+
 
           router.push("/login");
+
 
         }}
 
@@ -238,195 +352,474 @@ export default function DashboardPage() {
 
 
 
-      <section className="
-        flex-1
-        p-4
-        md:p-10
-      ">
+      <section
+        className="
+          flex-1
+          p-4
+          md:p-10
+        "
+      >
+
 
 
         <DashboardHeader />
 
 
-        <div className="
-          grid
-          grid-cols-1
-          sm:grid-cols-2
-          xl:grid-cols-4
-          gap-6
-        ">
+
+        {/* HERO */}
+
+        <div
+          className="
+            relative
+            h-[340px]
+            mb-8
+            rounded-3xl
+            overflow-hidden
+            border
+            border-blue-900/60
+            shadow-2xl
+          "
+        >
 
 
-          <Card className="
-            hover:border-blue-500
-            hover:-translate-y-1
-            transition
-          ">
+          <Image
+            src="/images/hero-map.png"
+            alt="World map"
+            fill
+            priority
+            className="
+              object-cover
+              scale-105
+            "
+          />
 
-            <h3 className="
-              text-xl
-              font-semibold
-              mb-2
-            ">
+
+
+          <div
+            className="
+              absolute
+              inset-0
+              bg-gradient-to-r
+              from-[#020817]
+              via-[#020817]/75
+              to-transparent
+            "
+          />
+
+
+
+          <div
+            className="
+              absolute
+              inset-0
+              bg-blue-900/10
+            "
+          />
+
+
+
+          <div
+            className="
+              relative
+              z-10
+              p-10
+              max-w-xl
+            "
+          >
+
+
+
+            <h2
+              className="
+                text-5xl
+                font-bold
+                text-white
+                leading-tight
+              "
+            >
+
+              {language === "uk"
+                ? "Ваш бізнес"
+                : "Your business"}
+
+
+
+              <span
+                className="
+                  text-yellow-400
+                  block
+                "
+              >
+
+                {language === "uk"
+                  ? "без меж"
+                  : "without limits"}
+
+              </span>
+
+
+            </h2>
+
+
+
+
+            <p
+              className="
+                mt-5
+                text-lg
+                text-zinc-300
+                max-w-md
+              "
+            >
+
+              {language === "uk"
+                ? "Ми поєднуємо Україну та США для вашого зростання у світі."
+                : "We connect Ukraine and the USA for your global growth."}
+
+
+            </p>
+
+
+
+
+
+            <div
+              className="
+                flex
+                items-center
+                gap-6
+                mt-8
+                text-white
+                font-semibold
+              "
+            >
+
+
+              <div
+                className="
+                  flex
+                  items-center
+                  gap-2
+                "
+              >
+
+                🇺🇦
+
+                <span>
+                  {t[language].heroUkraine}
+                </span>
+
+              </div>
+
+
+
+
+              <div
+                className="
+                  text-blue-400
+                  text-3xl
+                "
+              >
+                →
+              </div>
+
+
+
+
+              <div
+                className="
+                  flex
+                  items-center
+                  gap-2
+                "
+              >
+
+                🇺🇸
+
+                <span>
+                  {t[language].heroUSA}
+                </span>
+
+              </div>
+
+
+
+
+
+              <div
+                className="
+                  text-blue-400
+                  text-3xl
+                "
+              >
+                →
+              </div>
+
+
+
+
+
+              <div
+                className="
+                  flex
+                  items-center
+                  gap-2
+                "
+              >
+
+                🌍
+
+                <span>
+                  {t[language].heroWorld}
+                </span>
+
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+                {/* STAT CARDS */}
+
+
+        <div
+          className="
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            xl:grid-cols-4
+            gap-6
+          "
+        >
+
+
+
+          <Card
+            className="
+              hover:border-blue-500
+              hover:-translate-y-1
+              transition
+            "
+          >
+
+            <h3
+              className="
+                text-xl
+                font-semibold
+                mb-2
+              "
+            >
 
               {t[language].clients}
 
             </h3>
 
 
-            <p className="
-              text-4xl
-              font-bold
-            ">
+            <p
+              className="
+                text-4xl
+                font-bold
+              "
+            >
 
               {stats?.clients || 0}
 
             </p>
 
 
-            <p className="
-              text-zinc-400
-              mt-2
-            ">
+            <p
+              className="
+                text-zinc-400
+                mt-2
+              "
+            >
 
               {t[language].activeClients}
 
             </p>
+
 
           </Card>
 
 
 
 
-          <Card className="
-            hover:border-blue-500
-            hover:-translate-y-1
-            transition
-          ">
 
-            <h3 className="
-              text-xl
-              font-semibold
-              mb-2
-            ">
+          <Card
+            className="
+              hover:border-blue-500
+              hover:-translate-y-1
+              transition
+            "
+          >
+
+            <h3
+              className="
+                text-xl
+                font-semibold
+                mb-2
+              "
+            >
 
               {t[language].tasks}
 
             </h3>
 
 
-            <p className="
-              text-4xl
-              font-bold
-            ">
+            <p
+              className="
+                text-4xl
+                font-bold
+              "
+            >
 
               {stats?.tasks || 0}
 
             </p>
 
 
-            <p className="
-              text-zinc-400
-              mt-2
-            ">
+            <p
+              className="
+                text-zinc-400
+                mt-2
+              "
+            >
 
               {t[language].totalTasks}
 
             </p>
 
-          </Card>
-                    <Card className="
-            hover:border-blue-500
-            hover:-translate-y-1
-            transition
-          ">
 
-            <h3 className="
-              text-xl
-              font-semibold
-              mb-2
-            ">
+          </Card>
+
+
+
+
+
+
+          <Card
+            className="
+              hover:border-blue-500
+              hover:-translate-y-1
+              transition
+            "
+          >
+
+            <h3
+              className="
+                text-xl
+                font-semibold
+                mb-2
+              "
+            >
 
               {t[language].projects}
 
             </h3>
 
 
-            <p className="
-              text-4xl
-              font-bold
-            ">
+            <p
+              className="
+                text-4xl
+                font-bold
+              "
+            >
 
               {stats?.projects || 0}
 
             </p>
 
 
-            <p className="
-              text-zinc-400
-              mt-2
-            ">
+            <p
+              className="
+                text-zinc-400
+                mt-2
+              "
+            >
 
               {t[language].activeProjects}
 
             </p>
+
 
           </Card>
 
 
 
 
-          <Card className="
-            hover:border-blue-500
-            hover:-translate-y-1
-            transition
-          ">
 
-            <h3 className="
-              text-xl
-              font-semibold
-              mb-2
-            ">
+
+          <Card
+            className="
+              hover:border-blue-500
+              hover:-translate-y-1
+              transition
+            "
+          >
+
+            <h3
+              className="
+                text-xl
+                font-semibold
+                mb-2
+              "
+            >
 
               {t[language].completedTasks}
 
             </h3>
 
 
-            <p className="
-              text-4xl
-              font-bold
-            ">
+            <p
+              className="
+                text-4xl
+                font-bold
+              "
+            >
 
               {stats?.completedTasks || 0}
 
             </p>
 
 
-            <p className="
-              text-zinc-400
-              mt-2
-            ">
+            <p
+              className="
+                text-zinc-400
+                mt-2
+              "
+            >
 
               {t[language].completedTasksDesc}
 
             </p>
 
+
           </Card>
+
 
 
         </div>
 
+        {/* RECENT ACTIVITY */}
 
 
+        <Card
+          className="
+            mt-10
+          "
+        >
 
-        <Card className="mt-10">
-
-          <h3 className="
-            text-2xl
-            font-semibold
-            mb-6
-          ">
+          <h3
+            className="
+              text-2xl
+              font-semibold
+              mb-6
+            "
+          >
 
             {t[language].recentActivity}
 
@@ -434,17 +827,22 @@ export default function DashboardPage() {
 
 
 
-          <div className="
-            flex
-            flex-col
-            gap-4
-          ">
+          <div
+            className="
+              flex
+              flex-col
+              gap-4
+            "
+          >
 
 
             {stats?.recentActivity?.length ? (
 
               stats.recentActivity.map(
-                (activity:any,index:number)=>(
+                (
+                  activity:any,
+                  index:number
+                ) => (
 
                   <div
                     key={index}
@@ -459,6 +857,7 @@ export default function DashboardPage() {
                       pb-4
                     "
                   >
+
 
                     <p>
 
@@ -479,9 +878,12 @@ export default function DashboardPage() {
                     </p>
 
 
-                    <span className="
-                      text-zinc-500
-                    ">
+
+                    <span
+                      className="
+                        text-zinc-500
+                      "
+                    >
 
                       {
                         new Date(
@@ -500,7 +902,11 @@ export default function DashboardPage() {
 
             ) : (
 
-              <p className="text-zinc-500">
+              <p
+                className="
+                  text-zinc-500
+                "
+              >
 
                 {t[language].noRecentActivity}
 
@@ -511,30 +917,45 @@ export default function DashboardPage() {
 
           </div>
 
+
         </Card>
 
 
 
 
 
-        <Card className="mt-10">
+
+        {/* REVENUE CHART */}
 
 
-          <h3 className="
-            text-2xl
-            font-semibold
-            mb-2
-          ">
+
+        <Card
+          className="
+            mt-10
+          "
+        >
+
+
+          <h3
+            className="
+              text-2xl
+              font-semibold
+              mb-2
+            "
+          >
 
             {t[language].revenueAnalytics}
 
           </h3>
 
 
-          <p className="
-            text-zinc-400
-            mb-8
-          ">
+
+          <p
+            className="
+              text-zinc-400
+              mb-8
+            "
+          >
 
             {t[language].monthlyGrowth}
 
@@ -542,9 +963,12 @@ export default function DashboardPage() {
 
 
 
-          <div className="
-            h-[300px]
-          ">
+
+          <div
+            className="
+              h-[300px]
+            "
+          >
 
 
             <ResponsiveContainer
@@ -552,7 +976,10 @@ export default function DashboardPage() {
               height="100%"
             >
 
-              <LineChart data={revenueData}>
+
+              <LineChart
+                data={revenueData}
+              >
 
 
                 <XAxis
@@ -569,16 +996,12 @@ export default function DashboardPage() {
                 <Tooltip />
 
 
+
                 <Line
-
                   type="monotone"
-
                   dataKey="revenue"
-
                   stroke="#facc15"
-
                   strokeWidth={3}
-
                 />
 
 
@@ -595,11 +1018,13 @@ export default function DashboardPage() {
 
 
 
+
       </section>
 
 
     </main>
 
   );
+
 
 }
