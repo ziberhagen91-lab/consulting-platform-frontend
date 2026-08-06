@@ -267,9 +267,7 @@ heroWorld: "World",
     failedCreateProject:
       "Failed to create project",
 
-    projectUpdated:
-      "Project updated successfully",
-
+      
     failedUpdateProject:
       "Failed to update project",
 
@@ -418,9 +416,6 @@ heroWorld: "Світ",
 
     newClientAdded:
       "Новий клієнт доданий",
-
-    projectUpdated:
-      "Проєкт оновлено",
 
     taskCompleted:
       "Завдання виконано",
