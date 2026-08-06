@@ -1,5 +1,6 @@
 "use client";
 
+
 import {
   useEffect,
   useState
@@ -70,6 +71,8 @@ import {
 
 
 
+
+
 export default function DashboardPage(){
 
 
@@ -103,59 +106,61 @@ const t = translations;
 
 
 
+
 const revenueData = [
 
-  {
-    month:"Jan",
-    revenue:1200
-  },
+{
+  month:"Jan",
+  revenue:1200
+},
 
-  {
-    month:"Feb",
-    revenue:2100
-  },
+{
+  month:"Feb",
+  revenue:2100
+},
 
-  {
-    month:"Mar",
-    revenue:1800
-  },
+{
+  month:"Mar",
+  revenue:1800
+},
 
-  {
-    month:"Apr",
-    revenue:2800
-  },
+{
+  month:"Apr",
+  revenue:2800
+},
 
-  {
-    month:"May",
-    revenue:3900
-  },
+{
+  month:"May",
+  revenue:3900
+},
 
-  {
-    month:"Jun",
-    revenue:4250
-  }
+{
+  month:"Jun",
+  revenue:4250
+}
 
 ];
 
 
 
 
+
 const taskData = [
 
-  {
-    name:"To Do",
-    value:32
-  },
+{
+  name:"To Do",
+  value:32
+},
 
-  {
-    name:"In Progress",
-    value:16
-  },
+{
+  name:"In Progress",
+  value:16
+},
 
-  {
-    name:"Done",
-    value:16
-  }
+{
+  name:"Done",
+  value:16
+}
 
 ];
 
@@ -163,11 +168,11 @@ const taskData = [
 
 const taskColors = [
 
-  "#2563eb",
+"#2563eb",
 
-  "#facc15",
+"#facc15",
 
-  "#64748b"
+"#64748b"
 
 ];
 
@@ -181,6 +186,7 @@ const saved =
 localStorage.getItem("language");
 
 
+
 if(
 saved==="uk" ||
 saved==="en"
@@ -192,6 +198,11 @@ setLanguage(saved);
 
 
 },[]);
+
+
+
+
+
 useEffect(()=>{
 
 
@@ -214,6 +225,7 @@ return;
 
 
 try{
+
 
 
 const [
@@ -246,6 +258,8 @@ Authorization:
 
 
 
+
+
 fetch(
 
 `${process.env.NEXT_PUBLIC_API_URL}/dashboard/stats`,
@@ -273,12 +287,17 @@ Authorization:
 
 
 if(
+
 !analyticsResponse.ok ||
+
 !statsResponse.ok
+
 ){
 
 throw new Error(
+
 "Dashboard loading error"
+
 );
 
 }
@@ -288,11 +307,15 @@ throw new Error(
 
 
 const analyticsData =
+
 await analyticsResponse.json();
 
 
 
+
+
 const statsData =
+
 await statsResponse.json();
 
 
@@ -300,13 +323,19 @@ await statsResponse.json();
 
 
 setAnalytics(
+
 analyticsData
+
 );
 
 
 
+
+
 setStats(
+
 statsData
+
 );
 
 
@@ -318,21 +347,29 @@ statsData
 catch(error){
 
 
+
 console.error(error);
 
 
+
 toast.error(
+
 "Failed to load dashboard"
+
 );
 
 
 
 }
 
+
+
 finally{
 
 
+
 setLoading(false);
+
 
 
 }
@@ -348,190 +385,41 @@ loadDashboard();
 
 
 },[router]);
-
-
-
-
-
-
 if(loading){
 
 
 return (
 
-<main
+<div
 
 className="
-
 min-h-screen
-
 bg-[#020817]
-
+flex
+items-center
+justify-center
 text-white
-
-p-10
-
 "
 
 >
 
-
-<div
-
-className="
-
-animate-pulse
-
-"
-
->
-
-
-<div
-
-className="
-
-h-12
-
-w-72
-
-bg-blue-950
-
-rounded-2xl
-
-mb-10
-
-"
-
-/>
-
-
-
-
-<div
-
-className="
-
-grid
-
-grid-cols-1
-
-sm:grid-cols-2
-
-xl:grid-cols-4
-
-gap-6
-
-"
-
->
-
-
-{
-
-[1,2,3,4].map(
-
-(item)=>(
-
-
-<Card
-
-key={item}
-
->
-
-
-<div
-
-className="
-
-h-6
-
-w-32
-
-bg-blue-950
-
-rounded-xl
-
-mb-4
-
-"
-
-/>
-
-
-
-<div
-
-className="
-
-h-10
-
-w-40
-
-bg-blue-950
-
-rounded-xl
-
-"
-
-/>
-
-
-</Card>
-
-
-)
-
-)
-
-
-}
-
+Loading...
 
 
 </div>
-
-
-
-</div>
-
-
-
-</main>
 
 
 );
 
 
 }
-return (
-
-<main
-
-className="
-
-min-h-screen
-
-bg-[#020817]
-
-text-white
-
-flex
-
-flex-col
-
-md:flex-row
-
-"
-
->
 
 
 
-<Sidebar
 
-onLogout={()=>{
+
+
+const logout = ()=>{
 
 
 localStorage.removeItem("token");
@@ -540,14 +428,40 @@ localStorage.removeItem("user");
 
 
 toast.success(
+
 "Logged out"
+
 );
 
 
 router.push("/login");
 
 
-}}
+};
+
+
+
+
+
+
+return (
+
+
+<div
+
+className="
+min-h-screen
+bg-[#020817]
+text-white
+flex
+"
+
+>
+
+
+<Sidebar
+
+onLogout={logout}
 
 />
 
@@ -555,15 +469,16 @@ router.push("/login");
 
 
 
+<main
+
 className="
-
 flex-1
-
-p-4
-
-md:p-10
-
+ml-[240px]
+p-6
+overflow-hidden
 "
+
+>
 
 
 
@@ -575,31 +490,31 @@ md:p-10
 
 
 
+<section
+
+className="
+w-full
+max-w-[1400px]
+mx-auto
+mt-8
+"
+
+>
 
 {/* HERO */}
-
 
 
 <div
 
 className="
-
 relative
-
-h-[340px]
-
-mb-8
-
-rounded-3xl
-
 overflow-hidden
-
+rounded-3xl
 border
-
-border-blue-900/60
-
-shadow-2xl
-
+border-blue-900
+bg-[#06163b]
+h-[310px]
+mb-8
 "
 
 >
@@ -608,22 +523,15 @@ shadow-2xl
 
 <Image
 
-src="/images/hero-map.png"
+src="/world-map.png"
 
-alt="World map"
+alt="world"
 
 fill
 
-priority
-
 className="
-
 object-cover
-
-scale-110
-
-opacity-90
-
+opacity-60
 "
 
 />
@@ -635,19 +543,12 @@ opacity-90
 <div
 
 className="
-
 absolute
-
 inset-0
-
 bg-gradient-to-r
-
 from-[#020817]
-
-via-[#020817]/75
-
+via-[#020817]/70
 to-transparent
-
 "
 
 />
@@ -659,209 +560,46 @@ to-transparent
 <div
 
 className="
-
-absolute
-
-inset-0
-
-bg-blue-900/10
-
-"
-
-/>
-
-
-
-
-
-<div
-
-className="
-
-absolute
-
-inset-0
-
-bg-[radial-gradient(circle_at_70%_40%,rgba(37,99,235,0.35),transparent_45%)]
-
-"
-
-/>
-
-
-
-
-
-<div
-
-className="
-
-absolute
-
-top-[42%]
-
-right-[32%]
-
-h-4
-
-w-4
-
-rounded-full
-
-bg-blue-400
-
-shadow-[0_0_30px_10px_rgba(59,130,246,0.8)]
-
-animate-pulse
-
-"
-
-/>
-
-
-
-
-
-<div
-
-className="
-
-absolute
-
-top-[38%]
-
-right-[34%]
-
-h-[2px]
-
-w-40
-
-bg-gradient-to-r
-
-from-blue-400
-
-to-transparent
-
-rotate-[-15deg]
-
-"
-
-/>
-
-
-
-
-
-<div
-
-className="
-
-absolute
-
-top-[32%]
-
-right-[15%]
-
-h-4
-
-w-4
-
-rounded-full
-
-bg-yellow-400
-
-shadow-[0_0_30px_10px_rgba(250,204,21,0.7)]
-
-animate-pulse
-
-"
-
-/>
-
-
-
-
-
-<div
-
-className="
-
 relative
-
 z-10
-
 p-10
-
-max-w-xl
-
 "
 
 >
 
 
-<h2
+
+<h1
 
 className="
-
 text-5xl
-
 font-bold
-
-text-white
-
 leading-tight
-
 "
 
 >
 
 
-{language==="uk"
-
-?
-
-"Ваш бізнес"
-
-:
-
-"Your business"
-
-}
+Your business
 
 
+<br/>
 
 
 <span
 
 className="
-
 text-yellow-400
-
-block
-
 "
 
 >
 
-
-{language==="uk"
-
-?
-
-"без меж"
-
-:
-
-"without limits"
-
-}
-
-
+without limits
 
 </span>
 
 
-</h2>
+</h1>
 
 
 
@@ -870,53 +608,32 @@ block
 <p
 
 className="
-
-mt-5
-
+mt-6
 text-lg
-
 text-zinc-300
-
-max-w-md
-
+max-w-xl
 "
 
 >
 
 
-{language==="uk"
-
-?
-
-"Ми поєднуємо Україну та США для вашого зростання у світі."
-
-:
-
-"We connect Ukraine and the USA for your global growth."
-
-}
+We connect Ukraine and the USA for your global growth.
 
 
 </p>
 
 
 
+
+
 <div
 
 className="
-
 flex
-
 items-center
-
 gap-6
-
-mt-8
-
-text-white
-
+mt-10
 font-semibold
-
 "
 
 >
@@ -924,59 +641,60 @@ font-semibold
 
 <div>
 
-🇺🇦
-
-{t[language].heroUkraine}
+🇺🇦 Ukraine
 
 </div>
+
 
 
 <div
 
 className="
-
 text-blue-400
-
 text-3xl
-
 "
 
 >
+
 →
+
 </div>
+
+
+
 
 
 <div>
 
-🇺🇸
-
-{t[language].heroUSA}
+🇺🇸 USA
 
 </div>
+
 
 
 <div
 
 className="
-
 text-blue-400
-
 text-3xl
-
 "
 
 >
+
 →
+
 </div>
+
+
+
 
 
 <div>
 
-🌍
-
-{t[language].heroWorld}
+🌎 World
 
 </div>
+
 
 
 </div>
@@ -994,74 +712,27 @@ text-3xl
 <div
 
 className="
-
 grid
-
 grid-cols-1
-
 sm:grid-cols-2
-
 xl:grid-cols-4
-
 gap-6
-
-mb-8
-
+mb-10
 "
 
 >
 
 
 
-<Card
-
-className="
-
-relative
-
-h-[150px]
-
-overflow-hidden
-
-hover:border-blue-500
-
-transition
-
-"
-
->
+<Card>
 
 
 <div
 
 className="
-
 flex
-
-justify-between
-
-items-start
-
-"
-
->
-
-
-<div>
-
-
-<div
-
-className="
-
-flex
-
 items-center
-
-gap-3
-
-mb-4
-
+gap-4
 "
 
 >
@@ -1069,21 +740,22 @@ mb-4
 
 <Users
 
-size={30}
+size={32}
 
 className="text-blue-500"
 
 />
 
 
+
+<div>
+
+
 <h3
 
 className="
-
 text-xl
-
 font-semibold
-
 "
 
 >
@@ -1093,18 +765,12 @@ font-semibold
 </h3>
 
 
-</div>
-
-
-
 <p
 
 className="
-
 text-4xl
-
 font-bold
-
+mt-2
 "
 
 >
@@ -1114,55 +780,7 @@ font-bold
 </p>
 
 
-
-<p
-
-className="
-
-text-green-400
-
-mt-3
-
-"
-
->
-
-↑ 12% за місяць
-
-</p>
-
-
 </div>
-
-
-
-
-<div
-
-className="
-
-flex
-
-items-end
-
-gap-1
-
-h-12
-
-"
-
->
-
-<div className="w-1 h-3 bg-blue-500 rounded"/>
-
-<div className="w-1 h-6 bg-blue-500 rounded"/>
-
-<div className="w-1 h-8 bg-blue-500 rounded"/>
-
-<div className="w-1 h-10 bg-blue-500 rounded"/>
-
-</div>
-
 
 
 </div>
@@ -1175,55 +793,16 @@ h-12
 
 
 
-<Card
 
-className="
-
-relative
-
-h-[150px]
-
-overflow-hidden
-
-hover:border-yellow-500
-
-transition
-
-"
-
->
+<Card>
 
 
 <div
 
 className="
-
 flex
-
-justify-between
-
-items-start
-
-"
-
->
-
-
-<div>
-
-
-<div
-
-className="
-
-flex
-
 items-center
-
-gap-3
-
-mb-4
-
+gap-4
 "
 
 >
@@ -1231,21 +810,22 @@ mb-4
 
 <Folder
 
-size={30}
+size={32}
 
 className="text-yellow-400"
 
 />
 
 
+
+<div>
+
+
 <h3
 
 className="
-
 text-xl
-
 font-semibold
-
 "
 
 >
@@ -1255,19 +835,12 @@ font-semibold
 </h3>
 
 
-</div>
-
-
-
-
 <p
 
 className="
-
 text-4xl
-
 font-bold
-
+mt-2
 "
 
 >
@@ -1277,55 +850,6 @@ font-bold
 </p>
 
 
-
-
-<p
-
-className="
-
-text-green-400
-
-mt-3
-
-"
-
->
-
-↑ 8% за місяць
-
-</p>
-
-
-</div>
-
-
-
-<div
-
-className="
-
-flex
-
-items-end
-
-gap-1
-
-h-12
-
-"
-
->
-
-
-<div className="w-1 h-3 bg-yellow-400 rounded"/>
-
-<div className="w-1 h-6 bg-yellow-400 rounded"/>
-
-<div className="w-1 h-8 bg-yellow-400 rounded"/>
-
-<div className="w-1 h-10 bg-yellow-400 rounded"/>
-
-
 </div>
 
 
@@ -1340,37 +864,15 @@ h-12
 
 
 
-<Card
-
-className="
-
-relative
-
-h-[150px]
-
-overflow-hidden
-
-hover:border-blue-500
-
-transition
-
-"
-
->
+<Card>
 
 
 <div
 
 className="
-
 flex
-
 items-center
-
-gap-3
-
-mb-4
-
+gap-4
 "
 
 >
@@ -1378,22 +880,22 @@ mb-4
 
 <ClipboardList
 
-size={30}
+size={32}
 
-className="text-blue-500"
+className="text-blue-400"
 
 />
 
 
 
+<div>
+
+
 <h3
 
 className="
-
 text-xl
-
 font-semibold
-
 "
 
 >
@@ -1403,18 +905,12 @@ font-semibold
 </h3>
 
 
-</div>
-
-
-
 <p
 
 className="
-
 text-4xl
-
 font-bold
-
+mt-2
 "
 
 >
@@ -1424,23 +920,10 @@ font-bold
 </p>
 
 
+</div>
 
-<p
 
-className="
-
-text-zinc-400
-
-mt-3
-
-"
-
->
-
-{t[language].totalTasks}
-
-</p>
-
+</div>
 
 
 </Card>
@@ -1451,37 +934,15 @@ mt-3
 
 
 
-<Card
-
-className="
-
-relative
-
-h-[150px]
-
-overflow-hidden
-
-hover:border-green-500
-
-transition
-
-"
-
->
+<Card>
 
 
 <div
 
 className="
-
 flex
-
 items-center
-
-gap-3
-
-mb-4
-
+gap-4
 "
 
 >
@@ -1489,7 +950,7 @@ mb-4
 
 <CheckCircle2
 
-size={30}
+size={32}
 
 className="text-green-400"
 
@@ -1497,14 +958,14 @@ className="text-green-400"
 
 
 
+<div>
+
+
 <h3
 
 className="
-
 text-xl
-
 font-semibold
-
 "
 
 >
@@ -1514,18 +975,12 @@ font-semibold
 </h3>
 
 
-</div>
-
-
-
 <p
 
 className="
-
 text-4xl
-
 font-bold
-
+mt-2
 "
 
 >
@@ -1535,26 +990,14 @@ font-bold
 </p>
 
 
+</div>
 
-<p
 
-className="
-
-text-zinc-400
-
-mt-3
-
-"
-
->
-
-{t[language].completedTasksDesc}
-
-</p>
-
+</div>
 
 
 </Card>
+
 
 
 
@@ -1566,21 +1009,14 @@ mt-3
 <div
 
 className="
-
 grid
-
 grid-cols-1
-
 xl:grid-cols-12
-
 gap-6
-
 mt-10
-
 "
 
 >
-
 
 
 
@@ -1590,9 +1026,7 @@ mt-10
 <Card
 
 className="
-
 xl:col-span-4
-
 "
 
 >
@@ -1601,13 +1035,9 @@ xl:col-span-4
 <h3
 
 className="
-
 text-2xl
-
 font-semibold
-
 mb-2
-
 "
 
 >
@@ -1621,11 +1051,8 @@ mb-2
 <p
 
 className="
-
 text-zinc-400
-
 mb-6
-
 "
 
 >
@@ -1640,9 +1067,7 @@ mb-6
 <div
 
 className="
-
 h-[280px]
-
 "
 
 >
@@ -1717,7 +1142,6 @@ strokeWidth={3}
 
 
 
-
 {/* TASK DISTRIBUTION */}
 
 
@@ -1725,25 +1149,18 @@ strokeWidth={3}
 <Card
 
 className="
-
 xl:col-span-4
-
 "
 
 >
 
 
-
 <h3
 
 className="
-
 text-2xl
-
 font-semibold
-
 mb-6
-
 "
 
 >
@@ -1755,29 +1172,24 @@ mb-6
 
 
 
+
 <div
 
 className="
-
 flex
-
 items-center
-
 justify-between
-
 "
 
 >
 
 
+
 <div
 
 className="
-
-h-[220px]
-
 w-[220px]
-
+h-[220px]
 "
 
 >
@@ -1851,12 +1263,12 @@ fill={taskColors[index]}
 
 
 
+
+
 <div
 
 className="
-
 space-y-5
-
 "
 
 >
@@ -1864,31 +1276,13 @@ space-y-5
 
 <div>
 
-<p
-
-className="
-
-text-blue-500
-
-font-semibold
-
-"
-
->
+<p className="text-blue-500 font-semibold">
 
 🔵 To Do
 
 </p>
 
-<p
-
-className="
-
-text-zinc-400
-
-"
-
->
+<p className="text-zinc-400">
 
 32 (50%)
 
@@ -1902,38 +1296,19 @@ text-zinc-400
 
 <div>
 
-<p
-
-className="
-
-text-yellow-400
-
-font-semibold
-
-"
-
->
+<p className="text-yellow-400 font-semibold">
 
 🟡 In Progress
 
 </p>
 
-<p
-
-className="
-
-text-zinc-400
-
-"
-
->
+<p className="text-zinc-400">
 
 16 (25%)
 
 </p>
 
 </div>
-
 
 
 
@@ -1941,31 +1316,13 @@ text-zinc-400
 
 <div>
 
-<p
-
-className="
-
-text-slate-400
-
-font-semibold
-
-"
-
->
+<p className="text-slate-400 font-semibold">
 
 ⚫ Done
 
 </p>
 
-<p
-
-className="
-
-text-zinc-400
-
-"
-
->
+<p className="text-zinc-400">
 
 16 (25%)
 
@@ -1975,15 +1332,15 @@ text-zinc-400
 
 
 
-
 </div>
+
+
 
 
 </div>
 
 
 </Card>
-
 
 
 
@@ -1997,25 +1354,18 @@ text-zinc-400
 <Card
 
 className="
-
 xl:col-span-4
-
 "
 
 >
 
 
-
 <h3
 
 className="
-
 text-2xl
-
 font-semibold
-
 mb-6
-
 "
 
 >
@@ -2030,76 +1380,123 @@ mb-6
 <div
 
 className="
-
 space-y-5
-
 "
 
 >
 
 
+{
 
-        {
-          stats?.recentActivity?.slice(0,4).map(
-            (activity:any,index:number)=>(
-              
-              <div
-                key={index}
-                className="
-                  flex
-                  justify-between
-                  border-b
-                  border-blue-950
-                  pb-4
-                "
-              >
+stats?.recentActivity?.slice(0,4).map(
 
-                <p>
-                  {
-                    activity.type==="client" &&
-                    `👤 Новий клієнт "${activity.name}"`
-                  }
-
-                  {
-                    activity.type==="project" &&
-                    `📁 Новий проєкт "${activity.name}"`
-                  }
-
-                  {
-                    activity.type==="task" &&
-                    `📋 Нове завдання "${activity.name}"`
-                  }
-                </p>
+(activity:any,index:number)=>(
 
 
-                <span className="text-zinc-500">
+<div
 
-                  {
-                    new Date(
-                      activity.createdAt
-                    ).toLocaleDateString()
-                  }
+key={index}
 
-                </span>
+className="
+flex
+justify-between
+border-b
+border-blue-950
+pb-4
+"
 
-
-              </div>
-
-            )
-          )
-        }
+>
 
 
-      </div>
+<p>
 
 
-    </Card>
+{
+
+activity.type==="client" &&
+
+`👤 Новий клієнт "${activity.name}"`
+
+}
 
 
-  </div>
+{
+
+activity.type==="project" &&
+
+`📁 Новий проєкт "${activity.name}"`
+
+}
+
+
+{
+
+activity.type==="task" &&
+
+`📋 Нове завдання "${activity.name}"`
+
+}
+
+
+</p>
+
+
+
+
+<span
+
+className="
+text-zinc-500
+"
+
+>
+
+
+{
+
+new Date(
+
+activity.createdAt
+
+).toLocaleDateString()
+
+}
+
+
+</span>
+
+
+
+
+</div>
+
+
+)
+
+)
+
+
+}
+
+
+
+</div>
+
+
+
+</Card>
+
+
+</div>
+
+
+</section>
 
 
 </main>
+
+
+</div>
 
 
 );
