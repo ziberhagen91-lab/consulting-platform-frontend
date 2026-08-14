@@ -13,9 +13,11 @@ import {
 
 import toast from "react-hot-toast";
 
+
 import Card from "@/app/components/Card";
 import Sidebar from "@/app/components/Sidebar";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
+
 
 import {
   translations
@@ -42,6 +44,8 @@ import {
   ClipboardList,
   CheckCircle2
 } from "lucide-react";
+
+
 
 
 
@@ -162,6 +166,8 @@ const taskColors = [
 
 
 
+
+
 useEffect(()=>{
 
 
@@ -180,6 +186,7 @@ setLanguage(saved);
 
 
 },[]);
+
 
 
 
@@ -276,6 +283,7 @@ const analyticsData =
 await analyticsResponse.json();
 
 
+
 const statsData =
 await statsResponse.json();
 
@@ -284,6 +292,7 @@ await statsResponse.json();
 setAnalytics(
 analyticsData
 );
+
 
 
 setStats(
@@ -461,8 +470,6 @@ space-y-6
 
 
 {/* HERO */}
-
-
 <div
 
 className="
@@ -509,7 +516,6 @@ to-transparent
 >
 
 
-
 </div>
 
 
@@ -545,9 +551,7 @@ language==="uk"
 }
 
 
-
 <br/>
-
 
 
 <span
@@ -566,7 +570,6 @@ language==="uk"
 :
 "without limits"
 }
-
 
 
 </span>
@@ -599,6 +602,7 @@ language==="uk"
 
 
 </p>
+
 
 
 
@@ -682,13 +686,17 @@ language==="uk"
 </div>
 
 
+</div>
+
 
 </div>
 
 
 
-</div>
+
+
 {/* STAT CARDS */}
+
 
 
 <div
@@ -704,18 +712,27 @@ gap-6
 >
 
 
+
 <Card>
+
 
 <div className="flex justify-between items-start">
 
+
 <div>
+
 
 <div className="flex items-center gap-3">
 
+
 <Users
+
 size={34}
+
 className="text-blue-500"
+
 />
+
 
 
 <h3 className="text-xl font-semibold">
@@ -726,6 +743,7 @@ className="text-blue-500"
 
 
 </div>
+
 
 
 <p className="text-5xl font-bold mt-4">
@@ -745,6 +763,7 @@ className="text-blue-500"
 </div>
 
 
+
 <div className="text-blue-400 text-3xl">
 
 ↗
@@ -752,25 +771,36 @@ className="text-blue-500"
 </div>
 
 
+
 </div>
+
 
 </Card>
 
 
 
 
+
 <Card>
+
 
 <div className="flex justify-between items-start">
 
+
 <div>
+
 
 <div className="flex items-center gap-3">
 
+
 <Folder
+
 size={34}
+
 className="text-yellow-400"
+
 />
+
 
 
 <h3 className="text-xl font-semibold">
@@ -779,7 +809,9 @@ className="text-yellow-400"
 
 </h3>
 
+
 </div>
+
 
 
 <p className="text-5xl font-bold mt-4">
@@ -799,6 +831,7 @@ className="text-yellow-400"
 </div>
 
 
+
 <div className="text-yellow-400 text-3xl">
 
 ↗
@@ -806,18 +839,24 @@ className="text-yellow-400"
 </div>
 
 
+
 </div>
+
 
 </Card>
 
 
 
 
+
 <Card>
+
 
 <div className="flex justify-between items-start">
 
+
 <div>
+
 
 <div className="flex items-center gap-3">
 
@@ -842,6 +881,7 @@ className="text-blue-400"
 </div>
 
 
+
 <p className="text-5xl font-bold mt-4">
 
 {stats?.tasks || 0}
@@ -859,6 +899,7 @@ className="text-blue-400"
 </div>
 
 
+
 <div className="text-blue-400 text-3xl">
 
 ↗
@@ -866,7 +907,9 @@ className="text-blue-400"
 </div>
 
 
+
 </div>
+
 
 </Card>
 
@@ -895,6 +938,7 @@ className="text-green-400"
 />
 
 
+
 <h3 className="text-xl font-semibold">
 
 {t[language].completedTasks}
@@ -903,6 +947,7 @@ className="text-green-400"
 
 
 </div>
+
 
 
 <p className="text-5xl font-bold mt-4">
@@ -922,11 +967,13 @@ className="text-green-400"
 </div>
 
 
+
 <div className="text-green-400 text-3xl">
 
 ↗
 
 </div>
+
 
 
 </div>
@@ -936,10 +983,6 @@ className="text-green-400"
 
 
 </div>
-
-
-
-
 {/* ANALYTICS */}
 
 
@@ -956,6 +999,9 @@ mt-10
 >
 
 
+{/* REVENUE */}
+
+
 <Card
 
 className="
@@ -966,11 +1012,50 @@ min-h-[420px]
 >
 
 
-<h3 className="text-2xl font-semibold mb-6">
+<h3
+
+className="
+text-2xl
+font-semibold
+mb-6
+"
+
+>
 
 {t[language].revenueAnalytics}
 
 </h3>
+
+
+
+<p className="text-zinc-400 mb-6">
+
+{
+language==="uk"
+?
+"Щомісячне зростання доходу"
+:
+"Monthly revenue growth"
+}
+
+</p>
+
+
+
+<p className="text-4xl font-bold mb-6">
+
+₴
+{
+stats?.revenue
+?
+stats.revenue.toLocaleString("uk-UA")
+:
+0
+}
+
+</p>
+
+
 
 
 <div className="h-[300px]">
@@ -1040,6 +1125,9 @@ strokeWidth={4}
 
 
 
+{/* TASK DISTRIBUTION */}
+
+
 <Card
 
 className="
@@ -1050,7 +1138,16 @@ min-h-[420px]
 >
 
 
-<h3 className="text-2xl font-semibold mb-6">
+<h3
+
+className="
+text-2xl
+font-semibold
+mb-6
+"
+
+>
+
 
 {
 language==="uk"
@@ -1060,11 +1157,32 @@ language==="uk"
 "Task Distribution"
 }
 
+
 </h3>
 
 
 
-<div className="h-[300px]">
+
+<div
+
+className="
+flex
+items-center
+justify-center
+"
+
+>
+
+
+<div
+
+className="
+relative
+w-[220px]
+h-[220px]
+"
+
+>
 
 
 <ResponsiveContainer
@@ -1124,10 +1242,54 @@ fill={taskColors[index]}
 </ResponsiveContainer>
 
 
+
+
+<div
+
+className="
+absolute
+inset-0
+flex
+flex-col
+items-center
+justify-center
+"
+
+>
+
+
+<p className="text-4xl font-bold">
+
+{totalTaskCount}
+
+</p>
+
+
+<p className="text-zinc-400">
+
+tasks
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
 </div>
 
 
 </Card>
+
+
+
+
+
+{/* RECENT ACTIVITY */}
+
+
 <Card
 
 className="
@@ -1151,6 +1313,7 @@ mb-6
 {t[language].recentActivity}
 
 </h3>
+
 
 
 
@@ -1202,6 +1365,7 @@ activity.type==="project"
 </p>
 
 
+
 <p className="text-zinc-400">
 
 {activity.name}
@@ -1209,7 +1373,9 @@ activity.type==="project"
 </p>
 
 
+
 </div>
+
 
 
 
@@ -1223,6 +1389,7 @@ activity.createdAt
 }
 
 </span>
+
 
 
 </div>
@@ -1245,24 +1412,22 @@ activity.createdAt
 </div>
 
 
-{/* CLOSE LEFT COLUMN */}
-
 </div>
 
 
-
-
 {/* RIGHT SIDEBAR */}
-
-
 <div
 
 className="
 col-span-3
 space-y-6
+min-w-[320px]
 "
 
 >
+
+
+{/* DEADLINES */}
 
 
 <Card>
@@ -1312,6 +1477,7 @@ pb-4
 </p>
 
 
+
 <div className="flex justify-between mt-2">
 
 
@@ -1320,6 +1486,7 @@ pb-4
 30.06.2025
 
 </span>
+
 
 
 <span
@@ -1344,6 +1511,7 @@ rounded-full
 
 
 </div>
+
 
 
 
@@ -1373,6 +1541,7 @@ Digital Agency
 </p>
 
 
+
 <div className="flex justify-between mt-2">
 
 
@@ -1381,6 +1550,7 @@ Digital Agency
 15.07.2025
 
 </span>
+
 
 
 <span
@@ -1414,6 +1584,9 @@ rounded-full
 
 
 
+
+
+{/* SYSTEM STATUS */}
 
 
 <Card>
@@ -1458,6 +1631,7 @@ API
 
 
 
+
 <div className="flex justify-between">
 
 <span>
@@ -1478,6 +1652,7 @@ Database
 
 
 
+
 <div className="flex justify-between">
 
 <span>
@@ -1492,6 +1667,163 @@ JWT
 ● Active
 
 </span>
+
+
+</div>
+
+
+</div>
+
+
+</Card>
+
+
+
+
+
+{/* PROJECT PROGRESS */}
+
+
+<Card>
+
+
+<h3
+
+className="
+text-2xl
+font-semibold
+mb-6
+"
+
+>
+
+Прогрес проектів
+
+</h3>
+
+
+
+
+<div
+
+className="
+flex
+items-center
+justify-center
+gap-4
+"
+
+>
+
+
+<div
+
+className="
+relative
+w-[130px]
+h-[130px]
+"
+
+>
+
+
+<ResponsiveContainer
+
+width="100%"
+
+height="100%"
+
+>
+
+
+<PieChart>
+
+
+<Pie
+
+data={[
+{
+name:"Done",
+value:72
+},
+{
+name:"Left",
+value:28
+}
+]}
+
+dataKey="value"
+
+innerRadius={45}
+
+outerRadius={60}
+
+startAngle={90}
+
+endAngle={-270}
+
+>
+
+
+<Cell fill="#2563eb"/>
+
+<Cell fill="#facc15"/>
+
+
+</Pie>
+
+
+</PieChart>
+
+
+</ResponsiveContainer>
+
+
+
+
+<div
+
+className="
+absolute
+inset-0
+flex
+items-center
+justify-center
+"
+
+>
+
+
+<span className="text-3xl font-bold">
+
+72%
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div>
+
+
+<p className="text-lg font-semibold">
+
+Середній прогрес
+
+</p>
+
+
+<p className="text-zinc-400">
+
+всіх проектів
+
+</p>
 
 
 </div>
