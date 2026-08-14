@@ -1170,7 +1170,11 @@ mb-6
 
 >
 
-Розподіл завдань
+{
+language === "uk"
+? "Розподіл завдань"
+: "Task Distribution"
+}
 
 </h3>
 
@@ -1283,7 +1287,11 @@ space-y-5
 
 <p className="text-blue-500 font-semibold">
 
-🔵 To Do
+🔵 {
+language === "uk"
+? "До виконання"
+: "To Do"
+}
 
 </p>
 
@@ -1303,7 +1311,11 @@ space-y-5
 
 <p className="text-yellow-400 font-semibold">
 
-🟡 In Progress
+🟡 {
+language === "uk"
+? "В процесі"
+: "In Progress"
+}
 
 </p>
 
@@ -1323,7 +1335,11 @@ space-y-5
 
 <p className="text-slate-400 font-semibold">
 
-⚫ Done
+⚫ {
+language === "uk"
+? "Виконано"
+: "Done"
+}
 
 </p>
 
