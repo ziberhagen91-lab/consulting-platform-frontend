@@ -14,10 +14,14 @@ import {
   UserPlus,
 } from "lucide-react";
 
-export default function DashboardHeader() {
-  const [language, setLanguage] =
-    useState<"uk" | "en">("uk");
-
+export default function DashboardHeader(
+{
+  language,
+  setLanguage
+}: {
+  language: "uk" | "en";
+  setLanguage: (lang: "uk" | "en") => void;
+}) {
   const [openLanguage, setOpenLanguage] =
     useState(false);
 

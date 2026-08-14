@@ -484,8 +484,10 @@ overflow-hidden
 
 
 
-<DashboardHeader />
-
+<DashboardHeader
+  language={language}
+  setLanguage={setLanguage}
+/>
 
 
 
@@ -523,7 +525,7 @@ mb-8
 
 <Image
 
-src="/world-map.png"
+src="/images/hero-map.png"
 
 alt="world"
 
@@ -531,7 +533,7 @@ fill
 
 className="
 object-cover
-opacity-60
+opacity-40
 "
 
 />
@@ -580,21 +582,26 @@ leading-tight
 >
 
 
-Your business
+{language === "uk"
+? "Ваш бізнес"
+: "Your business"
+}
 
 
 <br/>
 
 
 <span
-
 className="
 text-yellow-400
 "
-
 >
 
-without limits
+{
+language === "uk"
+? "без обмежень"
+: "without limits"
+}
 
 </span>
 
@@ -617,7 +624,11 @@ max-w-xl
 >
 
 
-We connect Ukraine and the USA for your global growth.
+{
+language === "uk"
+? "Ми з'єднуємо Україну та США для вашого глобального розвитку."
+: "We connect Ukraine and the USA for your global growth."
+}
 
 
 </p>
@@ -640,9 +651,7 @@ font-semibold
 
 
 <div>
-
-🇺🇦 Ukraine
-
+🇺🇦 {language === "uk" ? "Україна" : "Ukraine"}
 </div>
 
 
@@ -665,9 +674,7 @@ text-3xl
 
 
 <div>
-
-🇺🇸 USA
-
+🇺🇸 {language === "uk" ? "США" : "USA"}
 </div>
 
 
@@ -690,9 +697,7 @@ text-3xl
 
 
 <div>
-
-🌎 World
-
+🌎 {language === "uk" ? "Світ" : "World"}
 </div>
 
 
@@ -1415,7 +1420,11 @@ pb-4
 
 activity.type==="client" &&
 
-`👤 Новий клієнт "${activity.name}"`
+`👤 ${
+language === "uk"
+? "Новий клієнт"
+: "New client"
+} "${activity.name}"`
 
 }
 
@@ -1424,7 +1433,11 @@ activity.type==="client" &&
 
 activity.type==="project" &&
 
-`📁 Новий проєкт "${activity.name}"`
+`📁 ${
+language === "uk"
+? "Новий проєкт"
+: "New project"
+} "${activity.name}"`
 
 }
 
@@ -1433,7 +1446,11 @@ activity.type==="project" &&
 
 activity.type==="task" &&
 
-`📋 Нове завдання "${activity.name}"`
+`📋 ${
+language === "uk"
+? "Нове завдання"
+: "New task"
+} "${activity.name}"`
 
 }
 
