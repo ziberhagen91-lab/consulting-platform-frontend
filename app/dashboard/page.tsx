@@ -1,80 +1,51 @@
 "use client";
 
-
 import {
   useEffect,
   useState
 } from "react";
 
-
 import Image from "next/image";
-
 
 import {
   useRouter
 } from "next/navigation";
 
-
 import toast from "react-hot-toast";
 
-
 import Card from "@/app/components/Card";
-
 import Sidebar from "@/app/components/Sidebar";
-
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
-
 
 import {
   translations
 } from "@/lib/translations";
 
 
-
 import {
-
   LineChart,
-
   Line,
-
   XAxis,
-
   YAxis,
-
   Tooltip,
-
   ResponsiveContainer,
-
   PieChart,
-
   Pie,
-
-  Cell
-
+  Cell,
+  CartesianGrid
 } from "recharts";
 
 
-
 import {
-
   Users,
-
   Folder,
-
   ClipboardList,
-
   CheckCircle2
-
 } from "lucide-react";
 
 
 
-
-
-
-
 export default function DashboardPage(){
-
 
 
 const router = useRouter();
@@ -85,15 +56,12 @@ const [analytics,setAnalytics] =
 useState<any>(null);
 
 
-
 const [stats,setStats] =
 useState<any>(null);
 
 
-
 const [loading,setLoading] =
 useState(true);
-
 
 
 const [language,setLanguage] =
@@ -105,77 +73,92 @@ const t = translations;
 
 
 
-
-
 const revenueData = [
-
 {
-  month:"Jan",
-  revenue:1200
+month:"Jan",
+revenue:20000
 },
-
 {
-  month:"Feb",
-  revenue:2100
+month:"Feb",
+revenue:35000
 },
-
 {
-  month:"Mar",
-  revenue:1800
+month:"Mar",
+revenue:28000
 },
-
 {
-  month:"Apr",
-  revenue:2800
+month:"Apr",
+revenue:60000
 },
-
 {
-  month:"May",
-  revenue:3900
+month:"May",
+revenue:90000
 },
-
 {
-  month:"Jun",
-  revenue:4250
+month:"Jun",
+revenue:124500
 }
-
 ];
-
-
 
 
 
 const taskData = [
 
 {
-  name:"To Do",
-  value:32
+name:
+language==="uk"
+?
+"До виконання"
+:
+"To Do",
+
+value:
+stats?.todoTasks ?? 0
 },
 
-{
-  name:"In Progress",
-  value:16
-},
 
 {
-  name:"Done",
-  value:16
+name:
+language==="uk"
+?
+"В процесі"
+:
+"In Progress",
+
+value:
+stats?.inProgressTasks ?? 0
+},
+
+
+{
+name:
+language==="uk"
+?
+"Виконано"
+:
+"Done",
+
+value:
+stats?.completedTasks ?? 0
 }
 
 ];
 
 
 
+const totalTaskCount =
+taskData.reduce(
+(sum,item)=>sum + item.value,
+0
+);
+
+
+
 const taskColors = [
-
 "#2563eb",
-
 "#facc15",
-
 "#64748b"
-
 ];
-
 
 
 
@@ -184,7 +167,6 @@ useEffect(()=>{
 
 const saved =
 localStorage.getItem("language");
-
 
 
 if(
@@ -198,7 +180,6 @@ setLanguage(saved);
 
 
 },[]);
-
 
 
 
@@ -227,15 +208,13 @@ return;
 try{
 
 
-
 const [
 
 analyticsResponse,
 
 statsResponse
 
-] = await Promise.all([
-
+]= await Promise.all([
 
 
 fetch(
@@ -257,9 +236,6 @@ Authorization:
 ),
 
 
-
-
-
 fetch(
 
 `${process.env.NEXT_PUBLIC_API_URL}/dashboard/stats`,
@@ -279,66 +255,40 @@ Authorization:
 )
 
 
-
 ]);
 
 
 
-
-
 if(
-
 !analyticsResponse.ok ||
-
 !statsResponse.ok
-
 ){
 
 throw new Error(
-
 "Dashboard loading error"
-
 );
 
 }
 
 
 
-
-
 const analyticsData =
-
 await analyticsResponse.json();
 
 
-
-
-
 const statsData =
-
 await statsResponse.json();
 
 
 
-
-
 setAnalytics(
-
 analyticsData
-
 );
-
-
-
 
 
 setStats(
-
 statsData
-
 );
-
-
 
 
 
@@ -346,34 +296,21 @@ statsData
 
 catch(error){
 
-
-
 console.error(error);
 
 
-
 toast.error(
-
 "Failed to load dashboard"
-
 );
 
 
-
 }
-
-
 
 finally{
 
-
-
 setLoading(false);
 
-
-
 }
-
 
 
 };
@@ -383,12 +320,11 @@ setLoading(false);
 loadDashboard();
 
 
-
 },[router]);
 if(loading){
 
 
-return (
+return(
 
 <div
 
@@ -405,15 +341,12 @@ text-white
 
 Loading...
 
-
 </div>
-
 
 );
 
 
 }
-
 
 
 
@@ -428,9 +361,7 @@ localStorage.removeItem("user");
 
 
 toast.success(
-
 "Logged out"
-
 );
 
 
@@ -443,9 +374,7 @@ router.push("/login");
 
 
 
-
 return (
-
 
 <div
 
@@ -475,19 +404,22 @@ className="
 flex-1
 ml-[240px]
 p-6
-overflow-hidden
+min-h-screen
+overflow-y-auto
 "
 
 >
 
 
 
-
-
 <DashboardHeader
-  language={language}
-  setLanguage={setLanguage}
+
+language={language}
+
+setLanguage={setLanguage}
+
 />
+
 
 
 
@@ -496,12 +428,37 @@ overflow-hidden
 
 className="
 w-full
-max-w-[1400px]
+max-w-[1600px]
 mx-auto
 mt-8
 "
 
 >
+
+
+<div
+
+className="
+grid
+grid-cols-12
+gap-6
+"
+
+>
+
+
+{/* LEFT COLUMN */}
+
+
+<div
+
+className="
+col-span-9
+space-y-6
+"
+
+>
+
 
 {/* HERO */}
 
@@ -516,11 +473,9 @@ border
 border-blue-900
 bg-[#06163b]
 h-[310px]
-mb-8
 "
 
 >
-
 
 
 <Image
@@ -540,8 +495,6 @@ opacity-40
 
 
 
-
-
 <div
 
 className="
@@ -553,9 +506,11 @@ via-[#020817]/70
 to-transparent
 "
 
-/>
+>
 
 
+
+</div>
 
 
 
@@ -570,7 +525,6 @@ p-10
 >
 
 
-
 <h1
 
 className="
@@ -582,32 +536,43 @@ leading-tight
 >
 
 
-{language === "uk"
-? "Ваш бізнес"
-: "Your business"
+{
+language==="uk"
+?
+"Ваш бізнес"
+:
+"Your business"
 }
+
 
 
 <br/>
 
 
+
 <span
+
 className="
 text-yellow-400
 "
+
 >
 
+
 {
-language === "uk"
-? "без обмежень"
-: "without limits"
+language==="uk"
+?
+"без обмежень"
+:
+"without limits"
 }
+
+
 
 </span>
 
 
 </h1>
-
 
 
 
@@ -625,15 +590,15 @@ max-w-xl
 
 
 {
-language === "uk"
-? "Ми з'єднуємо Україну та США для вашого глобального розвитку."
-: "We connect Ukraine and the USA for your global growth."
+language==="uk"
+?
+"Ми з'єднуємо Україну та США для вашого глобального розвитку."
+:
+"We connect Ukraine and the USA for your global growth."
 }
 
 
 </p>
-
-
 
 
 
@@ -651,19 +616,22 @@ font-semibold
 
 
 <div>
-🇺🇦 {language === "uk" ? "Україна" : "Ukraine"}
+
+🇺🇦 {
+
+language==="uk"
+?
+"Україна"
+:
+"Ukraine"
+
+}
+
 </div>
 
 
 
-<div
-
-className="
-text-blue-400
-text-3xl
-"
-
->
+<div className="text-blue-400 text-3xl">
 
 →
 
@@ -671,22 +639,23 @@ text-3xl
 
 
 
-
-
 <div>
-🇺🇸 {language === "uk" ? "США" : "USA"}
+
+🇺🇸 {
+
+language==="uk"
+?
+"США"
+:
+"USA"
+
+}
+
 </div>
 
 
 
-<div
-
-className="
-text-blue-400
-text-3xl
-"
-
->
+<div className="text-blue-400 text-3xl">
 
 →
 
@@ -694,10 +663,18 @@ text-3xl
 
 
 
-
-
 <div>
-🌎 {language === "uk" ? "Світ" : "World"}
+
+🌎 {
+
+language==="uk"
+?
+"Світ"
+:
+"World"
+
+}
+
 </div>
 
 
@@ -722,135 +699,45 @@ grid-cols-1
 sm:grid-cols-2
 xl:grid-cols-4
 gap-6
-mb-10
 "
 
 >
-
 
 
 <Card>
 
-
-<div
-
-className="
-flex
-items-center
-gap-4
-"
-
->
-
-
-<Users
-
-size={32}
-
-className="text-blue-500"
-
-/>
-
-
+<div className="flex justify-between items-start">
 
 <div>
 
+<div className="flex items-center gap-3">
 
-<h3
+<Users
+size={34}
+className="text-blue-500"
+/>
 
-className="
-text-xl
-font-semibold
-"
 
->
+<h3 className="text-xl font-semibold">
 
 {t[language].clients}
 
 </h3>
 
 
-<p
+</div>
 
-className="
-text-4xl
-font-bold
-mt-2
-"
 
->
+<p className="text-5xl font-bold mt-4">
 
 {stats?.clients || 0}
 
 </p>
 
 
-</div>
+<p className="text-green-400 text-sm mt-2">
 
-
-</div>
-
-
-</Card>
-
-
-
-
-
-
-
-<Card>
-
-
-<div
-
-className="
-flex
-items-center
-gap-4
-"
-
->
-
-
-<Folder
-
-size={32}
-
-className="text-yellow-400"
-
-/>
-
-
-
-<div>
-
-
-<h3
-
-className="
-text-xl
-font-semibold
-"
-
->
-
-{t[language].projects}
-
-</h3>
-
-
-<p
-
-className="
-text-4xl
-font-bold
-mt-2
-"
-
->
-
-{stats?.projects || 0}
+↑ 12% за місяць
 
 </p>
 
@@ -858,34 +745,86 @@ mt-2
 </div>
 
 
+<div className="text-blue-400 text-3xl">
+
+↗
+
 </div>
 
+
+</div>
 
 </Card>
 
 
 
 
+<Card>
+
+<div className="flex justify-between items-start">
+
+<div>
+
+<div className="flex items-center gap-3">
+
+<Folder
+size={34}
+className="text-yellow-400"
+/>
+
+
+<h3 className="text-xl font-semibold">
+
+{t[language].projects}
+
+</h3>
+
+</div>
+
+
+<p className="text-5xl font-bold mt-4">
+
+{stats?.projects || 0}
+
+</p>
+
+
+<p className="text-green-400 text-sm mt-2">
+
+↑ 8% this month
+
+</p>
+
+
+</div>
+
+
+<div className="text-yellow-400 text-3xl">
+
+↗
+
+</div>
+
+
+</div>
+
+</Card>
+
 
 
 
 <Card>
 
+<div className="flex justify-between items-start">
 
-<div
+<div>
 
-className="
-flex
-items-center
-gap-4
-"
-
->
+<div className="flex items-center gap-3">
 
 
 <ClipboardList
 
-size={32}
+size={34}
 
 className="text-blue-400"
 
@@ -893,34 +832,26 @@ className="text-blue-400"
 
 
 
-<div>
-
-
-<h3
-
-className="
-text-xl
-font-semibold
-"
-
->
+<h3 className="text-xl font-semibold">
 
 {t[language].tasks}
 
 </h3>
 
 
-<p
+</div>
 
-className="
-text-4xl
-font-bold
-mt-2
-"
 
->
+<p className="text-5xl font-bold mt-4">
 
 {stats?.tasks || 0}
+
+</p>
+
+
+<p className="text-green-400 text-sm mt-2">
+
+↑ 19% this month
 
 </p>
 
@@ -928,12 +859,16 @@ mt-2
 </div>
 
 
+<div className="text-blue-400 text-3xl">
+
+↗
+
 </div>
 
 
+</div>
+
 </Card>
-
-
 
 
 
@@ -942,58 +877,54 @@ mt-2
 <Card>
 
 
-<div
+<div className="flex justify-between items-start">
 
-className="
-flex
-items-center
-gap-4
-"
 
->
+<div>
+
+
+<div className="flex items-center gap-3">
 
 
 <CheckCircle2
 
-size={32}
+size={34}
 
 className="text-green-400"
 
 />
 
 
-
-<div>
-
-
-<h3
-
-className="
-text-xl
-font-semibold
-"
-
->
+<h3 className="text-xl font-semibold">
 
 {t[language].completedTasks}
 
 </h3>
 
 
-<p
+</div>
 
-className="
-text-4xl
-font-bold
-mt-2
-"
 
->
+<p className="text-5xl font-bold mt-4">
 
 {stats?.completedTasks || 0}
 
 </p>
 
+
+<p className="text-green-400 text-sm mt-2">
+
+↑ 15% this month
+
+</p>
+
+
+</div>
+
+
+<div className="text-green-400 text-3xl">
+
+↗
 
 </div>
 
@@ -1004,11 +935,12 @@ mt-2
 </Card>
 
 
-
-
-
 </div>
-{/* DASHBOARD ANALYTICS */}
+
+
+
+
+{/* ANALYTICS */}
 
 
 <div
@@ -1024,58 +956,24 @@ mt-10
 >
 
 
-
-{/* REVENUE */}
-
-
 <Card
 
 className="
 xl:col-span-4
+min-h-[420px]
 "
 
 >
 
 
-<h3
-
-className="
-text-2xl
-font-semibold
-mb-2
-"
-
->
+<h3 className="text-2xl font-semibold mb-6">
 
 {t[language].revenueAnalytics}
 
 </h3>
 
 
-
-<p
-
-className="
-text-zinc-400
-mb-6
-"
-
->
-
-{t[language].monthlyGrowth}
-
-</p>
-
-
-
-
-<div
-
-className="
-h-[280px]
-"
-
->
+<div className="h-[300px]">
 
 
 <ResponsiveContainer
@@ -1094,26 +992,24 @@ data={revenueData}
 >
 
 
+<CartesianGrid
+
+strokeDasharray="3 3"
+
+/>
+
+
 <XAxis
 
 dataKey="month"
 
-stroke="#64748b"
-
 />
 
 
-
-<YAxis
-
-stroke="#64748b"
-
-/>
-
+<YAxis />
 
 
 <Tooltip />
-
 
 
 <Line
@@ -1124,10 +1020,9 @@ dataKey="revenue"
 
 stroke="#2563eb"
 
-strokeWidth={3}
+strokeWidth={4}
 
 />
-
 
 
 </LineChart>
@@ -1145,63 +1040,31 @@ strokeWidth={3}
 
 
 
-
-
-{/* TASK DISTRIBUTION */}
-
-
-
 <Card
 
 className="
 xl:col-span-4
+min-h-[420px]
 "
 
 >
 
 
-<h3
-
-className="
-text-2xl
-font-semibold
-mb-6
-"
-
->
+<h3 className="text-2xl font-semibold mb-6">
 
 {
-language === "uk"
-? "Розподіл завдань"
-: "Task Distribution"
+language==="uk"
+?
+"Розподіл завдань"
+:
+"Task Distribution"
 }
 
 </h3>
 
 
 
-
-
-<div
-
-className="
-flex
-items-center
-justify-between
-"
-
->
-
-
-
-<div
-
-className="
-w-[220px]
-h-[220px]
-"
-
->
+<div className="h-[300px]">
 
 
 <ResponsiveContainer
@@ -1222,9 +1085,9 @@ data={taskData}
 
 dataKey="value"
 
-innerRadius={55}
+innerRadius={60}
 
-outerRadius={85}
+outerRadius={90}
 
 >
 
@@ -1255,12 +1118,7 @@ fill={taskColors[index]}
 </Pie>
 
 
-
-<Tooltip />
-
-
 </PieChart>
-
 
 
 </ResponsiveContainer>
@@ -1269,113 +1127,12 @@ fill={taskColors[index]}
 </div>
 
 
-
-
-
-
-
-<div
-
-className="
-space-y-5
-"
-
->
-
-
-<div>
-
-<p className="text-blue-500 font-semibold">
-
-🔵 {
-language === "uk"
-? "До виконання"
-: "To Do"
-}
-
-</p>
-
-<p className="text-zinc-400">
-
-32 (50%)
-
-</p>
-
-</div>
-
-
-
-
-
-<div>
-
-<p className="text-yellow-400 font-semibold">
-
-🟡 {
-language === "uk"
-? "В процесі"
-: "In Progress"
-}
-
-</p>
-
-<p className="text-zinc-400">
-
-16 (25%)
-
-</p>
-
-</div>
-
-
-
-
-
-<div>
-
-<p className="text-slate-400 font-semibold">
-
-⚫ {
-language === "uk"
-? "Виконано"
-: "Done"
-}
-
-</p>
-
-<p className="text-zinc-400">
-
-16 (25%)
-
-</p>
-
-</div>
-
-
-
-</div>
-
-
-
-
-</div>
-
-
 </Card>
-
-
-
-
-
-
-{/* RECENT ACTIVITY */}
-
-
-
 <Card
 
 className="
 xl:col-span-4
+min-h-[420px]
 "
 
 >
@@ -1397,14 +1154,7 @@ mb-6
 
 
 
-
-<div
-
-className="
-space-y-5
-"
-
->
+<div className="space-y-4">
 
 
 {
@@ -1421,105 +1171,340 @@ key={index}
 className="
 flex
 justify-between
+items-center
+p-4
+rounded-xl
+bg-[#071126]
+border
+border-blue-900/40
+"
+
+>
+
+
+<div>
+
+
+<p className="font-semibold">
+
+{
+activity.type==="client"
+?
+"👤 Новий клієнт"
+:
+activity.type==="project"
+?
+"📁 Новий проєкт"
+:
+"✅ Нове завдання"
+}
+
+</p>
+
+
+<p className="text-zinc-400">
+
+{activity.name}
+
+</p>
+
+
+</div>
+
+
+
+<span className="text-zinc-500 text-sm">
+
+{
+new Date(
+activity.createdAt
+)
+.toLocaleDateString()
+}
+
+</span>
+
+
+</div>
+
+
+)
+
+)
+
+}
+
+
+
+</div>
+
+
+</Card>
+
+
+</div>
+
+
+{/* CLOSE LEFT COLUMN */}
+
+</div>
+
+
+
+
+{/* RIGHT SIDEBAR */}
+
+
+<div
+
+className="
+col-span-3
+space-y-6
+"
+
+>
+
+
+<Card>
+
+
+<h3
+
+className="
+text-2xl
+font-semibold
+mb-6
+"
+
+>
+
+Ближчі дедлайни
+
+</h3>
+
+
+
+<div className="space-y-4">
+
+
+<div
+
+className="
 border-b
-border-blue-950
+border-blue-900/40
 pb-4
 "
 
 >
 
 
-<p>
+<p className="text-yellow-400">
 
-
-{
-
-activity.type==="client" &&
-
-`👤 ${
-language === "uk"
-? "Новий клієнт"
-: "New client"
-} "${activity.name}"`
-
-}
-
-
-{
-
-activity.type==="project" &&
-
-`📁 ${
-language === "uk"
-? "Новий проєкт"
-: "New project"
-} "${activity.name}"`
-
-}
-
-
-{
-
-activity.type==="task" &&
-
-`📋 ${
-language === "uk"
-? "Нове завдання"
-: "New task"
-} "${activity.name}"`
-
-}
-
+🟡 Розробка CRM системи
 
 </p>
 
 
+<p className="text-sm text-zinc-400">
+
+ТОВ "Tech Solutions"
+
+</p>
+
+
+<div className="flex justify-between mt-2">
+
+
+<span className="text-sm">
+
+30.06.2025
+
+</span>
 
 
 <span
 
 className="
-text-zinc-500
+text-xs
+bg-yellow-400/20
+text-yellow-400
+px-3
+py-1
+rounded-full
+"
+
+>
+
+Високий
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div
+
+className="
+border-b
+border-blue-900/40
+pb-4
 "
 
 >
 
 
-{
+<p className="text-blue-400">
 
-new Date(
+🔵 Новий веб-сайт
 
-activity.createdAt
+</p>
 
-).toLocaleDateString()
 
-}
+<p className="text-sm text-zinc-400">
 
+Digital Agency
+
+</p>
+
+
+<div className="flex justify-between mt-2">
+
+
+<span className="text-sm">
+
+15.07.2025
 
 </span>
 
 
+<span
+
+className="
+text-xs
+bg-blue-400/20
+text-blue-400
+px-3
+py-1
+rounded-full
+"
+
+>
+
+Середній
+
+</span>
 
 
 </div>
 
 
-)
-
-)
-
-
-}
-
+</div>
 
 
 </div>
-
 
 
 </Card>
 
 
+
+
+
+<Card>
+
+
+<h3
+
+className="
+text-2xl
+font-semibold
+mb-6
+"
+
+>
+
+Статус системи
+
+</h3>
+
+
+
+<div className="space-y-4">
+
+
+<div className="flex justify-between">
+
+<span>
+
+API
+
+</span>
+
+
+<span className="text-green-400">
+
+● Online
+
+</span>
+
+
+</div>
+
+
+
+<div className="flex justify-between">
+
+<span>
+
+Database
+
+</span>
+
+
+<span className="text-green-400">
+
+● Connected
+
+</span>
+
+
+</div>
+
+
+
+<div className="flex justify-between">
+
+<span>
+
+JWT
+
+</span>
+
+
+<span className="text-green-400">
+
+● Active
+
+</span>
+
+
+</div>
+
+
+
+</div>
+
+
+</Card>
+
+
+</div>
 </div>
 
 
@@ -1533,6 +1518,5 @@ activity.createdAt
 
 
 );
-
 
 }
