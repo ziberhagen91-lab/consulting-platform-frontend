@@ -9,12 +9,11 @@ export const translations = {
     heroDescription:
       "Modern SaaS platform for consultants, agencies and experts.",
 
-      heroUkraine: "Ukraine",
-heroUSA: "USA",
-heroWorld: "World",
+    heroUkraine: "Ukraine",
+    heroUSA: "USA",
+    heroWorld: "World",
 
     getStarted: "Get Started",
-
     learnMore: "Learn More",
 
     clientManagement: "Client Management",
@@ -35,9 +34,7 @@ heroWorld: "World",
     platform: "Consulting Platform",
 
     overview: "Overview",
-
     settings: "Settings",
-
     dashboard: "Dashboard",
 
     welcome: "Welcome back",
@@ -48,8 +45,32 @@ heroWorld: "World",
       "Here's what's happening in your business today.",
 
     secure: "Secure",
-
     notifications: "Notifications",
+
+    calendar: "Calendar",
+    messages: "Messages",
+
+    upcomingDeadlines: "Upcoming Deadlines",
+
+    systemStatus: "System Status",
+
+    projectProgress: "Project Progress",
+
+    averageProgress: "Average progress",
+
+    allProjects: "All projects",
+
+    api: "API",
+    database: "Database",
+    jwt: "JWT",
+
+    online: "Online",
+    connected: "Connected",
+    active: "Active",
+
+    high: "High",
+    medium: "Medium",
+    low: "Low",
 
     newClientAdded: "New client added",
 
@@ -59,7 +80,8 @@ heroWorld: "World",
 
     back: "Back",
 
-    subtitle: "Platform statistics and metrics",
+    subtitle:
+      "Platform statistics and metrics",
 
     clients: "Clients",
 
@@ -92,21 +114,23 @@ heroWorld: "World",
     searchClients:
       "Search clients...",
 
-    noClients: "No clients found",
+    noClients:
+      "No clients found",
 
     createFirst:
       "Create your first consulting client",
 
-    addFirst: "Add First Client",
-
-    active: "Active",
+    addFirst:
+      "Add First Client",
 
     total: "Total",
 
     edit: "Edit",
 
     delete: "Delete",
-        confirmDelete: "Delete this client?",
+
+    confirmDelete:
+      "Delete this client?",
 
     clientDeleted:
       "Client deleted successfully",
@@ -193,8 +217,7 @@ heroWorld: "World",
       "Failed to update task",
 
     saving: "Saving...",
-
-    projects: "Projects",
+        projects: "Projects",
 
     manageProjects:
       "Manage your consulting projects",
@@ -202,7 +225,8 @@ heroWorld: "World",
     totalProjects:
       "Total Projects",
 
-    addProject: "New Project",
+    addProject:
+      "New Project",
 
     searchProjects:
       "Search projects...",
@@ -212,7 +236,8 @@ heroWorld: "World",
 
     noProjectsText:
       "Try another search or create a new project.",
-          addProjectTitle:
+
+    addProjectTitle:
       "Add Project",
 
     addProjectSubtitle:
@@ -254,12 +279,14 @@ heroWorld: "World",
     completedStatus:
       "Completed",
 
-    all: "All",
+    all:
+      "All",
 
     noDescription:
       "No description",
 
-    budget: "Budget",
+    budget:
+      "Budget",
 
     projectCreated:
       "Project created successfully",
@@ -267,7 +294,6 @@ heroWorld: "World",
     failedCreateProject:
       "Failed to create project",
 
-      
     failedUpdateProject:
       "Failed to update project",
 
@@ -313,7 +339,8 @@ heroWorld: "World",
     monthlyGrowth:
       "Monthly revenue growth",
 
-    live: "Live",
+    live:
+      "Live",
 
     noRecentActivity:
       "No recent activity",
@@ -327,6 +354,12 @@ heroWorld: "World",
     newTask:
       "📋 Created task",
 
+      crmDevelopment:
+  "CRM System Development",
+
+newWebsite:
+  "New Website",
+
     taskAnalytics:
       "Task Analytics",
 
@@ -339,418 +372,501 @@ heroWorld: "World",
     completionRate:
       "Completion Rate",
 
-    todo: "To Do",
+    todo:
+      "To Do",
 
     inProgress:
       "In Progress",
 
-    done: "Done",
-
-    logout: "Logout",
-  },
-
-  uk: {
-        features: "Можливості",
-
-    pricing: "Ціни",
-
-    contact: "Контакти",
-
-    heroTitle: "Платформа для консультацій",
-
-    heroDescription:
-      "Сучасна SaaS-платформа для консультантів, агентств та експертів.",
-
-heroUkraine: "Україна",
-heroUSA: "США",
-heroWorld: "Світ",
-
-    getStarted: "Почати",
-
-    learnMore: "Дізнатися більше",
-
-    clientManagement:
-      "Керування клієнтами",
-
-    clientManagementDescription:
-      "Організовуйте клієнтів, зустрічі та робочі процеси в одному місці.",
-
-    analytics:
-      "Аналітика",
-
-    analyticsDescription:
-      "Відстежуйте ефективність і розвиток бізнесу в режимі реального часу.",
-
-    securePlatform:
-      "Безпечна платформа",
-
-    securePlatformDescription:
-      "Захищена автентифікація та безпечне керування даними клієнтів.",
-
-    platform:
-      "Консалтингова платформа",
-
-    overview:
-      "Огляд",
-
-    settings:
-      "Налаштування",
-
-    dashboard:
-      "Панель керування",
-
-    welcome:
-      "З поверненням",
-
-    headerGreeting:
-      "Доброго дня",
-
-    headerSubtitle:
-      "Ось що відбувається у вашому бізнесі сьогодні.",
-
-    secure:
-      "Безпечно",
-
-    notifications:
-      "Повідомлення",
-
-    newClientAdded:
-      "Новий клієнт доданий",
-
-    taskCompleted:
-      "Завдання виконано",
-
-    back:
-      "Назад",
-
-    subtitle:
-      "Статистика та показники платформи",
-
-    clients:
-      "Клієнти",
-
-    activeClients:
-      "Активні клієнти",
-
-    manageClients:
-      "Керуйте своїми клієнтами",
-
-    addClient:
-      "Додати клієнта",
-
-    addClientTitle:
-      "Додати клієнта",
-
-    addClientSubtitle:
-      "Створіть нового клієнта",
-
-    clientName:
-      "Ім'я клієнта",
-
-    serviceType:
-      "Тип послуги",
-
-    createClient:
-      "Створити клієнта",
-
-    creatingClient:
-      "Створення...",
-
-    clientCreated:
-      "Клієнта успішно створено",
-
-    failedCreateClient:
-      "Не вдалося створити клієнта",
-
-    searchClients:
-      "Пошук клієнтів...",
-
-    noClients:
-      "Клієнтів не знайдено",
-
-    createFirst:
-      "Створіть свого першого клієнта",
-
-    addFirst:
-      "Додати першого клієнта",
-
-    active:
-      "Активний",
-
-    total:
-      "Усього",
-
-    edit:
-      "Редагувати",
-
-    delete:
-      "Видалити",
-          confirmDelete:
-      "Видалити цього клієнта?",
-
-    clientDeleted:
-      "Клієнта успішно видалено",
-
-    failedDelete:
-      "Не вдалося видалити клієнта",
-
-    failedLoad:
-      "Не вдалося завантажити клієнтів",
-
-    invalidResponse:
-      "Некоректна відповідь сервера",
-
-    tasks:
-      "Завдання",
-
-    tasksTitle:
-      "Завдання",
-
-    totalTasks:
-      "Усього завдань",
-
-    addTask:
-      "Додати завдання",
-
-    addTaskTitle:
-      "Створити завдання",
-
-    addTaskSubtitle:
-      "Додайте нове завдання",
-
-    taskTitle:
-      "Назва завдання",
-
-    description:
-      "Опис",
-
-    status:
-      "Статус",
-
-    priority:
-      "Пріоритет",
-
-    noClient:
-      "Без клієнта",
-
-    createTask:
-      "Створити завдання",
-
-    creatingTask:
-      "Створення...",
-
-    taskCreated:
-      "Завдання успішно створено",
-
-    createFailed:
-      "Не вдалося створити завдання",
-
-    loadClientsFailed:
-      "Не вдалося завантажити клієнтів",
-
-    completedTasks:
-      "Виконано",
-
-    completedTasksDesc:
-      "Виконані завдання",
-
-    loading:
-      "Завантаження...",
-
-    noTasks:
-      "Завдань поки немає",
-
-    noTasksText:
-      "Створіть перше завдання для початку роботи.",
-
-    failedLoadTasks:
-      "Не вдалося завантажити завдання",
-
-    failedDeleteTask:
-      "Не вдалося видалити завдання",
-
-    taskDeleted:
-      "Завдання успішно видалено",
-
-    confirmDeleteTask:
-      "Видалити це завдання?",
-
-    editTaskTitle:
-      "Редагувати завдання",
-
-    editTaskSubtitle:
-      "Оновіть інформацію про завдання",
-
-    taskUpdated:
-      "Завдання успішно оновлено",
-
-    failedUpdateTask:
-      "Не вдалося оновити завдання",
-
-    saving:
-      "Збереження...",
-
-    projects:
-      "Проєкти",
-
-    manageProjects:
-      "Керуйте своїми проєктами",
-
-    totalProjects:
-      "Усього проєктів",
-
-    addProject:
-      "Новий проєкт",
-          searchProjects:
-      "Пошук проєктів...",
-
-    noProjects:
-      "Проєктів не знайдено",
-
-    noProjectsText:
-      "Спробуйте інший пошук або створіть новий проєкт.",
-
-    addProjectTitle:
-      "Додати проєкт",
-
-    addProjectSubtitle:
-      "Створіть новий проєкт для клієнта.",
-
-    editProjectTitle:
-      "Редагувати проєкт",
-
-    editProjectSubtitle:
-      "Оновіть інформацію про проєкт",
-
-    projectName:
-      "Назва проєкту",
-
-    projectDescription:
-      "Опис",
-
-    projectBudget:
-      "Бюджет",
-
-    createProject:
-      "Створити проєкт",
-
-    projectNamePlaceholder:
-      "Введіть назву проєкту",
-
-    projectDescriptionPlaceholder:
-      "Опишіть проєкт...",
-
-    projectBudgetPlaceholder:
-      "Введіть бюджет",
-
-    activeStatus:
-      "Активний",
-
-    pausedStatus:
-      "Призупинений",
-
-    completedStatus:
-      "Завершений",
-
-    all:
-      "Усі",
-
-    noDescription:
-      "Без опису",
-
-    budget:
-      "Бюджет",
-
-    projectCreated:
-      "Проєкт успішно створено",
-
-    failedCreateProject:
-      "Не вдалося створити проєкт",
-
-    projectUpdated:
-      "Проєкт успішно оновлено",
-
-    failedUpdateProject:
-      "Не вдалося оновити проєкт",
-
-    failedLoadProject:
-      "Не вдалося завантажити проєкт",
-
-    projectDeleted:
-      "Проєкт успішно видалено",
-
-    failedDeleteProject:
-      "Не вдалося видалити проєкт",
-
-    confirmDeleteProject:
-      "Ви впевнені, що хочете видалити цей проєкт?",
-
-    saveChanges:
-      "Зберегти зміни",
-
-    cancel:
-      "Скасувати",
-          activeProjects:
-      "Активні проєкти",
-
-    revenue:
-      "Дохід",
-
-    monthlyRevenue:
-      "Місячний дохід",
-
-    growth:
-      "Зростання",
-
-    businessGrowth:
-      "Ріст бізнесу",
-
-    recentActivity:
-      "Остання активність",
-
-    revenueAnalytics:
-      "Аналітика доходу",
-
-    monthlyGrowth:
-      "Щомісячне зростання доходу",
-
-    live:
-      "Оновлюється",
-
-    noRecentActivity:
-      "Немає останньої активності",
-
-    newClient:
-      "👤 Новий клієнт",
-
-    newProject:
-      "📁 Створено проєкт",
-
-    newTask:
-      "📋 Створено завдання",
-
-    taskAnalytics:
-      "Аналітика завдань",
-
-    taskOverview:
-      "Поточний огляд статусів завдань",
-
-    platformSummary:
-      "Підсумок платформи",
-
-    completionRate:
-      "Відсоток виконання",
-
-    todo:
-      "До виконання",
-
-    inProgress:
-      "В процесі",
-
     done:
-      "Виконано",
+      "Done",
 
     logout:
-      "Вийти",
+      "Logout",
+        },
+
+  uk: {
+  overview:
+    "Огляд",
+
+  dashboard:
+    "Панель керування",
+
+  welcome:
+    "З поверненням",
+
+  secure:
+    "Захищено",
+
+  clients:
+    "Клієнти",
+
+  activeClients:
+    "Активні клієнти",
+
+  tasks:
+    "Завдання",
+
+  totalTasks:
+    "Усього завдань",
+
+  completed:
+    "Виконано",
+
+  completedTasks:
+    "Виконано",
+
+  completedTasksDesc:
+    "Виконані завдання",
+
+  projects:
+    "Проєкти",
+
+  activeProjects:
+    "Активні проєкти",
+
+  analytics:
+    "Аналітика",
+
+  settings:
+    "Налаштування",
+
+  calendar:
+    "Календар",
+
+  notifications:
+    "Повідомлення",
+
+  recentActivity:
+    "Остання активність",
+
+  newClientAdded:
+    "Додано нового клієнта",
+
+  newProjectAdded:
+    "Додано новий проєкт",
+
+  newTaskAdded:
+    "Додано нове завдання",
+
+  analyticsUpdated:
+    "Аналітику оновлено",
+
+  jwtActive:
+    "JWT-автентифікація активна",
+
+  justNow:
+    "Щойно",
+
+  live:
+    "Наживо",
+
+  revenueAnalytics:
+    "Аналітика доходу",
+
+  monthlyGrowth:
+    "Щомісячне зростання доходу",
+
+  revenue:
+    "Дохід",
+
+  monthlyRevenue:
+    "Місячний дохід",
+
+  growth:
+    "Зростання",
+
+  businessGrowth:
+    "Зростання бізнесу",
+
+  taskAnalytics:
+    "Аналітика завдань",
+
+  taskOverview:
+    "Поточний стан завдань",
+
+  platformSummary:
+    "Огляд платформи",
+
+  completionRate:
+    "Відсоток виконання",
+
+  todo:
+    "До виконання",
+
+  inProgress:
+    "В процесі",
+
+  done:
+    "Виконано",
+
+  noRecentActivity:
+    "Немає останньої активності",
+
+  newClient:
+    "👤 Новий клієнт",
+
+  newProject:
+    "📁 Новий проєкт",
+
+  newTask:
+    "📋 Нове завдання",
+
+  taskCompleted:
+    "Завдання виконано",
+
+  logout:
+    "Вийти",
+
+  cancel:
+    "Скасувати",
+
+  saveChanges:
+    "Зберегти зміни",
+
+  all:
+    "Усі",
+
+  budget:
+    "Бюджет",
+
+  activeStatus:
+    "Активний",
+
+  pausedStatus:
+    "Призупинений",
+
+  completedStatus:
+    "Завершений",
+
+  projectCreated:
+    "Проєкт успішно створено",
+
+  projectUpdated:
+    "Проєкт успішно оновлено",
+
+  failedUpdateProject:
+    "Не вдалося оновити проєкт",
+
+  failedCreateProject:
+    "Не вдалося створити проєкт",
+
+  failedLoadProject:
+    "Не вдалося завантажити проєкт",
+
+  projectDeleted:
+    "Проєкт успішно видалено",
+
+  failedDeleteProject:
+    "Не вдалося видалити проєкт",
+
+  confirmDeleteProject:
+    "Ви впевнені, що хочете видалити цей проєкт?",
+
+  noDescription:
+    "Немає опису",
+
+  manageProjects:
+    "Керуйте своїми консалтинговими проєктами",
+
+  totalProjects:
+    "Усього проєктів",
+
+  addProject:
+    "Новий проєкт",
+
+  searchProjects:
+    "Пошук проєктів...",
+
+  noProjects:
+    "Проєктів не знайдено",
+
+  noProjectsText:
+    "Спробуйте інший пошук або створіть новий проєкт.",
+
+  addProjectTitle:
+    "Додати проєкт",
+
+  addProjectSubtitle:
+    "Створіть новий проєкт для клієнта.",
+
+  editProjectTitle:
+    "Редагувати проєкт",
+
+  editProjectSubtitle:
+    "Оновіть інформацію про проєкт",
+
+  projectName:
+    "Назва проєкту",
+
+  projectDescription:
+    "Опис",
+
+  projectBudget:
+    "Бюджет",
+
+  createProject:
+    "Створити проєкт",
+
+  projectNamePlaceholder:
+    "Введіть назву проєкту",
+
+  projectDescriptionPlaceholder:
+    "Опишіть проєкт...",
+
+  projectBudgetPlaceholder:
+    "Введіть бюджет",
+
+  features:
+    "Можливості",
+
+  pricing:
+    "Ціни",
+
+  contact:
+    "Контакти",
+
+  heroTitle:
+    "Consulting Platform",
+
+  heroDescription:
+    "Сучасна SaaS-платформа для консультантів, агентств та експертів.",
+
+  heroUkraine:
+    "Україна",
+
+  heroUSA:
+    "США",
+
+  heroWorld:
+    "Світ",
+
+  getStarted:
+    "Почати",
+
+  learnMore:
+    "Дізнатися більше",
+
+  clientManagement:
+    "Управління клієнтами",
+
+  clientManagementDescription:
+    "Організовуйте клієнтів, зустрічі та робочі процеси в одному місці.",
+
+  analyticsDescription:
+    "Відстежуйте ефективність та розвиток бізнесу за допомогою аналітики в реальному часі.",
+
+  securePlatform:
+    "Безпечна платформа",
+
+  securePlatformDescription:
+    "Захищена автентифікація та безпечне управління даними клієнтів.",
+
+  platform:
+    "Consulting Platform",
+
+  headerGreeting:
+    "Добрий день",
+
+  headerSubtitle:
+    "Ось що відбувається у вашому бізнесі сьогодні.",
+
+  subtitle:
+    "Статистика та показники платформи",
+
+  upcomingDeadlines:
+    "Ближчі дедлайни",
+
+  systemStatus:
+    "Статус системи",
+
+  projectProgress:
+    "Прогрес проєктів",
+
+  averageProgress:
+    "Середній прогрес",
+
+  allProjects:
+    "всіх проєктів",
+
+  api:
+    "API",
+
+  database:
+    "База даних",
+
+  jwt:
+    "JWT",
+
+  online:
+    "Онлайн",
+
+  connected:
+    "Підключено",
+
+  active:
+    "Активний",
+
+  high:
+    "Високий",
+
+  medium:
+    "Середній",
+
+  low:
+    "Низький",
+
+  back:
+    "Назад",
+
+  manageClients:
+    "Керуйте своїми клієнтами",
+
+  addClient:
+    "Додати клієнта",
+
+  addClientTitle:
+    "Додати клієнта",
+
+  addClientSubtitle:
+    "Створіть нового клієнта",
+
+  clientName:
+    "Ім'я клієнта",
+
+  serviceType:
+    "Тип послуги",
+
+  createClient:
+    "Створити клієнта",
+
+  creatingClient:
+    "Створення...",
+
+  clientCreated:
+    "Клієнта успішно створено",
+
+  failedCreateClient:
+    "Не вдалося створити клієнта",
+
+  searchClients:
+    "Пошук клієнтів...",
+
+  noClients:
+    "Клієнтів не знайдено",
+
+  createFirst:
+    "Створіть свого першого клієнта",
+
+  addFirst:
+    "Додати першого клієнта",
+
+  total:
+    "Усього",
+
+  edit:
+    "Редагувати",
+
+  delete:
+    "Видалити",
+
+  confirmDelete:
+    "Видалити цього клієнта?",
+
+  clientDeleted:
+    "Клієнта успішно видалено",
+
+  failedDelete:
+    "Не вдалося видалити клієнта",
+
+  failedLoad:
+    "Не вдалося завантажити клієнтів",
+
+  invalidResponse:
+    "Некоректна відповідь від сервера",
+
+  tasksTitle:
+    "Завдання",
+
+  addTask:
+    "Додати завдання",
+
+  addTaskTitle:
+    "Додати завдання",
+
+  addTaskSubtitle:
+    "Створіть нове завдання",
+
+  taskTitle:
+    "Назва завдання",
+
+  description:
+    "Опис",
+
+  status:
+    "Статус",
+
+  priority:
+    "Пріоритет",
+
+  noClient:
+    "Без клієнта",
+
+  createTask:
+    "Створити завдання",
+
+  creatingTask:
+    "Створення...",
+
+  taskCreated:
+    "Завдання успішно створено",
+
+  createFailed:
+    "Не вдалося створити завдання",
+
+  loadClientsFailed:
+    "Не вдалося завантажити клієнтів",
+
+  loading:
+    "Завантаження...",
+
+  noTasks:
+    "Завдань поки немає",
+
+  noTasksText:
+    "Створіть своє перше завдання, щоб почати.",
+
+  failedLoadTasks:
+    "Не вдалося завантажити завдання",
+
+  failedDeleteTask:
+    "Не вдалося видалити завдання",
+
+  taskDeleted:
+    "Завдання успішно видалено",
+
+  confirmDeleteTask:
+    "Видалити це завдання?",
+
+  editTaskTitle:
+    "Редагувати завдання",
+
+  editTaskSubtitle:
+    "Оновіть інформацію про завдання",
+
+  taskUpdated:
+    "Завдання успішно оновлено",
+
+  failedUpdateTask:
+    "Не вдалося оновити завдання",
+
+  saving:
+    "Збереження...",
+
+  crmDevelopment:
+    "Розробка CRM системи",
+
+      newWebsite:
+      "New website",
   },
-} as const;
+};

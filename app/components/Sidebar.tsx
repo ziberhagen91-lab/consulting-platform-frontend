@@ -93,17 +93,16 @@ export default function Sidebar({
 
 
     {
-      href:"#",
-      icon:CalendarDays,
-      label:"Календар",
-    },
+  href:"#",
+  icon:CalendarDays,
+  label:t[language].calendar,
+},
 
-
-    {
-      href:"#",
-      icon:MessageCircle,
-      label:"Повідомлення",
-    },
+{
+  href:"#",
+  icon:MessageCircle,
+  label:t[language].notifications,
+},
 
 
     {
@@ -121,7 +120,7 @@ return (
 <aside
 
 className="
-w-64
+w-[212px]
 min-h-screen
 bg-[#020817]
 border-r
@@ -143,7 +142,7 @@ text-white
   height={200}
   priority
   unoptimized
-  className="w-44 h-auto mb-2"
+  className="w-[150px] h-auto mb-2 mx-auto"
 />
 
 

@@ -408,15 +408,13 @@ onLogout={logout}
 
 
 <main
-
-className="
-flex-1
-ml-[240px]
-p-6
-min-h-screen
-overflow-y-auto
-"
-
+  className="
+    flex-1
+    ml-0
+    p-5
+    min-h-screen
+    overflow-y-auto
+  "
 >
 
 
@@ -434,25 +432,21 @@ setLanguage={setLanguage}
 
 
 <section
-
-className="
-w-full
-max-w-[1600px]
-mx-auto
-mt-8
-"
-
+  className="
+    w-full
+    max-w-none
+    mx-0
+    mt-4
+  "
 >
 
 
 <div
-
-className="
-grid
-grid-cols-12
-gap-6
-"
-
+  className="
+    grid
+    grid-cols-12
+    gap-5
+  "
 >
 
 
@@ -1149,13 +1143,7 @@ mb-6
 >
 
 
-{
-language==="uk"
-?
-"Розподіл завдань"
-:
-"Task Distribution"
-}
+{t[language].taskAnalytics}
 
 
 </h3>
@@ -1350,17 +1338,11 @@ border-blue-900/40
 
 <p className="font-semibold">
 
-{
-activity.type==="client"
-?
-"👤 Новий клієнт"
-:
-activity.type==="project"
-?
-"📁 Новий проєкт"
-:
-"✅ Нове завдання"
-}
+{activity.type === "client"
+  ? t[language].newClient
+  : activity.type === "project"
+  ? t[language].newProject
+  : t[language].newTask}
 
 </p>
 
@@ -1443,7 +1425,7 @@ mb-6
 
 >
 
-Ближчі дедлайни
+{t[language].upcomingDeadlines}
 
 </h3>
 
@@ -1464,15 +1446,13 @@ pb-4
 
 
 <p className="text-yellow-400">
-
-🟡 Розробка CRM системи
-
+  🟡 {t[language].crmDevelopment}
 </p>
 
 
 <p className="text-sm text-zinc-400">
 
-ТОВ "Tech Solutions"
+{language === "uk" ? 'ТОВ "Tech Solutions"' : 'Tech Solutions LLC'}
 
 </p>
 
@@ -1502,7 +1482,7 @@ rounded-full
 
 >
 
-Високий
+{t[language].high}
 
 </span>
 
@@ -1528,16 +1508,12 @@ pb-4
 
 
 <p className="text-blue-400">
-
-🔵 Новий веб-сайт
-
+  🔵 {t[language].newWebsite}
 </p>
 
 
 <p className="text-sm text-zinc-400">
-
-Digital Agency
-
+  {language === "uk" ? "Digital Agency" : "Digital Agency"}
 </p>
 
 
@@ -1602,7 +1578,7 @@ mb-6
 
 >
 
-Статус системи
+{t[language].systemStatus}
 
 </h3>
 
@@ -1615,14 +1591,14 @@ mb-6
 
 <span>
 
-API
+{t[language].api}
 
 </span>
 
 
 <span className="text-green-400">
 
-● Online
+{t[language].online}
 
 </span>
 
@@ -1636,14 +1612,14 @@ API
 
 <span>
 
-Database
+{t[language].database}
 
 </span>
 
 
 <span className="text-green-400">
 
-● Connected
+{t[language].connected}
 
 </span>
 
@@ -1657,14 +1633,14 @@ Database
 
 <span>
 
-JWT
+{t[language].jwt}
 
 </span>
 
 
 <span className="text-green-400">
 
-● Active
+{t[language].active}
 
 </span>
 
@@ -1697,7 +1673,7 @@ mb-6
 
 >
 
-Прогрес проектів
+{t[language].projectProgress}
 
 </h3>
 
@@ -1814,14 +1790,14 @@ justify-center
 
 <p className="text-lg font-semibold">
 
-Середній прогрес
+{t[language].averageProgress}
 
 </p>
 
 
 <p className="text-zinc-400">
 
-всіх проектів
+{t[language].allProjects}
 
 </p>
 
