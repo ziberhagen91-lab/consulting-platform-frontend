@@ -137,11 +137,12 @@ text-white
 
 
 <Image
-  src="/logo.png"
+  src="/logo.png?v=2"
   alt="Consulting Platform"
   width={200}
   height={200}
   priority
+  unoptimized
   className="w-44 h-auto mb-2"
 />
 
