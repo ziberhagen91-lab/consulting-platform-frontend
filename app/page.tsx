@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 import {
   ArrowRight,
   BarChart3,
@@ -85,8 +86,6 @@ export default function HomePage() {
             >
               Contact
             </a>
-
-            <div className="h-6 w-px bg-white/10" />
 
             <button className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-200 transition hover:bg-white/[0.07]">
 
@@ -549,89 +548,6 @@ export default function HomePage() {
 
 
         {/* ======================================================= */}
-        {/* FEATURE CARDS */}
-        {/* ======================================================= */}
-
-        <div
-          id="features"
-          className="mt-12 grid gap-5 md:grid-cols-3"
-        >
-
-          <FeatureCard
-            icon={<Users size={29} />}
-            iconClass="bg-purple-500/20 text-purple-500"
-            title="Client Management"
-            text="Organize clients, meetings and workflows in one place."
-            color="text-purple-400"
-          />
-
-          <FeatureCard
-            icon={<BarChart3 size={29} />}
-            iconClass="bg-blue-500/20 text-blue-500"
-            title="Analytics & Reports"
-            text="Track performance and business growth with real-time analytics."
-            color="text-blue-400"
-          />
-
-          <FeatureCard
-            icon={<ShieldCheck size={29} />}
-            iconClass="bg-green-500/20 text-green-400"
-            title="Secure Platform"
-            text="Protected authentication and secure client data management."
-            color="text-green-400"
-          />
-
-        </div>
-
-
-        {/* ======================================================= */}
-        {/* STATS */}
-        {/* ======================================================= */}
-
-        <div className="mt-5 overflow-hidden rounded-2xl border border-white/[0.09] bg-[#090b11]/80">
-
-          <div className="grid md:grid-cols-5">
-
-            <div className="p-6 text-center md:text-left">
-              <p className="text-sm leading-6 text-zinc-400">
-                Trusted by professionals
-                <br />
-                around the world
-              </p>
-            </div>
-
-            <Stat
-              value="500+"
-              label="Active Users"
-              color="text-purple-500"
-            />
-
-            <Stat
-              value="2K+"
-              label="Projects Completed"
-              color="text-blue-500"
-            />
-
-            <Stat
-              value="98%"
-              label="Client Satisfaction"
-              color="text-green-400"
-            />
-
-            <Stat
-              value="24/7"
-              label="Support"
-              color="text-amber-400"
-            />
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* ========================================================= */}
       {/* FOOTER */}
       {/* ========================================================= */}
 
@@ -821,3 +737,7 @@ function Stat({
     </div>
   );
 }
+
+
+
+
