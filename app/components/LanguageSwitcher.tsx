@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function LanguageSwitcher() {
   const [language, setLanguage] =
-    useState<"uk" | "en">("uk");
+    useState<"uk" | "en">("en");
 
   useEffect(() => {
     const saved = localStorage.getItem("language");
@@ -15,27 +15,23 @@ export default function LanguageSwitcher() {
   }, []);
 
   const toggleLanguage = () => {
-    const newLanguage =
-      language === "uk" ? "en" : "uk";
+    const nextLanguage =
+      language === "en" ? "uk" : "en";
 
-    localStorage.setItem(
-      "language",
-      newLanguage
-    );
+    localStorage.setItem("language", nextLanguage);
 
-    setLanguage(newLanguage);
+    setLanguage(nextLanguage);
 
     window.location.reload();
   };
 
   return (
     <button
+      type="button"
       onClick={toggleLanguage}
-      className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-3 font-medium text-white transition-all duration-300 hover:border-white hover:bg-zinc-800"
+      className="relative z-50 inline-flex shrink-0 cursor-pointer pointer-events-auto items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-200 transition hover:border-white/20 hover:bg-white/[0.07]"
     >
-      {language === "uk"
-        ? "🇺🇦 UA"
-        : "🇬🇧 EN"}
+      {language === "en" ? "🇬🇧 EN" : "🇺🇦 UA"}
     </button>
   );
 }

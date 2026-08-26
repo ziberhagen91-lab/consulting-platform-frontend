@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import { useLanguage } from "./components/translations";
 import {
   ArrowRight,
   BarChart3,
@@ -7,7 +10,7 @@ import {
   ChevronDown,
   ClipboardList,
   FolderKanban,
-  LayoutDashboard,
+  Layout,
   Lock,
   Settings,
   ShieldCheck,
@@ -17,6 +20,7 @@ import {
 } from "lucide-react";
 
 export default function HomePage() {
+  const { t } = useLanguage();
   return (
     <main className="min-h-screen overflow-hidden bg-[#05060b] text-white">
 
@@ -46,18 +50,15 @@ export default function HomePage() {
             href="/"
             className="flex items-center gap-3"
           >
-            <div className="relative flex h-9 w-9 items-center justify-center">
-
-              <div className="absolute left-1 top-1 h-6 w-4 rotate-[25deg] rounded-lg bg-gradient-to-br from-purple-500 to-blue-500" />
-
-              <div className="absolute left-4 top-0 h-7 w-4 -rotate-[15deg] rounded-lg bg-gradient-to-br from-blue-400 to-purple-600" />
-
-              <div className="absolute left-3 top-4 h-5 w-4 rotate-[25deg] rounded-lg bg-gradient-to-br from-purple-700 to-blue-500" />
-
-            </div>
+            
+            <img
+              src="/logo.png"
+              alt="Consulting Platform"
+              className="h-11 w-11 object-contain"
+            />
 
             <span className="text-lg font-semibold tracking-tight">
-              Consulting Platform
+              {t("brand")}
             </span>
           </Link>
 
@@ -70,32 +71,24 @@ export default function HomePage() {
               href="#features"
               className="text-sm text-zinc-300 transition hover:text-white"
             >
-              Features
+              {t("features")}
             </a>
 
             <a
               href="#pricing"
               className="text-sm text-zinc-300 transition hover:text-white"
             >
-              Pricing
+              {t("pricing")}
             </a>
 
             <a
               href="#contact"
               className="text-sm text-zinc-300 transition hover:text-white"
             >
-              Contact
+              {t("contact")}
             </a>
 
-            <button className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-200 transition hover:bg-white/[0.07]">
-
-              <span>🇬🇧</span>
-
-              <span>EN</span>
-
-              <ChevronDown size={14} />
-
-            </button>
+            <LanguageSwitcher />
 
           </nav>
 
@@ -125,21 +118,21 @@ export default function HomePage() {
                 className="text-purple-400"
               />
 
-              Modern Solution for Modern Consultants
+              {t("badge")}
 
             </div>
 
 
             {/* TITLE */}
 
-            <h1 className="max-w-[620px] text-6xl font-bold leading-[0.98] tracking-[-0.04em] sm:text-7xl lg:text-[78px]">
+            <h1 className="max-w-[620px] text-5xl font-bold leading-[1.02] tracking-[-0.04em] sm:text-6xl lg:text-[64px]">
 
               <span className="block text-white">
-                Consulting
+                {t("heroTitle")}
               </span>
 
               <span className="block bg-gradient-to-r from-purple-500 via-violet-400 to-blue-500 bg-clip-text text-transparent">
-                Platform
+                {t("heroHighlight")}
               </span>
 
             </h1>
@@ -162,7 +155,7 @@ export default function HomePage() {
                 href="/login"
                 className="group flex h-14 items-center gap-4 rounded-xl bg-gradient-to-r from-purple-600 to-blue-500 px-7 font-semibold shadow-[0_10px_40px_rgba(124,58,237,0.25)] transition hover:scale-[1.02] hover:shadow-[0_15px_50px_rgba(124,58,237,0.4)]"
               >
-                Sign In
+                {t("signIn")}
 
                 <ArrowRight
                   size={20}
@@ -175,7 +168,7 @@ export default function HomePage() {
                 href="/register"
                 className="flex h-14 items-center rounded-xl border border-white/20 bg-white/[0.02] px-8 font-semibold transition hover:bg-white/[0.07]"
               >
-                Sign Up
+                {t("signUp")}
               </Link>
 
             </div>
@@ -192,7 +185,7 @@ export default function HomePage() {
                   className="text-purple-500"
                 />
 
-                Secure & Reliable
+                {t("secure")}
 
               </div>
 
@@ -204,7 +197,7 @@ export default function HomePage() {
                   className="text-purple-500"
                 />
 
-                Fast & Efficient
+                {t("fast")}
 
               </div>
 
@@ -216,7 +209,7 @@ export default function HomePage() {
                   className="text-purple-500"
                 />
 
-                Data-Driven
+                {t("data")}
 
               </div>
 
@@ -258,34 +251,34 @@ export default function HomePage() {
 
 
                   <DashboardNav
-                    icon={<LayoutDashboard size={15} />}
-                    label="Dashboard"
+                    icon={<Layout size={15} />}
+                    label={t("dashboard")}
                     active
                   />
 
                   <DashboardNav
                     icon={<Users size={15} />}
-                    label="Clients"
+                    label={t("clients")}
                   />
 
                   <DashboardNav
                     icon={<FolderKanban size={15} />}
-                    label="Projects"
+                    label={t("projects")}
                   />
 
                   <DashboardNav
                     icon={<ClipboardList size={15} />}
-                    label="Tasks"
+                    label={t("tasks")}
                   />
 
                   <DashboardNav
                     icon={<BarChart3 size={15} />}
-                    label="Analytics"
+                    label={t("analytics")}
                   />
 
                   <DashboardNav
                     icon={<Settings size={15} />}
-                    label="Settings"
+                    label={t("settings")}
                   />
 
                 </div>
@@ -298,13 +291,13 @@ export default function HomePage() {
                   <div className="mb-5 flex items-center justify-between">
 
                     <h2 className="text-lg font-semibold">
-                      Dashboard
+                      {t("dashboard")}
                     </h2>
 
                     <div className="flex items-center gap-3">
 
                       <div className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-[10px] text-zinc-300">
-                        This Month
+                        {t("thisMonth")}
                         <ChevronDown
                           size={11}
                           className="ml-2 inline"
@@ -325,25 +318,25 @@ export default function HomePage() {
                   <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
 
                     <Kpi
-                      title="Total Clients"
+                      title={`${t("total")} ${t("clients")}`}
                       value="128"
                       growth="+12%"
                     />
 
                     <Kpi
-                      title="Total Projects"
+                      title={`${t("total")} ${t("projects")}`}
                       value="32"
                       growth="+8%"
                     />
 
                     <Kpi
-                      title="Total Revenue"
+                      title={t("totalRevenue")}
                       value="$24,560"
                       growth="+18%"
                     />
 
                     <Kpi
-                      title="Tasks Completed"
+                      title={`${t("tasks")} ${t("completed")}`}
                       value="74%"
                       growth="+5%"
                     />
@@ -363,11 +356,11 @@ export default function HomePage() {
                       <div className="mb-5 flex items-center justify-between">
 
                         <h3 className="text-sm font-semibold">
-                          Revenue Overview
+                          {t("revenue")}
                         </h3>
 
                         <span className="rounded-md border border-white/10 px-2 py-1 text-[9px] text-zinc-400">
-                          This Month
+                          {t("thisMonth")}
                         </span>
 
                       </div>
@@ -485,7 +478,7 @@ export default function HomePage() {
                     <div className="rounded-xl border border-white/[0.08] bg-[#0c0f17] p-4">
 
                       <h3 className="text-sm font-semibold">
-                        Project Status
+                        {t("projectStatus")}
                       </h3>
 
 
@@ -500,7 +493,7 @@ export default function HomePage() {
                             </span>
 
                             <span className="text-[9px] text-zinc-500">
-                              Total
+                              {t("total")}
                             </span>
 
                           </div>
@@ -514,19 +507,19 @@ export default function HomePage() {
 
                         <Status
                           color="bg-purple-500"
-                          label="Completed"
+                          label={t("completed")}
                           value="12 (37%)"
                         />
 
                         <Status
                           color="bg-blue-500"
-                          label="In Progress"
+                          label={t("inProgress")}
                           value="14 (44%)"
                         />
 
                         <Status
                           color="bg-amber-400"
-                          label="On Hold"
+                          label={t("onHold")}
                           value="6 (19%)"
                         />
 
@@ -551,18 +544,20 @@ export default function HomePage() {
       {/* FOOTER */}
       {/* ========================================================= */}
 
+      </section>
+
       <footer className="border-t border-white/[0.06] py-8">
 
         <div className="mx-auto flex max-w-[1380px] flex-col items-center justify-between gap-4 px-6 text-sm text-zinc-500 md:flex-row lg:px-10">
 
           <span>
-            © 2026 Consulting Platform
+            © 2026 Платформа для сучасного консалтингу
           </span>
 
           <div className="flex items-center gap-6">
             <span>Secure</span>
             <span>Reliable</span>
-            <span>Data-Driven</span>
+            <span>{t("data")}</span>
           </div>
 
         </div>
@@ -611,6 +606,8 @@ function Kpi({
   value: string;
   growth: string;
 }) {
+  const { t } = useLanguage();
+
   return (
     <div className="rounded-xl border border-white/[0.07] bg-[#0c0f17] p-3">
 
@@ -627,7 +624,7 @@ function Kpi({
       </p>
 
       <p className="text-[8px] text-zinc-600">
-        vs last month
+        {t("vsLastMonth")}
       </p>
 
     </div>
@@ -681,6 +678,8 @@ function FeatureCard({
   text: string;
   color: string;
 }) {
+  const { t } = useLanguage();
+
   return (
     <div className="group rounded-2xl border border-white/[0.1] bg-[#090b11]/80 p-6 transition duration-300 hover:-translate-y-1 hover:border-white/[0.18] hover:bg-[#0d1018]">
 
@@ -701,7 +700,7 @@ function FeatureCard({
       <div
         className={`mt-5 flex items-center gap-2 text-sm font-medium ${color}`}
       >
-        Learn more
+        {t("learnMore")}
 
         <ArrowRight
           size={17}
@@ -737,6 +736,34 @@ function Stat({
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
