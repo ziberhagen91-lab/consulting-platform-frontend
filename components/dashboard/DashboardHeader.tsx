@@ -33,13 +33,12 @@ export default function DashboardHeader({
   const t = translations;
 
   useEffect(() => {
-  const saved = localStorage.getItem("language");
+    const saved = localStorage.getItem("language");
 
-  if (saved === "uk" || saved === "en") {
-    setLanguage(saved);
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+    if (saved === "uk" || saved === "en") {
+      setLanguage(saved);
+    }
+  }, [setLanguage]);
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -82,7 +81,7 @@ export default function DashboardHeader({
   };
 
   return (
-    <header className="flex flex-col gap-4 mb-4 w-full min-w-0 max-w-full overflow-visible sm:mb-8 lg:flex-row lg:items-center lg:justify-between">
+    <header className="flex flex-col gap-3 mb-4 w-full min-w-0 max-w-full overflow-visible sm:gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between">
 
       {/* TITLE */}
       <div className="min-w-0">
@@ -96,7 +95,7 @@ export default function DashboardHeader({
       </div>
 
       {/* CONTROLS */}
-      <div className="grid grid-cols-2 gap-2 w-full min-w-0 lg:flex lg:w-auto lg:items-center lg:gap-2">
+      <div className="grid grid-cols-2 gap-2 w-full min-w-0 sm:flex sm:w-auto sm:items-center sm:gap-2">
 
         {/* SECURITY — FULL WIDTH */}
         <div
