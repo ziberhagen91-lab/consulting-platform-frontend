@@ -20,6 +20,8 @@ type Project = {
 export default function ProjectsPage() {
   const router = useRouter();
 
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const [language, setLanguage] =
     useState<"uk" | "en">("uk");
 
@@ -354,3 +356,4 @@ export default function ProjectsPage() {
   </main>
 );
 }
+

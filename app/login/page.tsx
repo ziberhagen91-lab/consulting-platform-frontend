@@ -14,6 +14,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [language, setLanguage] = useState<"uk" | "en">("uk");
+  const [isSecure, setIsSecure] = useState(false);
 
   const router = useRouter();
 
@@ -23,6 +24,11 @@ export default function LoginPage() {
     if (saved === "uk" || saved === "en") {
       setLanguage(saved);
     }
+
+    // Перевіряємо фактичний протокол сторінки.
+    // HTTPS = захищене з'єднання.
+    // HTTP = незашифроване з'єднання.
+    setIsSecure(window.location.protocol === "https:");
   }, []);
 
   const t = {
@@ -37,6 +43,7 @@ export default function LoginPage() {
       loginFailed: "Помилка входу",
       backendError: "Помилка з'єднання з сервером",
       secure: "Захищене підключення",
+      local: "Локальне підключення",
     },
 
     en: {
@@ -50,6 +57,7 @@ export default function LoginPage() {
       loginFailed: "Login failed",
       backendError: "Backend connection error",
       secure: "Secure connection",
+      local: "Local connection",
     },
   };
 
@@ -78,12 +86,14 @@ export default function LoginPage() {
 
       if (data.success) {
         localStorage.setItem("token", data.token);
+
         localStorage.setItem(
           "user",
           JSON.stringify(data.user),
         );
 
         toast.success(t[language].loginSuccess);
+
         router.push("/dashboard");
       } else {
         toast.error(
@@ -92,7 +102,10 @@ export default function LoginPage() {
       }
     } catch (error) {
       console.error(error);
-      toast.error(t[language].backendError);
+
+      toast.error(
+        t[language].backendError,
+      );
     } finally {
       setLoading(false);
     }
@@ -156,7 +169,9 @@ export default function LoginPage() {
               type="email"
               placeholder="you@example.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
               required
               className="w-full h-12 rounded-xl border border-blue-900 bg-[#06102b] px-4 text-white outline-none placeholder:text-zinc-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition"
             />
@@ -173,7 +188,9 @@ export default function LoginPage() {
               type="password"
               placeholder="••••••••"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
               required
               className="w-full h-12 rounded-xl border border-blue-900 bg-[#06102b] px-4 text-white outline-none placeholder:text-zinc-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition"
             />
@@ -192,15 +209,29 @@ export default function LoginPage() {
 
         </form>
 
-        {/* Footer */}
+        {/* Connection status */}
 
         <div className="mt-7 pt-5 border-t border-blue-900/50 text-center">
 
-          <div className="flex items-center justify-center gap-2 text-green-400 text-xs font-medium">
+          <div
+            className={`flex items-center justify-center gap-2 text-xs font-medium ${
+              isSecure
+                ? "text-green-400"
+                : "text-zinc-400"
+            }`}
+          >
 
-            <span className="w-2 h-2 rounded-full bg-green-400" />
+            <span
+              className={`w-2 h-2 rounded-full ${
+                isSecure
+                  ? "bg-green-400"
+                  : "bg-zinc-500"
+              }`}
+            />
 
-            {t[language].secure}
+            {isSecure
+              ? t[language].secure
+              : t[language].local}
 
           </div>
 

@@ -54,7 +54,7 @@ export default function DashboardPage(){
 
 const router = useRouter();
 
-
+const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 const [analytics,setAnalytics] =
 useState<any>(null);
@@ -72,8 +72,7 @@ const [language,setLanguage] =
 useState<"uk"|"en">("uk");
 
 
-
-const t = translations;
+const t: any = translations;
 
 
 
@@ -225,40 +224,25 @@ statsResponse
 
 
 fetch(
-
-`${process.env.NEXT_PUBLIC_API_URL}/analytics`,
-
-{
-
-headers:{
-
-Authorization:
-
-`Bearer ${token}`
-
-}
-
-}
-
+  `${process.env.NEXT_PUBLIC_API_URL}/analytics`,
+  {
+    cache: "no-store",
+    headers: {
+      Authorization:
+        `Bearer ${token}`
+    }
+  }
 ),
 
-
 fetch(
-
-`${process.env.NEXT_PUBLIC_API_URL}/dashboard/stats`,
-
-{
-
-headers:{
-
-Authorization:
-
-`Bearer ${token}`
-
-}
-
-}
-
+  `${process.env.NEXT_PUBLIC_API_URL}/dashboard/stats`,
+  {
+    cache: "no-store",
+    headers: {
+      Authorization:
+        `Bearer ${token}`
+    }
+  }
 )
 
 
@@ -266,15 +250,20 @@ Authorization:
 
 
 
-if(
-!analyticsResponse.ok ||
-!statsResponse.ok
-){
+if (
+  !analyticsResponse.ok ||
+  !statsResponse.ok
+) {
+  console.log("DASHBOARD API DEBUG", {
+    analyticsStatus: analyticsResponse.status,
+    analyticsUrl: analyticsResponse.url,
+    statsStatus: statsResponse.status,
+    statsUrl: statsResponse.url,
+  });
 
-throw new Error(
-"Dashboard loading error"
-);
-
+  throw new Error(
+    `Dashboard loading error: analytics=${analyticsResponse.status}, stats=${statsResponse.status}`
+  );
 }
 
 
@@ -361,27 +350,26 @@ Loading...
 
 
 
-const logout = ()=>{
+    <Sidebar
+      onLogout={() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
 
+        toast.success(t.logout);
 
-localStorage.removeItem("token");
-
-localStorage.removeItem("user");
-
-
-toast.success(
-"Logged out"
-);
-
-
-router.push("/login");
-
-
-};
+        router.push("/login");
+      }}
+      mobileMenuOpen={mobileMenuOpen}
+      setMobileMenuOpen={setMobileMenuOpen}
+    />
 
 
 
 
+
+  function logout(): void {
+    throw new Error("Function not implemented.");
+  }
 
 return (
 
@@ -398,21 +386,19 @@ flex
 
 
 <Sidebar
-
-onLogout={logout}
-
+  onLogout={logout}
+  mobileMenuOpen={mobileMenuOpen}
+  setMobileMenuOpen={setMobileMenuOpen}
 />
-
 
 
 
 
 <main
   className="
-    flex-1
-    ml-0
-    p-5
+    flex-1 min-w-0 w-0 max-w-full ml-0 p-2 pt-14 sm:p-5 sm:pt-5
     min-h-screen
+    overflow-x-hidden
     overflow-y-auto
   "
 >
@@ -443,9 +429,7 @@ setLanguage={setLanguage}
 
 <div
   className="
-    grid
-    grid-cols-12
-    gap-5
+    grid grid-cols-1 xl:grid-cols-12 gap-3 sm:gap-5 w-full min-w-0 max-w-full
   "
 >
 
@@ -456,8 +440,7 @@ setLanguage={setLanguage}
 <div
 
 className="
-col-span-9
-space-y-6
+col-span-1 xl:col-span-9 space-y-6 min-w-0 w-full max-w-full
 "
 
 >
@@ -470,10 +453,7 @@ space-y-6
 
 className="
 grid
-grid-cols-1
-sm:grid-cols-2
-xl:grid-cols-4
-gap-6
+grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-5
 "
 
 >
@@ -800,7 +780,7 @@ mb-6
 {
 language==="uk"
 ?
-"Щомісячне зростання доходу"
+"Дохід за місяцями"
 :
 "Monthly revenue growth"
 }
@@ -1172,13 +1152,13 @@ activity.createdAt
 
 {/* RIGHT SIDEBAR */}
 <div
-
-className="
-col-span-3
-space-y-6
-min-w-[320px]
-"
-
+  className="
+    col-span-1
+    xl:col-span-3
+    space-y-6
+    min-w-0
+    w-full
+  "
 >
 
 
@@ -1219,7 +1199,7 @@ pb-4
 
 
 <p className="text-yellow-400">
-  🟡 {t[language].crmDevelopment}
+  🟡 {t[language].businessConsulting}
 </p>
 
 
@@ -1601,3 +1581,19 @@ justify-center
 );
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

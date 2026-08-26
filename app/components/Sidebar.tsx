@@ -11,8 +11,6 @@ import {
   FolderKanban,
   ClipboardList,
   BarChart3,
-  CalendarDays,
-  MessageCircle,
   Settings,
   LogOut,
 } from "lucide-react";
@@ -22,11 +20,15 @@ import { translations } from "@/lib/translations";
 
 type SidebarProps = {
   onLogout: () => void;
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
 };
 
 
 export default function Sidebar({
   onLogout,
+  mobileMenuOpen,
+  setMobileMenuOpen,
 }: SidebarProps) {
 
 
@@ -93,19 +95,6 @@ export default function Sidebar({
 
 
     {
-  href:"#",
-  icon:CalendarDays,
-  label:t[language].calendar,
-},
-
-{
-  href:"#",
-  icon:MessageCircle,
-  label:t[language].notifications,
-},
-
-
-    {
       href:"/settings",
       icon:Settings,
       label:t[language].settings,
@@ -116,23 +105,73 @@ export default function Sidebar({
 
 
 return (
+  <>
+    {/* Mobile menu button */}
+    <button
+      type="button"
+      onClick={() => setMobileMenuOpen(true)}
+      className="
+        fixed top-3 left-3 z-50 md:hidden w-10 h-10
+        rounded-xl
+        bg-[#07152e]
+        border
+        border-blue-900
+        text-white
+        flex
+        items-center
+        justify-center
+        shadow-lg
+      "
+      aria-label="Відкрити меню"
+    >
+      ☰
+    </button>
 
-<aside
+    {/* Mobile overlay */}
+    {mobileMenuOpen && (
+      <button
+        type="button"
+        onClick={() => setMobileMenuOpen(false)}
+        className="
+          fixed
+          inset-0
+          z-40
+          bg-black/70
+          md:hidden
+        "
+        aria-label="Закрити меню"
+      />
+    )}
 
-className="
-w-[212px]
-min-h-screen
-bg-[#020817]
-border-r
-border-blue-950
-px-5
-py-6
-flex
-flex-col
-text-white
-"
+    <aside
+      className={`
+        fixed
+        inset-y-0
+        left-0
+        z-50
+        w-[212px]
+        min-h-screen
+        bg-[#020817]
+        border-r
+        border-blue-950
+        px-5
+        py-6
+        flex
+        flex-col
+        text-white
+        transition-transform
+        duration-300
 
->
+        md:static
+        md:translate-x-0
+
+        ${
+          mobileMenuOpen
+            ? "translate-x-0"
+            : "-translate-x-full"
+        }
+      `}
+    >
 
 
 <Image
@@ -173,10 +212,9 @@ pathname===item.href;
 return (
 
 <Link
-
-key={item.label}
-
-href={item.href}
+  key={item.label}
+  href={item.href}
+  onClick={() => setMobileMenuOpen(false)}
 
 className={`
 flex
@@ -336,6 +374,7 @@ transition
 
 </aside>
 
+  </>
 
 );
 

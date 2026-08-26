@@ -354,8 +354,8 @@ export const translations = {
     newTask:
       "📋 Created task",
 
-      crmDevelopment:
-  "CRM System Development",
+      businessConsulting:
+  "Business Consulting Project",
 
 newWebsite:
   "New Website",
@@ -863,10 +863,12 @@ newWebsite:
   saving:
     "Збереження...",
 
-  crmDevelopment:
-    "Розробка CRM системи",
+  businessConsulting:
+    "Консультаційний проєкт",
 
       newWebsite:
       "New website",
   },
 };
+
+
