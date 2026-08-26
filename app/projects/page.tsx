@@ -125,15 +125,15 @@ export default function ProjectsPage() {
     return (
   <main className="min-h-screen bg-black text-white flex">
     <Sidebar
-      onLogout={() => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-
-        toast.success(t.logout);
-
-        router.push("/login");
-      }}
-    />
+  onLogout={() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    toast.success(t.logout);
+    router.push("/login");
+  }}
+  mobileMenuOpen={false}
+  setMobileMenuOpen={() => {}}
+/>
 
     <section className="flex-1 p-8">
       <div className="max-w-7xl mx-auto">
@@ -356,4 +356,5 @@ export default function ProjectsPage() {
   </main>
 );
 }
+
 

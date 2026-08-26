@@ -122,12 +122,14 @@ export default function EditProjectPage() {
   return (
         <main className="min-h-screen bg-black text-white flex">
       <Sidebar
-        onLogout={() => {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          router.push("/login");
-        }}
-      />
+  onLogout={() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    router.push("/login");
+  }}
+  mobileMenuOpen={false}
+  setMobileMenuOpen={() => {}}
+/>
 
       <section className="flex-1 p-8">
         <div className="max-w-3xl mx-auto">
