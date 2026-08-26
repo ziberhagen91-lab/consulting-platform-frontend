@@ -503,94 +503,61 @@ export default function AnalyticsPage() {
 
 
 
-        <div className="h-[420px]">
+        <div className="h-[420px] w-full overflow-hidden">
 
+  <BarChart
+    width={800}
+    height={420}
+    data={taskData}
+    margin={{
+      top: 30,
+      right: 30,
+      left: 10,
+      bottom: 20
+    }}
+  >
 
+    <CartesianGrid
+      stroke="#27272a"
+      strokeDasharray="3 3"
+    />
 
-          <ResponsiveContainer
-            width="100%"
-            height="100%"
-          >
+    <XAxis
+      dataKey="name"
+      stroke="#71717a"
+    />
 
+    <YAxis
+      stroke="#71717a"
+      allowDecimals={false}
+    />
 
+    <Tooltip
+      contentStyle={{
+        backgroundColor: "#18181b",
+        border: "1px solid #3f3f46",
+        borderRadius: "12px",
+        color: "#fff"
+      }}
+    />
 
-            <BarChart
-              data={taskData}
-              margin={{
-                top:30,
-                right:30,
-                left:10,
-                bottom:20
-              }}
-            >
+    <Bar
+      dataKey="value"
+      name={t[language].totalTasks}
+      fill="#3b82f6"
+      radius={[10, 10, 0, 0]}
+    >
+      <LabelList
+        dataKey="value"
+        position="top"
+        fill="#ffffff"
+      />
+    </Bar>
 
+  </BarChart>
 
-
-              <CartesianGrid
-                stroke="#27272a"
-                strokeDasharray="3 3"
-              />
-
-
-
-              <XAxis
-                dataKey="name"
-                stroke="#71717a"
-              />
-
-
-
-              <YAxis
-                stroke="#71717a"
-                allowDecimals={false}
-              />
-
-
-
-              <Tooltip
-                contentStyle={{
-                  backgroundColor:"#18181b",
-                  border:"1px solid #3f3f46",
-                  borderRadius:"12px",
-                  color:"#fff"
-                }}
-              />
-
-
-
-
-
-              <Bar
-                dataKey="value"
-                name={t[language].totalTasks}
-                fill="#3b82f6"
-                radius={[
-                  10,
-                  10,
-                  0,
-                  0
-                ]}
-              >
-
-                <LabelList
-                  dataKey="value"
-                  position="top"
-                  fill="#ffffff"
-                />
-
-              </Bar>
-
-
-
-            </BarChart>
-
-
-
-          </ResponsiveContainer>
-
-
-        </div>
-                {/* PLATFORM SUMMARY */}
+</div>
+{/* PLATFORM SUMMARY */}
 
 
         <div className="
@@ -731,3 +698,4 @@ export default function AnalyticsPage() {
 
 
 }
+
