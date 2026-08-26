@@ -790,82 +790,30 @@ language==="uk"
 
 
 <p className="text-4xl font-bold mb-6">
-
-₴
-{
-stats?.revenue
-?
-stats.revenue.toLocaleString("uk-UA")
-:
-0
-}
-
+  ₴
+  {stats?.revenue
+    ? stats.revenue.toLocaleString("uk-UA")
+    : 0}
 </p>
 
-
-
-
-<div className="h-[300px]">
-
-
-<ResponsiveContainer
-
-width="100%"
-
-height="100%"
-
->
-
-
-<LineChart
-
-data={revenueData}
-
->
-
-
-<CartesianGrid
-
-strokeDasharray="3 3"
-
-/>
-
-
-<XAxis
-
-dataKey="month"
-
-/>
-
-
-<YAxis />
-
-
-<Tooltip />
-
-
-<Line
-
-type="monotone"
-
-dataKey="revenue"
-
-stroke="#2563eb"
-
-strokeWidth={4}
-
-/>
-
-
-</LineChart>
-
-
-</ResponsiveContainer>
-
-
+<div className="h-[300px] min-w-0 w-full overflow-hidden">
+  <LineChart
+    width={800}
+    height={300}
+    data={revenueData}
+  >
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="month" />
+    <YAxis />
+    <Tooltip />
+    <Line
+      type="monotone"
+      dataKey="revenue"
+      stroke="#2563eb"
+      strokeWidth={4}
+    />
+  </LineChart>
 </div>
-
-
 </Card>
 
 
@@ -926,16 +874,7 @@ h-[220px]
 >
 
 
-<ResponsiveContainer
-
-width="100%"
-
-height="100%"
-
->
-
-
-<PieChart>
+<PieChart width={220} height={220}>
 
 
 <Pie
@@ -978,9 +917,6 @@ fill={taskColors[index]}
 
 
 </PieChart>
-
-
-</ResponsiveContainer>
 
 
 
@@ -1456,16 +1392,7 @@ h-[130px]
 >
 
 
-<ResponsiveContainer
-
-width="100%"
-
-height="100%"
-
->
-
-
-<PieChart>
+<PieChart width={130} height={130}>
 
 
 <Pie
@@ -1503,9 +1430,6 @@ endAngle={-270}
 
 
 </PieChart>
-
-
-</ResponsiveContainer>
 
 
 
@@ -1581,6 +1505,15 @@ justify-center
 );
 
 }
+
+
+
+
+
+
+
+
+
 
 
 
