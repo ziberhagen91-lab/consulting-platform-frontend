@@ -78,27 +78,27 @@ const t: any = translations;
 
 const revenueData = [
 {
-month:"Jan",
+month: language === "uk" ? "Січ" : "Jan",
 revenue:20000
 },
 {
-month:"Feb",
+month: language === "uk" ? "Лют" : "Feb",
 revenue:35000
 },
 {
-month:"Mar",
+month: language === "uk" ? "Бер" : "Mar",
 revenue:28000
 },
 {
-month:"Apr",
+month: language === "uk" ? "Кві" : "Apr",
 revenue:60000
 },
 {
-month:"May",
+month: language === "uk" ? "Тра" : "May",
 revenue:90000
 },
 {
-month:"Jun",
+month: language === "uk" ? "Чер" : "Jun",
 revenue:124500
 }
 ];
@@ -298,7 +298,7 @@ console.error(error);
 
 
 toast.error(
-"Failed to load dashboard"
+t[language].failedLoadDashboard
 );
 
 
@@ -368,8 +368,9 @@ Loading...
 
 
   function logout(): void {
-    throw new Error("Function not implemented.");
-  }
+  localStorage.removeItem("token");
+  router.push("/login");
+}
 
 return (
 
@@ -502,7 +503,7 @@ className="text-blue-500"
 
 <p className="text-green-400 text-sm mt-2">
 
-↑ 12% за місяць
+↑ 12% {t[language].thisMonth}
 
 </p>
 
@@ -570,7 +571,7 @@ className="text-yellow-400"
 
 <p className="text-green-400 text-sm mt-2">
 
-↑ 8% this month
+↑ 8% {t[language].thisMonth}
 
 </p>
 
@@ -638,7 +639,7 @@ className="text-blue-400"
 
 <p className="text-green-400 text-sm mt-2">
 
-↑ 19% this month
+↑ 19% {t[language].thisMonth}
 
 </p>
 
@@ -706,7 +707,7 @@ className="text-green-400"
 
 <p className="text-green-400 text-sm mt-2">
 
-↑ 15% this month
+↑ 15% {t[language].thisMonth}
 
 </p>
 
@@ -782,7 +783,7 @@ language==="uk"
 ?
 "Дохід за місяцями"
 :
-"Monthly revenue growth"
+t[language].monthlyGrowth
 }
 
 </p>
@@ -797,22 +798,36 @@ language==="uk"
 </p>
 
 <div className="h-[300px] min-w-0 w-full overflow-hidden">
-  <LineChart
-    width={800}
-    height={300}
-    data={revenueData}
-  >
-    <CartesianGrid strokeDasharray="3 3" />
-    <XAxis dataKey="month" />
-    <YAxis />
-    <Tooltip />
-    <Line
-      type="monotone"
-      dataKey="revenue"
-      stroke="#2563eb"
-      strokeWidth={4}
-    />
-  </LineChart>
+  <ResponsiveContainer width="100%" height="100%">
+    <LineChart
+      data={revenueData}
+      margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+
+      <XAxis
+        dataKey="month"
+        interval={0}
+        tick={{ fontSize: 12 }}
+        padding={{ left: 5, right: 5 }}
+      />
+
+      <YAxis
+        width={45}
+        tick={{ fontSize: 12 }}
+      />
+
+      <Tooltip />
+
+      <Line
+        type="monotone"
+        dataKey="revenue"
+        stroke="#2563eb"
+        strokeWidth={4}
+        dot={{ r: 4 }}
+      />
+    </LineChart>
+  </ResponsiveContainer>
 </div>
 </Card>
 
@@ -886,6 +901,8 @@ dataKey="value"
 innerRadius={60}
 
 outerRadius={90}
+startAngle={90}
+endAngle={-270}
 
 >
 
@@ -944,8 +961,7 @@ justify-center
 
 <p className="text-zinc-400">
 
-tasks
-
+{language === "uk" ? "завдання" : "tasks"}
 </p>
 
 
@@ -1202,7 +1218,7 @@ pb-4
 
 
 <p className="text-sm text-zinc-400">
-  {language === "uk" ? "Digital Agency" : "Digital Agency"}
+  {t[language].digitalAgency}
 </p>
 
 
@@ -1231,7 +1247,7 @@ rounded-full
 
 >
 
-Середній
+{t[language].medium}
 
 </span>
 
@@ -1505,6 +1521,24 @@ justify-center
 );
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

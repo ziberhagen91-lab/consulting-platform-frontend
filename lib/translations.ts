@@ -1,6 +1,12 @@
 export const translations = {
   en: {
-    features: "Features",
+    thisMonth:
+    "this month",
+
+    failedLoadDashboard:
+      "Failed to load dashboard",
+
+  features: "Features",
     pricing: "Pricing",
     contact: "Contact",
 
@@ -360,6 +366,9 @@ export const translations = {
 newWebsite:
   "New Website",
 
+    digitalAgency:
+      "Digital Agency",
+
     taskAnalytics:
       "Task Analytics",
 
@@ -383,6 +392,8 @@ newWebsite:
 
     logout:
       "Logout",
+    average: "Average",
+    left: "Left",
         },
 
   uk: {
@@ -517,6 +528,8 @@ newWebsite:
 
   logout:
     "Вийти",
+  average: "Середній",
+  left: "Залишилось",
 
   cancel:
     "Скасувати",
@@ -616,6 +629,12 @@ newWebsite:
 
   projectBudgetPlaceholder:
     "Введіть бюджет",
+
+  thisMonth:
+    "цього місяця",
+
+  failedLoadDashboard:
+    "Не вдалося завантажити панель керування",
 
   features:
     "Можливості",
@@ -867,8 +886,36 @@ newWebsite:
     "Консультаційний проєкт",
 
       newWebsite:
-      "New website",
+  "Новий сайт",
+
+    digitalAgency:
+      "Цифрова агенція",
   },
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -12,7 +12,6 @@ const translations = {
     brand: "Smart Consulting",
     heroTitle: "Platform for",
     heroHighlight: "modern consulting",
-    brand: "Smart Consulting",
     consulting: "Consulting",
     platform: "Platform",
 
@@ -61,7 +60,6 @@ const translations = {
     brand: "Smart Consulting",
     heroTitle: "Платформа для",
     heroHighlight: "сучасного консалтингу",
-    brand: "Розумний консалтинг",
     consulting: "Консалтингова",
     platform: "Платформа",
 
@@ -137,6 +135,8 @@ export function useLanguage() {
     t,
   };
 }
+
+
 
 
 
